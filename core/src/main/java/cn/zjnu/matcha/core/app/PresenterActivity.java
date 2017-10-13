@@ -1,5 +1,7 @@
 package cn.zjnu.matcha.core.app;
 
+import android.support.annotation.StringRes;
+
 import cn.zjnu.matcha.core.factory.BaseContract;
 
 /**
@@ -25,6 +27,11 @@ public abstract class PresenterActivity<Presenter extends BaseContract.Presenter
         if (mPresenter != null) {
             mPresenter.destroy();
         }
+    }
+
+    @Override
+    public void showError(@StringRes int str) {
+        Matcha.showToast(str);
     }
 
     /**

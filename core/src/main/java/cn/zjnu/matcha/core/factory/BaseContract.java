@@ -1,5 +1,7 @@
 package cn.zjnu.matcha.core.factory;
 
+import android.support.annotation.StringRes;
+
 /**
  * Author: Marsor
  * Github: https://github.com/Marsor707
@@ -10,6 +12,9 @@ public interface BaseContract {
 
     //基本的界面职责
     interface View<T extends Presenter> {
+        //公共的显示一个字符串错误
+        void showError(@StringRes int str);
+
         //支持设置Presenter
         void setPresenter(T presenter);
     }

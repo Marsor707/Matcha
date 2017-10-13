@@ -2,6 +2,8 @@ package cn.zjnu.matcha.core.app;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import cn.zjnu.matcha.core.utils.callback.CallbackManager;
@@ -45,7 +47,22 @@ public class Matcha {
                 .executeCallback(null);
     }
 
-    public static void showToast(String str) {
-        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+    public static void showToast(final Object res) {
+        if (res instanceof String) {
+            //切换到主线程
+            getHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), (CharSequence) res, Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else if (res instanceof Integer) {
+            getHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), getApplicationContext().getString((Integer) res), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

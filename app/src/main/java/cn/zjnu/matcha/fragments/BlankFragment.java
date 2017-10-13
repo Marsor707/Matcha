@@ -2,7 +2,6 @@ package cn.zjnu.matcha.fragments;
 
 
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import butterknife.OnClick;
 import cn.zjnu.matcha.R;

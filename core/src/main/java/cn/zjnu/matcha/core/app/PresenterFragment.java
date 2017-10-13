@@ -1,6 +1,7 @@
 package cn.zjnu.matcha.core.app;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 
 import cn.zjnu.matcha.core.factory.BaseContract;
 
@@ -32,6 +33,11 @@ public abstract class PresenterFragment<Presenter extends BaseContract.Presenter
     public void setPresenter(Presenter presenter) {
         //View中赋值Presenter
         mPresenter = presenter;
+    }
+
+    @Override
+    public void showError(@StringRes int str) {
+        Matcha.showToast(str);
     }
 
     @Override

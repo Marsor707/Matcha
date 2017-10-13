@@ -2,6 +2,7 @@ package cn.zjnu.matcha.core.app;
 
 import android.content.Context;
 import android.os.Handler;
+import android.widget.Toast;
 
 import cn.zjnu.matcha.core.utils.callback.CallbackManager;
 import cn.zjnu.matcha.core.utils.callback.CallbackTypes;
@@ -38,9 +39,13 @@ public class Matcha {
     }
 
     @SuppressWarnings("unchecked")
-    public static void finishAllActivities(){
+    public static void finishAllActivities() {
         CallbackManager.getInstance()
                 .getCallback(CallbackTypes.FINISH_ACTIVITIES)
                 .executeCallback(null);
+    }
+
+    public static void showToast(String str) {
+        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
     }
 }

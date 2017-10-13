@@ -2,6 +2,7 @@ package cn.zjnu.matcha.activities;
 
 import butterknife.OnClick;
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterActivity;
 import cn.zjnu.matcha.fragments.BlankFragment;
 
@@ -21,13 +22,13 @@ public class MainActivity extends PresenterActivity<ContractForActivity.Presente
     protected void initWidget() {
         super.initWidget();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.lay_container,new BlankFragment())
+                .add(R.id.lay_container, new BlankFragment())
                 .commit();
     }
 
     @Override
     public void restSuccess(String str) {
-        showToast(str);
+        Matcha.showToast(str);
     }
 
     @Override

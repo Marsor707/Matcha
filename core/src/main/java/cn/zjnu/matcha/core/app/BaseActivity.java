@@ -28,11 +28,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         initWindows();
         if (initArgs(getIntent().getExtras())) {
             //得到界面id并设置到Activity界面中
-            if(getContentLayoutId() instanceof Integer){
+            if (getContentLayoutId() instanceof Integer) {
                 int layId = (int) getContentLayoutId();
                 setContentView(layId);
-            }else if (getContentLayoutId() instanceof View){
-                View baseView= (View) getContentLayoutId();
+            } else if (getContentLayoutId() instanceof View) {
+                View baseView = (View) getContentLayoutId();
                 setContentView(baseView);
             }
             initBefore();
@@ -121,14 +121,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
-
-    protected void showToast(final String str) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(Matcha.getApplicationContext(), str, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 }

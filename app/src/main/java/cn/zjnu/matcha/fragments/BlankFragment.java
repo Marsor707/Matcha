@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import butterknife.OnClick;
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 
 /**
@@ -16,7 +17,7 @@ public class BlankFragment extends PresenterFragment<ContractForFragment.Present
 
     @Override
     public void restSuccess(String str) {
-        Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+        Matcha.showToast(str);
     }
 
     @OnClick(R.id.btn)

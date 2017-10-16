@@ -6,6 +6,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import cn.zjnu.matcha.core.net.interceptors.MainInterceptor;
 import cn.zjnu.matcha.core.utils.callback.CallbackManager;
 import cn.zjnu.matcha.core.utils.callback.CallbackTypes;
 import cn.zjnu.matcha.core.utils.callback.IGlobalCallback;
+import cn.zjnu.matcha.icon.FontEcModule;
 
 /**
  * Author: Marsor
@@ -29,6 +32,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Matcha.init(this)
+                .withIcon(new FontAwesomeModule())
+                .withIcon(new FontEcModule())
                 .withApiHost("http://115.159.62.44/RestServer/api/")
                 .withInterceptor(new MainInterceptor())
                 .withLoaderDelayed(300)

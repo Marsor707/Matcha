@@ -21,9 +21,51 @@
         android:layout_height="wrap_content"
         android:text="Activity" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{icon-dynamic}"
+            android:textColor="@android:color/black"
+            android:textSize="26dp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{icon-chat}"
+            android:textColor="@android:color/black"
+            android:textSize="26dp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{icon-function}"
+            android:textColor="@android:color/black"
+            android:textSize="26dp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{icon-read}"
+            android:textColor="@android:color/black"
+            android:textSize="26dp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{icon-personal}"
+            android:textColor="@android:color/black"
+            android:textSize="26dp" />
+
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/lay_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

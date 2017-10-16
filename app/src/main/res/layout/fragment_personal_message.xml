@@ -36,8 +36,18 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
+            <!--<com.allen.library.SuperTextView-->
+            <!--android:id="@+id/portrait"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="70dp"-->
+            <!--app:sBottomDividerLineMarginLR="16dp"-->
+            <!--app:sLeftTextSize="18sp"-->
+            <!--app:sLeftTextString="@string/portrait"-->
+            <!--app:sRightIconRes="@mipmap/ic_launcher"-->
+            <!--app:sRightTvDrawableRight="@drawable/ic_chevron_right"-->
+            <!--app:sRightViewMarginRight="16dp" />-->
             <RelativeLayout
-                android:id="@+id/txt_portrait"
+                android:id="@+id/portrait"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@android:color/white">
@@ -53,7 +63,7 @@
                     tools:ignore="RelativeOverlap" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_portrait"
+                    android:id="@+id/circlePortrait"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
@@ -66,11 +76,11 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_chevron_right_black_24dp" />
+                    android:src="@drawable/ic_chevron_right" />
             </RelativeLayout>
 
             <com.allen.library.SuperTextView
-                android:id="@+id/txt_nickname"
+                android:id="@+id/nickname"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sBottomDividerLineMarginLR="16dp"
@@ -79,12 +89,12 @@
                 app:sLeftTextString="@string/nick_name"
                 app:sRightTextGravity="center"
                 app:sRightTextString="ABC"
-                app:sRightTvDrawableRight="@drawable/ic_chevron_right_black_24dp"
+                app:sRightTvDrawableRight="@drawable/ic_chevron_right"
                 app:sRightViewMarginRight="16dp"
                 app:sTopDividerLineMarginLR="16dp" />
 
             <com.allen.library.SuperTextView
-                android:id="@+id/txt_name"
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sBottomDividerLineMarginLR="16dp"
@@ -92,11 +102,11 @@
                 app:sLeftTextString="@string/name"
                 app:sRightTextGravity="center"
                 app:sRightTextString="张三"
-                app:sRightTvDrawableRight="@drawable/ic_chevron_right_black_24dp"
+                app:sRightTvDrawableRight="@drawable/ic_chevron_right"
                 app:sRightViewMarginRight="16dp" />
 
             <com.allen.library.SuperTextView
-                android:id="@+id/txt_phone"
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sBottomDividerLineMarginLR="16dp"
@@ -105,18 +115,18 @@
                 app:sRightTextColor="@android:color/black"
                 app:sRightTextGravity="center"
                 app:sRightTextString="未设置"
-                app:sRightTvDrawableRight="@drawable/ic_chevron_right_black_24dp"
+                app:sRightTvDrawableRight="@drawable/ic_chevron_right"
                 app:sRightViewMarginRight="16dp" />
 
             <com.allen.library.SuperTextView
-                android:id="@+id/txt_pe_data"
+                android:id="@+id/pe_data"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sBottomDividerLineMarginLR="16dp"
                 app:sLeftTextSize="18sp"
                 app:sLeftTextString="@string/pe_text_data"
                 app:sRightTextGravity="center"
-                app:sRightTvDrawableRight="@drawable/ic_chevron_right_black_24dp"
+                app:sRightTvDrawableRight="@drawable/ic_chevron_right"
                 app:sRightViewMarginRight="16dp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

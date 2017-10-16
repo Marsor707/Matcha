@@ -36,18 +36,8 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <!--<com.allen.library.SuperTextView-->
-            <!--android:id="@+id/portrait"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="70dp"-->
-            <!--app:sBottomDividerLineMarginLR="16dp"-->
-            <!--app:sLeftTextSize="18sp"-->
-            <!--app:sLeftTextString="@string/portrait"-->
-            <!--app:sRightIconRes="@mipmap/ic_launcher"-->
-            <!--app:sRightTvDrawableRight="@drawable/ic_chevron_right"-->
-            <!--app:sRightViewMarginRight="16dp" />-->
             <RelativeLayout
-                android:id="@+id/portrait"
+                android:id="@+id/txt_portrait"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@android:color/white">
@@ -58,12 +48,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:text="@string/portrait"
-                    android:textColor="#FF373737"
+                    android:textColor="@color/textPrimary"
                     android:textSize="18sp"
                     tools:ignore="RelativeOverlap" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circlePortrait"
+                    android:id="@+id/img_portrait"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
@@ -80,11 +70,12 @@
             </RelativeLayout>
 
             <com.allen.library.SuperTextView
-                android:id="@+id/nickname"
+                android:id="@+id/txt_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sBottomDividerLineMarginLR="16dp"
                 app:sDividerLineType="both"
+                app:sLeftTextColor="@color/textPrimary"
                 app:sLeftTextSize="18sp"
                 app:sLeftTextString="@string/nick_name"
                 app:sRightTextGravity="center"
@@ -94,10 +85,11 @@
                 app:sTopDividerLineMarginLR="16dp" />
 
             <com.allen.library.SuperTextView
-                android:id="@+id/name"
+                android:id="@+id/txt_name"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sBottomDividerLineMarginLR="16dp"
+                app:sLeftTextColor="@color/textPrimary"
                 app:sLeftTextSize="18sp"
                 app:sLeftTextString="@string/name"
                 app:sRightTextGravity="center"
@@ -106,10 +98,11 @@
                 app:sRightViewMarginRight="16dp" />
 
             <com.allen.library.SuperTextView
-                android:id="@+id/phone"
+                android:id="@+id/txt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sBottomDividerLineMarginLR="16dp"
+                app:sLeftTextColor="@color/textPrimary"
                 app:sLeftTextSize="18sp"
                 app:sLeftTextString="@string/phone"
                 app:sRightTextColor="@android:color/black"
@@ -119,10 +112,11 @@
                 app:sRightViewMarginRight="16dp" />
 
             <com.allen.library.SuperTextView
-                android:id="@+id/pe_data"
+                android:id="@+id/txt_pe_data"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sBottomDividerLineMarginLR="16dp"
+                app:sLeftTextColor="@color/textPrimary"
                 app:sLeftTextSize="18sp"
                 app:sLeftTextString="@string/pe_text_data"
                 app:sRightTextGravity="center"

@@ -13,4 +13,5 @@
     <string name="label_username">用户名</string>
     <string name="label_password">密码</string>
     <string name="label_go_register">去注册</string>
+    <string name="label_personal_info">个人信息</string>
 </resources>

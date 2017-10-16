@@ -10,6 +10,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "2a26068439feefd043504ca8",
+                JPUSH_CHANNEL: "developer-default",
+        ]
     }
     buildTypes {
         release {
@@ -25,13 +36,19 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':factory')
-    //butterknife依赖
-    //glide
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.github.bumptech.glide:glide:4.2.0'
     testCompile 'junit:junit:4.12'
+
+    //butterknife依赖
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //glide
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
+
+    //推送
+    compile 'cn.jiguang.sdk:jmessage:2.2.1'
+    compile 'cn.jiguang.sdk:jcore:1.1.6'
 }

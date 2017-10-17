@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">res</string>
+    <string name="zone">动态</string>
+    <string name="communication">交流</string>
+    <string name="function">功能</string>
+    <string name="read">阅读</string>
+    <string name="person">个人</string>
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single"
+        android:enabled="true">
+        <item
+            android:id="@+id/zone"
+            android:enabled="true"
+            android:icon="@drawable/ic_bottomview_zone"
+            android:title="@string/zone" />
+        <item
+            android:id="@+id/message"
+            android:enabled="true"
+            android:icon="@drawable/ic_bottomview_message"
+            android:title="@string/communication" />
+        <item
+            android:id="@+id/function"
+            android:enabled="true"
+            android:icon="@drawable/ic_bottomview_function"
+            android:title="@string/function" />
+        <item
+            android:id="@+id/read"
+            android:enabled="true"
+            android:icon="@drawable/ic_bottomview_read"
+            android:title="@string/read" />
+        <item
+            android:id="@+id/personal"
+            android:enabled="true"
+            android:icon="@drawable/ic_bottomview_person"
+            android:title="@string/person" />
+    </group>
+</menu>

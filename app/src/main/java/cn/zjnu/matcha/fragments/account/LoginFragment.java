@@ -28,6 +28,13 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
         mAccountTrigger.triggerView();
     }
 
+    @OnClick(R.id.btn_submit)
+    void onLoginClick() {
+        String username = mEditUsername.getText().toString();
+        String password = mEditPassword.getText().toString();
+        mPresenter.login(username, password);
+    }
+
     @Override
     protected Object getContentLayoutId() {
         return R.layout.fragment_login;

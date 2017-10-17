@@ -11,11 +11,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        ndk {
-            //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
-        }
-
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "2a26068439feefd043504ca8",
@@ -37,7 +32,6 @@ dependencies {
     })
     //butterknife依赖
     //glide
-    //推送
     //SuperTextView
     //circleImageView
     compile project(':factory')
@@ -46,8 +40,6 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.github.bumptech.glide:glide:4.2.0'
-    compile 'cn.jiguang.sdk:jmessage:2.2.1'
-    compile 'cn.jiguang.sdk:jcore:1.1.6'
     compile 'com.github.lygttpod:SuperTextView:2.1.5'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     testCompile 'junit:junit:4.12'

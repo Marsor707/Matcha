@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionBarWithStatusBarSize">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="@dimen/statusBarSize"
+                android:text="@string/communicate"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/actionBarWithStatusBarSize"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/txt_join_group"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@android:color/white">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_margin="12dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/btn_join_group" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="67dp"
+                android:text="@string/join_communicate_group"
+                android:textColor="@color/textPrimary"
+                android:textSize="20sp"
+                tools:ignore="RelativeOverlap" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:background="@color/textView" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_margin="12dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_username" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="67dp"
+                android:text="@string/have_joined_group"
+                android:textColor="@drawable/bg_gradient_black"
+                android:textSize="16sp"
+                tools:ignore="RelativeOverlap" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

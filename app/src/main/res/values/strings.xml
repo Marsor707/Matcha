@@ -14,4 +14,8 @@
     <string name="label_password">密码</string>
     <string name="label_go_register">去注册</string>
     <string name="label_personal_info">个人信息</string>
+    <string name="communicate">交流</string>
+    <string name="join_communicate_group">加入交流群</string>
+    <string name="have_joined_group">已加入的交流群</string>
+
 </resources>

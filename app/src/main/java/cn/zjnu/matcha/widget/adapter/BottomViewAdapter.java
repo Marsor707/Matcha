@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.fragments.adapter;
+package cn.zjnu.matcha.widget.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

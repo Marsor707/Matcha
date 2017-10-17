@@ -57,8 +57,7 @@
                 android:layout_marginStart="67dp"
                 android:text="@string/join_communicate_group"
                 android:textColor="@color/textPrimary"
-                android:textSize="20sp"
-                tools:ignore="RelativeOverlap" />
+                android:textSize="20sp" />
 
         </RelativeLayout>
 
@@ -86,9 +85,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="67dp"
                 android:text="@string/have_joined_group"
-                android:textColor="@drawable/bg_gradient_black"
-                android:textSize="16sp"
-                tools:ignore="RelativeOverlap" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView

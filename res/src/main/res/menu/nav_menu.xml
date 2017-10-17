@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_bottomview_zone"
             android:title="@string/zone" />
         <item
-            android:id="@+id/message"
+            android:id="@+id/communicate"
             android:enabled="true"
             android:icon="@drawable/ic_bottomview_message"
             android:title="@string/communication" />

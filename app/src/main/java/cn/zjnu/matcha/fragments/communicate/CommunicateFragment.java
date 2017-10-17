@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.fragments.function;
+package cn.zjnu.matcha.fragments.communicate;
 
 
 import android.os.Bundle;
@@ -10,15 +10,15 @@ import cn.zjnu.matcha.core.app.BaseFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FunctionFragment extends BaseFragment {
+public class CommunicateFragment extends BaseFragment {
 
     @Override
     protected Object getContentLayoutId() {
-        return R.layout.fragment_function;
+        return R.layout.fragment_communicate;
     }
 
-    public static FunctionFragment newInstance(Bundle bundle) {
-        FunctionFragment fragment = new FunctionFragment();
+    public static CommunicateFragment newInstance(Bundle bundle) {
+        CommunicateFragment fragment = new CommunicateFragment();
         fragment.setArguments(bundle);
         return fragment;
     }

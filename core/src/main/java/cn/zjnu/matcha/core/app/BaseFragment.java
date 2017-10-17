@@ -64,6 +64,12 @@ public abstract class BaseFragment extends Fragment {
         initData();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mRootUnBinder.unbind();
+    }
+
     /**
      * 初始化相关参数
      *

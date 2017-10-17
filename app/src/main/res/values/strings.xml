@@ -9,7 +9,7 @@
     <string name="phone">联系电话</string>
     <string name="pe_text_data">体质健康数据</string>
     <string name="label_register">注册</string>
-    <string name="label_login">登录</string>
+    <string name="label_login">登\t\t录</string>
     <string name="label_username">用户名</string>
     <string name="label_password">密码</string>
     <string name="label_go_register">去注册</string>

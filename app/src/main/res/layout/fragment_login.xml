@@ -44,14 +44,14 @@
                 android:tint="@color/colorPrimary" />
 
             <EditText
-                android:id="@+id/edit_phone"
+                android:id="@+id/edit_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
                 android:layout_marginStart="4dp"
                 android:background="@null"
                 android:hint="@string/label_username"
-                android:inputType="phone"
+                android:inputType="text"
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"

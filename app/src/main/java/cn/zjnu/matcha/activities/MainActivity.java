@@ -7,7 +7,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected Object getContentLayoutId() {
-        return R.layout.fragment_personal_message;
+        return R.layout.fragment_login;
     }
 
 }

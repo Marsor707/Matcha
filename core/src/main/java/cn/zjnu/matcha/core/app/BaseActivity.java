@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import qiu.niorgai.StatusBarCompat;
 
 /**
@@ -20,6 +21,8 @@ import qiu.niorgai.StatusBarCompat;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    protected Unbinder mRootUnBinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化控件
      */
     protected void initWidget() {
-        ButterKnife.bind(this);
+        mRootUnBinder = ButterKnife.bind(this);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
@@ -120,5 +123,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRootUnBinder.unbind();
     }
 }

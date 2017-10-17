@@ -8,11 +8,13 @@
     <string name="name">姓名</string>
     <string name="phone">联系电话</string>
     <string name="pe_text_data">体质健康数据</string>
-    <string name="label_register">注册</string>
+    <string name="label_register">注\t\t册</string>
     <string name="label_login">登\t\t录</string>
     <string name="label_username">用户名</string>
     <string name="label_password">密码</string>
+    <string name="label_password_confirm">确认密码</string>
     <string name="label_go_register">去注册</string>
+    <string name="label_go_login">去登录</string>
     <string name="label_personal_info">个人信息</string>
     <string name="communicate">交流</string>
     <string name="join_communicate_group">加入交流群</string>

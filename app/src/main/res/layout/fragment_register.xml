@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_login"
     android:orientation="vertical"
-    tools:context="cn.zjnu.matcha.fragments.Account.LoginFragment">
+    tools:context="cn.zjnu.matcha.fragments.account.LoginFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -152,7 +152,7 @@
         android:layout_marginTop="16dp">
 
         <TextView
-            android:id="@+id/txt_go_register"
+            android:id="@+id/txt_go_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"

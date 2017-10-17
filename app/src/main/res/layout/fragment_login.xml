@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_login"
     android:orientation="vertical"
-    tools:context="cn.zjnu.matcha.fragments.Account.LoginFragment">
+    tools:context="cn.zjnu.matcha.fragments.account.LoginFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"

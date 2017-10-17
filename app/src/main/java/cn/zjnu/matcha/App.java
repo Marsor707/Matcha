@@ -11,6 +11,7 @@ import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.im.android.api.JMessageClient;
 import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.net.interceptors.MainInterceptor;
 import cn.zjnu.matcha.core.utils.callback.CallbackManager;
@@ -82,11 +83,18 @@ public class App extends Application {
                 finishAll();
             }
         });
+
+        initJMessage();
     }
 
     private void finishAll() {
         for (Activity activity : activities) {
             activity.finish();
         }
+    }
+
+    private void initJMessage() {
+        JMessageClient.setDebugMode(true);
+        JMessageClient.init(this, true);
     }
 }

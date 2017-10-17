@@ -1,7 +1,9 @@
 package cn.zjnu.matcha.core.app;
 
+import android.app.Application;
 import android.os.Handler;
 
+import com.blankj.utilcode.util.Utils;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -43,6 +45,7 @@ public class Configurator {
     public final void configure() {
         initIcons();
         MATCHA_CONFIGS.put(ConfigKeys.CONFIG_READY, true);
+        Utils.init((Application) Matcha.getApplicationContext());
     }
 
     public final Configurator withApiHost(String host) {

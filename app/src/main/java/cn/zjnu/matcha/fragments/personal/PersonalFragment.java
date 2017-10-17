@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.fragments;
+package cn.zjnu.matcha.fragments.personal;
 
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.BaseFragment;

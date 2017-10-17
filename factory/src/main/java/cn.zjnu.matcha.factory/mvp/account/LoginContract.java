@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.factory.mvp.login.contract;
+package cn.zjnu.matcha.factory.mvp.account;
 
 import cn.zjnu.matcha.core.factory.BaseContract;
 

@@ -19,5 +19,11 @@
     <string name="communicate">交流</string>
     <string name="join_communicate_group">加入交流群</string>
     <string name="have_joined_group">已加入的交流群</string>
+    <string name="label_hi_username">Hi.%1$s</string>
+    <string name="label_date">%1$s年%2$s月%3$s日</string>
+    <string name="label_scan">扫一扫</string>
+    <string name="label_reserve">预约</string>
+    <string name="label_advisory">咨询</string>
+    <string name="label_evaluate">评估</string>
 
 </resources>

@@ -2,21 +2,80 @@ package cn.zjnu.matcha.fragments.account;
 
 
 import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.zjnu.matcha.R;
-import cn.zjnu.matcha.core.app.BaseFragment;
+import cn.zjnu.matcha.activities.MainActivity;
+import cn.zjnu.matcha.core.app.PresenterFragment;
+import cn.zjnu.matcha.factory.mvp.account.RegisterContract;
+import cn.zjnu.matcha.factory.mvp.account.RegisterPresenter;
 
 /**
  * 注册界面的Fragment
  */
-public class RegisterFragment extends BaseFragment {
+public class RegisterFragment extends PresenterFragment<RegisterContract.Presenter> implements RegisterContract.View {
+
+    @BindView(R.id.edit_username)
+    EditText mName = null;
+    @BindView(R.id.edit_password)
+    EditText mPassword = null;
+    @BindView(R.id.edit_password2)
+    EditText mRePassword = null;
 
     private IAccountTrigger mAccountTrigger;
 
     @OnClick(R.id.txt_go_login)
     void onGoLoginClick() {
         mAccountTrigger.triggerView();
+    }
+
+    @OnClick(R.id.btn_submit)
+    void onClickRegister() {
+        if (checkForm()) {
+            mPresenter.register(mName.getText().toString(), mPassword.getText().toString());
+        } else {
+            Toast.makeText(getContext(), "请检查所填信息是否有误", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkForm() {
+        final String name = mName.getText().toString();
+        final String password = mPassword.getText().toString();
+        final String rePassword = mRePassword.getText().toString();
+        boolean isPass = true;
+
+        if (name.isEmpty()) {
+            mName.setError("用户名不能为空");
+            isPass = false;
+        } else {
+            mName.setError(null);
+        }
+
+        if (password.isEmpty()) {
+            mPassword.setError("密码不能为空");
+            isPass = false;
+        } else {
+            mPassword.setError(null);
+        }
+
+        if (rePassword.isEmpty() || !rePassword.equals(password)) {
+            mRePassword.setError("所填信息有误");
+            isPass = false;
+        } else {
+            mRePassword.setError(null);
+        }
+        return isPass;
     }
 
     @Override
@@ -28,6 +87,17 @@ public class RegisterFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mAccountTrigger = (IAccountTrigger) context;
+    }
+
+    @Override
+    protected RegisterContract.Presenter initPresenter() {
+        return new RegisterPresenter(this);
+    }
+
+    @Override
+    public void showSuccess() {
+        Toast.makeText(getContext(), "注册成功，正在登陆....", Toast.LENGTH_SHORT).show();
+        MainActivity.show(getContext());
     }
 
 }

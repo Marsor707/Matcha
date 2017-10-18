@@ -7,6 +7,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.activities.MainActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.account.LoginContract;
 import cn.zjnu.matcha.factory.mvp.account.LoginPresenter;
@@ -51,4 +52,8 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
         return new LoginPresenter(this);
     }
 
+    @Override
+    public void loginSuccess() {
+        MainActivity.show(getContext());
+    }
 }

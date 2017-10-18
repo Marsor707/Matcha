@@ -1,5 +1,7 @@
 package cn.zjnu.matcha.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -30,6 +32,10 @@ public class MainActivity extends BaseActivity implements OnNavigationItemSelect
     BottomNavigationView mBottomNavView;
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
+    public static void show(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected Object getContentLayoutId() {

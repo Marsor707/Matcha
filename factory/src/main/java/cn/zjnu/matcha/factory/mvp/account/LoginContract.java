@@ -9,6 +9,7 @@ import cn.zjnu.matcha.core.factory.BaseContract;
 public interface LoginContract {
 
     interface View extends BaseContract.View<Presenter> {
+        void loginSuccess();
 
     }
 

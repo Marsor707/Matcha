@@ -1,9 +1,8 @@
 package cn.zjnu.matcha.factory.mvp.account;
 
-import android.util.Log;
-
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 
 /**
@@ -20,7 +19,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         JMessageClient.login(username, password, new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
-                Log.i("TAG", "response code: " + i + " result:  " + s);
+                if (i == 0) {
+                    getView().loginSuccess();
+                } else {
+                    Matcha.showToast("错误");
+                }
             }
         });
     }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -16,6 +15,7 @@ import butterknife.OnClick;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.AccountActivity;
 import cn.zjnu.matcha.activities.MainActivity;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.account.LoginContract;
 import cn.zjnu.matcha.factory.mvp.account.LoginPresenter;
@@ -53,7 +53,7 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
             mTxtGoRegister.setEnabled(false);
             mPresenter.login(username, password);
         } else {
-            Toast.makeText(getContext(), "请检查所填信息是否有误", Toast.LENGTH_SHORT).show();
+            Matcha.showToast("请检查所填信息是否有误");
         }
     }
 

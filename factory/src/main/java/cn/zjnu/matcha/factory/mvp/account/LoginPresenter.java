@@ -16,6 +16,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
     @Override
     public void login(String username, String password) {
+        getView().showLoading();
+
         JMessageClient.login(username, password, new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {

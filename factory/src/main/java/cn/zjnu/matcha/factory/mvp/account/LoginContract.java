@@ -11,6 +11,7 @@ public interface LoginContract {
     interface View extends BaseContract.View<Presenter> {
         void loginSuccess();
 
+        void showLoading();
     }
 
     interface Presenter extends BaseContract.Presenter {

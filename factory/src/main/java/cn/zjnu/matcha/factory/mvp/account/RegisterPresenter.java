@@ -15,14 +15,15 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     }
 
     @Override
-    public void register(String username, String password) {
+    public void register(final String username, final String password) {
+        getView().showLoading();
         JMessageClient.register(username, password, new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
                 if (i == 0) {
                     getView().showSuccess();
                 } else {
-                    Matcha.showToast("错误"+s);
+                    Matcha.showToast("错误" + s);
                 }
             }
         });

@@ -2,20 +2,19 @@ package cn.zjnu.matcha.fragments.account;
 
 
 import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.annotation.StringRes;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.activities.AccountActivity;
 import cn.zjnu.matcha.activities.MainActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.account.RegisterContract;
@@ -32,6 +31,12 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
     EditText mPassword = null;
     @BindView(R.id.edit_password2)
     EditText mRePassword = null;
+    @BindView(R.id.btn_submit)
+    Button mSubmit = null;
+    @BindView(R.id.loading)
+    AVLoadingIndicatorView mLoadingView = null;
+    @BindView(R.id.txt_go_login)
+    TextView mTxtGoLogin = null;
 
     private IAccountTrigger mAccountTrigger;
 
@@ -43,6 +48,11 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
     @OnClick(R.id.btn_submit)
     void onClickRegister() {
         if (checkForm()) {
+            mName.setEnabled(false);
+            mPassword.setEnabled(false);
+            mRePassword.setEnabled(false);
+            mSubmit.setEnabled(false);
+            mTxtGoLogin.setEnabled(false);
             mPresenter.register(mName.getText().toString(), mPassword.getText().toString());
         } else {
             Toast.makeText(getContext(), "请检查所填信息是否有误", Toast.LENGTH_SHORT).show();
@@ -64,6 +74,9 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
 
         if (password.isEmpty()) {
             mPassword.setError("密码不能为空");
+            isPass = false;
+        } else if (password.length() < 4) {
+            mPassword.setError("请至少输入4个字符");
             isPass = false;
         } else {
             mPassword.setError(null);
@@ -96,8 +109,35 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
 
     @Override
     public void showSuccess() {
-        Toast.makeText(getContext(), "注册成功，正在登陆....", Toast.LENGTH_SHORT).show();
+        stopLoading();
         MainActivity.show(getContext());
+        AccountActivity activity = (AccountActivity) getContext();
+        activity.finish();
     }
 
+    @Override
+    public void showLoading() {
+        if (mLoadingView != null) {
+            mLoadingView.show();
+            mSubmit.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showError(@StringRes int str) {
+        super.showError(str);
+        mName.setEnabled(true);
+        mPassword.setEnabled(true);
+        mRePassword.setEnabled(true);
+        mSubmit.setEnabled(true);
+        mTxtGoLogin.setEnabled(true);
+        mSubmit.setVisibility(View.VISIBLE);
+        stopLoading();
+    }
+
+    private void stopLoading() {
+        if (mLoadingView != null) {
+            mLoadingView.hide();
+        }
+    }
 }

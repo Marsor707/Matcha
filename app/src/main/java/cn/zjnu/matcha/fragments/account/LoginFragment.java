@@ -2,11 +2,19 @@ package cn.zjnu.matcha.fragments.account;
 
 
 import android.content.Context;
+import android.support.annotation.StringRes;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.activities.AccountActivity;
 import cn.zjnu.matcha.activities.MainActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.account.LoginContract;
@@ -23,6 +31,12 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
     EditText mEditUsername;
     @BindView(R.id.edit_password)
     EditText mEditPassword;
+    @BindView(R.id.txt_go_register)
+    TextView mTxtGoRegister;
+    @BindView(R.id.btn_submit)
+    Button mBtnSubmit;
+    @BindView(R.id.loading)
+    AVLoadingIndicatorView mLoadingView;
 
     @OnClick(R.id.txt_go_register)
     void onGoRegisterClick() {
@@ -31,9 +45,41 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
 
     @OnClick(R.id.btn_submit)
     void onLoginClick() {
-        String username = mEditUsername.getText().toString();
-        String password = mEditPassword.getText().toString();
-        mPresenter.login(username, password);
+        if (checkForm()) {
+            final String username = mEditUsername.getText().toString();
+            final String password = mEditPassword.getText().toString();
+            mEditUsername.setEnabled(false);
+            mEditPassword.setEnabled(false);
+            mTxtGoRegister.setEnabled(false);
+            mPresenter.login(username, password);
+        } else {
+            Toast.makeText(getContext(), "请检查所填信息是否有误", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkForm() {
+        final String name = mEditUsername.getText().toString();
+        final String password = mEditPassword.getText().toString();
+        boolean isPass = true;
+
+        if (name.isEmpty()) {
+            mEditUsername.setError("用户名不能为空");
+            isPass = false;
+        } else {
+            mEditUsername.setError(null);
+        }
+
+        if (password.isEmpty()) {
+            mEditPassword.setError("密码不能为空");
+            isPass = false;
+        } else if (password.length() < 4) {
+            mEditPassword.setError("请至少输入4个字符");
+            isPass = false;
+        } else {
+            mEditPassword.setError(null);
+        }
+
+        return isPass;
     }
 
     @Override
@@ -54,6 +100,33 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
 
     @Override
     public void loginSuccess() {
+        stopLoading();
         MainActivity.show(getContext());
+        AccountActivity activity = (AccountActivity) getContext();
+        activity.finish();
+    }
+
+    @Override
+    public void showLoading() {
+        if (mLoadingView != null) {
+            mLoadingView.show();
+            mBtnSubmit.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showError(@StringRes int str) {
+        super.showError(str);
+        mEditUsername.setEnabled(true);
+        mEditPassword.setEnabled(true);
+        mTxtGoRegister.setEnabled(true);
+        mBtnSubmit.setVisibility(View.VISIBLE);
+        stopLoading();
+    }
+
+    private void stopLoading() {
+        if (mLoadingView != null) {
+            mLoadingView.hide();
+        }
     }
 }

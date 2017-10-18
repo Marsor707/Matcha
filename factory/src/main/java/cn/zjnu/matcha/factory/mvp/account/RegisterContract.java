@@ -13,5 +13,7 @@ public interface RegisterContract {
 
     interface View extends BaseContract.View<Presenter> {
         void showSuccess();
+
+        void showLoading();
     }
 }

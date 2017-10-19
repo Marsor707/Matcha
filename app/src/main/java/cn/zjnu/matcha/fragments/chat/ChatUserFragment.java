@@ -16,8 +16,6 @@ public class ChatUserFragment {
     private RequestOptions requestOptions = new RequestOptions()
             .centerCrop()
             .dontAnimate();
-    @BindView(R.id.btn_back)
-    Button back;
 
     protected int getHeaderLayoutId() {
         return R.layout.fragment_chat_common;

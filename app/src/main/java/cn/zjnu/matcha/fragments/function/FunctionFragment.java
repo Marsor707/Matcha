@@ -5,7 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import butterknife.BindView;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.BaseFragment;
 
@@ -33,7 +40,11 @@ public class FunctionFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-        mTxtHiUsername.setText(String.format(getString(R.string.label_hi_username), "机车男"));
-        mTxtDate.setText(String.format(getString(R.string.label_date), "2017", "10", "17"));
+        UserInfo userInfo = JMessageClient.getMyInfo();
+        final String username = userInfo.getUserName();
+        mTxtHiUsername.setText(String.format(getString(R.string.label_hi_username), username));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
+        String nowData = TimeUtils.getNowString(format);
+        mTxtDate.setText(String.format(getString(R.string.label_date), nowData));
     }
 }

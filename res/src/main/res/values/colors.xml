@@ -14,7 +14,7 @@
     <color name="colorHighWhite">#FFFFFF</color>
 
     <!--遮罩颜色-->
-    <color name="maskChatHeader">#30000000</color>
+    <color name="maskChatHeader">#30FFFFFF</color>
     <color name="maskChatIcon">#10000000</color>
     <!--bottomnavigationview未选中的颜色-->
     <color name="colorNavItemUnselected">#757575</color>

@@ -125,13 +125,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
         if (Matcha.getActivitiesSize() == 1) {
-            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
-                super.onBackPressed();
-                finish();
-            } else {
+            if (System.currentTimeMillis() - TOUCH_TIME >= WAIT_TIME) {
                 TOUCH_TIME = System.currentTimeMillis();
                 Matcha.showToast("再按一次退出");
+            } else {
+                super.onBackPressed();
+                finish();
             }
+        } else {
+            super.onBackPressed();
+            finish();
         }
     }
 

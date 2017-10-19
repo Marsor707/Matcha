@@ -91,6 +91,7 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
     public void onAttach(Context context) {
         super.onAttach(context);
         mAccountTrigger = (IAccountTrigger) context;
+        mPresenter.autoLogin();
     }
 
     @Override

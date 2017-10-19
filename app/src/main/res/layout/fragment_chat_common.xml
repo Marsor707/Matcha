@@ -95,7 +95,7 @@
             android:enabled="true"
             android:foreground="@drawable/ic_touch_fg"
             android:padding="8dp"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_more_function"
             android:tint="@color/textPrimary" />
     </LinearLayout>
 

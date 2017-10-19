@@ -7,7 +7,6 @@ package cn.zjnu.matcha.core.utils.callback;
  */
 
 public enum CallbackTypes {
-    FINISH_ACTIVITIES,
     ON_CROP,
     ON_SCAN
 }

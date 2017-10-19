@@ -111,8 +111,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
     public void showSuccess() {
         stopLoading();
         MainActivity.show(getContext());
-        AccountActivity activity = (AccountActivity) getContext();
-        activity.finish();
+        getActivity().finish();
     }
 
     @Override

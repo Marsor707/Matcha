@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.zjnu.matcha.fragments.chat.ChatUserFragment">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:foreground="@color/maskChatIcon"
+        android:paddingTop="@dimen/statusBarSize">
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/exercise"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+    </android.support.v7.widget.Toolbar>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:foreground="@color/maskChatIcon"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:outlineProvider="bounds"
+        tools:targetApi="lollipop">
+
+
+        <ImageView
+            android:id="@+id/btn_voice"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:enabled="true"
+            android:foreground="@drawable/ic_touch_fg"
+            android:padding="8dp"
+            android:src="@drawable/ic_voice"
+            android:tint="@color/textPrimary" />
+
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/chat_send"
+            android:lineSpacingExtra="0dp"
+            android:lineSpacingMultiplier="1"
+            android:maxHeight="68dp"
+            android:minHeight="44dp"
+            android:padding="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecond"
+            android:textCursorDrawable="@drawable/ic_cursor" />
+
+        <ImageView
+            android:id="@+id/btn_face"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:enabled="true"
+            android:foreground="@drawable/ic_touch_fg"
+            android:padding="8dp"
+            android:src="@drawable/ic_emoij"
+            android:tint="@color/textPrimary" />
+
+
+        <ImageView
+            android:id="@+id/btn_add"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:contentDescription="@string/app_name"
+            android:enabled="true"
+            android:foreground="@drawable/ic_touch_fg"
+            android:padding="8dp"
+            android:src="@drawable/ic_add"
+            android:tint="@color/textPrimary" />
+    </LinearLayout>
+
+</LinearLayout>
+

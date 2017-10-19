@@ -1,0 +1,27 @@
+{
+  "898001":"用户已存在",
+  "898002":"用户不存在",
+  "898003":"请求参数不合法",
+  "898007":"校验信息为空",
+}
+//898000	Server internal error	内部错误
+//898001	User exist	用户已存在
+//898002	No such user	用户不存在
+//898003	Parameter invalid!	请求参数不合法
+//898004	Password error	更新密码操作，用户密码错误
+//898006	Group id invalid	Group id不存在
+//898007	Missing authen info	校验信息为空
+//898008	Basic authentication failed.	校验失败
+//898009	Appkey not exists	appkey不存在
+//898010	Token expired	API请求 token 过期。正常情况下SDK会自动重新获取 token。
+//898011	no auth to query other appkey's user or appkey no exist	查询的appkey不具备跨应用权限 或者appkey不存在
+//898030	Server response time out, please try again later	系统繁忙，稍后重试
+//899000	Server internal error	系统内部错误
+//899001	User exist	用户已存在
+//899002	No such user	用户不存在
+//899003	parameter invalid	参数错误，Request Body参数不符合要求;resend 值不符合要求;用户名或者密码不合法;群组Group id不合法
+//899006	Group id invalid	Group id 不存在
+//899007	Missing authen info	校验信息为空
+//899008	Basic authentication failed	校验失败
+//899009	Appkey not exit	Appkey不存在
+//899011	Repeat to add the members	重复添加群成员

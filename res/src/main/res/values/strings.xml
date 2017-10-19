@@ -28,4 +28,6 @@
     <string name="label_reserve">预约</string>
     <string name="label_advisory">咨询</string>
     <string name="label_evaluate">评估</string>
+    <string name="chat_send">说点什么吧。。。</string>
+    <string name="exercise">有氧健身</string>
 </resources>

@@ -2,12 +2,7 @@ package cn.zjnu.matcha.core.app;
 
 import android.content.Context;
 import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.widget.Toast;
-
-import cn.zjnu.matcha.core.utils.callback.CallbackManager;
-import cn.zjnu.matcha.core.utils.callback.CallbackTypes;
 
 /**
  * Author: Marsor
@@ -40,11 +35,12 @@ public class Matcha {
         return getConfiguration(ConfigKeys.HANDLER);
     }
 
-    @SuppressWarnings("unchecked")
     public static void finishAllActivities() {
-        CallbackManager.getInstance()
-                .getCallback(CallbackTypes.FINISH_ACTIVITIES)
-                .executeCallback(null);
+        Application.getInstance().finishAllActivities();
+    }
+
+    public static int getActivitiesSize() {
+        return Application.getInstance().getCurActivitiesSize();
     }
 
     public static void showToast(final Object res) {

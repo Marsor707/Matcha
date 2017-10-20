@@ -103,8 +103,7 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
     public void loginSuccess() {
         stopLoading();
         MainActivity.show(getContext());
-        AccountActivity activity = (AccountActivity) getContext();
-        activity.finish();
+        getActivity().finish();
     }
 
     @Override

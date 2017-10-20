@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -22,6 +21,8 @@ import qiu.niorgai.StatusBarCompat;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    private static final long WAIT_TIME = 2000;
+    private long TOUCH_TIME = 0;
     protected Unbinder mRootUnBinder;
 
     @Override
@@ -121,8 +122,18 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
         }
-        super.onBackPressed();
-        finish();
+        if (Matcha.getActivitiesSize() == 1) {
+            if (System.currentTimeMillis() - TOUCH_TIME >= WAIT_TIME) {
+                TOUCH_TIME = System.currentTimeMillis();
+                Matcha.showToast("再按一次退出");
+            } else {
+                super.onBackPressed();
+                finish();
+            }
+        } else {
+            super.onBackPressed();
+            finish();
+        }
     }
 
     @Override

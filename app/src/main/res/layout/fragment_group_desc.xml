@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.zjnu.matcha.fragments.account.LoginFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="123dp"
+        android:foreground="@color/maskChatIcon"
+        android:paddingTop="@dimen/statusBarSize">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:text="@string/exercise"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/txt_join_group"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@android:color/white">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_group" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_group_portrait"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
+
+            <ImageButton
+                android:id="@+id/ib_add_group_member"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="12dp"
+                android:background="@drawable/ic_more_function" />
+
+
+        </LinearLayout>
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/txt_group_desc"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:sBottomDividerLineMarginLR="16dp"
+            app:sDividerLineType="both"
+            app:sLeftTextColor="@color/textPrimary"
+            app:sLeftTextSize="18sp"
+            app:sLeftTextString="@string/group_material"
+            app:sRightTextGravity="center"
+            app:sRightTvDrawableRight="@drawable/ic_chevron_right"
+            app:sRightViewMarginRight="16dp"
+            app:sTopDividerLineMarginLR="16dp" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/txt_chat_bg"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:sBottomDividerLineMarginLR="16dp"
+            app:sDividerLineType="both"
+            app:sLeftTextColor="@color/textPrimary"
+            app:sLeftTextSize="18sp"
+            app:sLeftTextString="@string/chat_bg"
+            app:sRightTextGravity="center"
+            app:sRightTvDrawableRight="@drawable/ic_chevron_right"
+            app:sRightViewMarginRight="16dp"
+            app:sTopDividerLineMarginLR="16dp" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/txt_chat_notes"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:sBottomDividerLineMarginLR="16dp"
+            app:sDividerLineType="both"
+            app:sLeftTextColor="@color/textPrimary"
+            app:sLeftTextSize="18sp"
+            app:sLeftTextString="@string/chat_notes"
+            app:sRightTextGravity="center"
+            app:sRightTvDrawableRight="@drawable/ic_chevron_right"
+            app:sRightViewMarginRight="16dp"
+            app:sTopDividerLineMarginLR="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <com.allen.library.SuperTextView
+                android:id="@+id/txt_message_no_distributing"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:sBottomDividerLineMarginLR="16dp"
+                app:sDividerLineType="both"
+                app:sLeftTextColor="@color/textPrimary"
+                app:sLeftTextSize="18sp"
+                app:sLeftTextString="@string/maessage_no_distributing"
+                app:sRightTextGravity="center"
+                app:sRightViewMarginRight="16dp"
+                app:sTopDividerLineMarginLR="16dp" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <com.allen.library.SuperTextView
+                android:id="@+id/txt_set_top_group"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                app:sBottomDividerLineMarginLR="16dp"
+                app:sDividerLineType="both"
+                app:sLeftTextColor="@color/textPrimary"
+                app:sLeftTextSize="18sp"
+                app:sLeftTextString="@string/set_top_group"
+                app:sRightTextGravity="center"
+                app:sRightViewMarginRight="16dp"
+                app:sTopDividerLineMarginLR="16dp" />
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

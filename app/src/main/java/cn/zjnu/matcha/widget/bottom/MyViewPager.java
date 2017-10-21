@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.widget;
+package cn.zjnu.matcha.widget.bottom;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

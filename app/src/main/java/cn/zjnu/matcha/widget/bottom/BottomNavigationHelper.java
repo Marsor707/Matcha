@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.widget;
+package cn.zjnu.matcha.widget.bottom;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

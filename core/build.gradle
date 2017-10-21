@@ -72,4 +72,6 @@ dependencies {
     //JMessage
     compile 'cn.jiguang.sdk:jmessage:2.2.1'
     compile 'cn.jiguang.sdk:jcore:1.1.6'
+    //recyclerView
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
 }

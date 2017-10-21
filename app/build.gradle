@@ -16,6 +16,7 @@ android {
                 JPUSH_APPKEY : "2a26068439feefd043504ca8",
                 JPUSH_CHANNEL: "developer-default",
         ]
+
     }
     buildTypes {
         release {

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.LoginStateChangeEvent;
 
 /**
  * Author: Marsor
@@ -91,7 +93,7 @@ public abstract class BaseFragment extends Fragment {
      * 初始化数据
      */
     protected void initData() {
-
+        JMessageClient.registerEventReceiver(this);
     }
 
     /**
@@ -109,5 +111,15 @@ public abstract class BaseFragment extends Fragment {
      */
     public boolean onBackPressed() {
         return false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        JMessageClient.unRegisterEventReceiver(this);
+    }
+
+    public void onEvent(LoginStateChangeEvent event) {
+
     }
 }

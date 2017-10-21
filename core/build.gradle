@@ -13,6 +13,17 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: "cn.zjnu.matcha",
+                JPUSH_APPKEY : "2a26068439feefd043504ca8",
+                JPUSH_CHANNEL: "developer-default",
+        ]
+
     }
     buildTypes {
         release {
@@ -58,4 +69,7 @@ dependencies {
     compile 'com.wang.avi:library:2.1.3'
     //webView
     compile 'com.just.agentweb:agentweb:2.0.1'
+    //JMessage
+    compile 'cn.jiguang.sdk:jmessage:2.2.1'
+    compile 'cn.jiguang.sdk:jcore:1.1.6'
 }

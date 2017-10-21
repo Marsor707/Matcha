@@ -8,5 +8,6 @@ package cn.zjnu.matcha.core.utils.callback;
 
 public enum CallbackTypes {
     ON_CROP,
-    ON_SCAN
+    ON_SCAN,
+    SHOW_LOGIN_VIEW
 }

@@ -1,5 +1,6 @@
 package cn.zjnu.matcha.core.app;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,10 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.LoginStateChangeEvent;
+import cn.zjnu.matcha.core.utils.callback.CallbackManager;
+import cn.zjnu.matcha.core.utils.callback.CallbackTypes;
 import qiu.niorgai.StatusBarCompat;
 
 /**
@@ -58,7 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化窗口
      */
     protected void initWindows() {
-
+        JMessageClient.registerEventReceiver(this);
     }
 
     /**
@@ -140,5 +145,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mRootUnBinder.unbind();
+        JMessageClient.unRegisterEventReceiver(this);
+    }
+
+    public void onEvent(LoginStateChangeEvent event) {
+        final LoginStateChangeEvent.Reason reason = event.getReason();
+        switch (reason) {
+            case user_logout:
+                showLoginView();
+                Matcha.showToast("您的账号在其他设备上登陆");
+                break;
+            default:
+                break;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void showLoginView() {
+        CallbackManager.getInstance()
+                .getCallback(CallbackTypes.SHOW_LOGIN_VIEW)
+                .executeCallback(null);
     }
 }

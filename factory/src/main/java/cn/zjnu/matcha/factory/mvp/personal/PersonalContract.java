@@ -6,5 +6,5 @@ package cn.zjnu.matcha.factory.mvp.personal;
  * Email: 369135912@qq.com
  */
 
-public class PersonalContract {
+public interface PersonalContract {
 }

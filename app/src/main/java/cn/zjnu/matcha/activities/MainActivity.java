@@ -62,6 +62,7 @@ public class MainActivity extends BaseActivity implements OnNavigationItemSelect
 
         BottomViewAdapter mAdapter = new BottomViewAdapter(getSupportFragmentManager(), fragments);
         mViewpager.setAdapter(mAdapter);
+        mViewpager.setOffscreenPageLimit(5);
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

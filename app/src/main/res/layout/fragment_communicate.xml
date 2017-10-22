@@ -13,8 +13,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionBarWithStatusBarSize"
-            android:background="@drawable/bg_view"
-            android:foreground="@color/maskChatHeader"
+            android:background="@color/colorPrimary"
             android:paddingTop="@dimen/statusBarSize">
 
             <android.support.v7.widget.AppCompatTextView
@@ -22,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/communicate"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
 

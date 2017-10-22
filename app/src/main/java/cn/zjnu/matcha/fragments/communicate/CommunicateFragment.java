@@ -5,25 +5,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.callback.GetGroupIDListCallback;
-import cn.jpush.im.android.api.callback.GetGroupInfoCallback;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.MessageActivity;
-import cn.zjnu.matcha.core.app.BaseFragment;
-import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
-import cn.zjnu.matcha.factory.model.jiguang.ResponseCodes;
 import cn.zjnu.matcha.factory.mvp.communicate.CommunicateContract;
 import cn.zjnu.matcha.factory.mvp.communicate.CommunicatePresenter;
 import cn.zjnu.matcha.widget.adapter.communicate.GroupsAdapter;

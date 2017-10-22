@@ -1,57 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.zjnu.matcha.widget.MessageLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lay_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="cn.zjnu.matcha.fragments.communicate.chat.ChatGroupFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/img_header"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/actionBarWithStatusBarSize"
-            android:src="@color/colorPrimary"/>
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/actionBarWithStatusBarSize"
-            android:paddingTop="@dimen/statusBarSize">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txt_group_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:text="有氧健身" />
-        </android.support.v7.widget.Toolbar>
-
-    </FrameLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:foreground="@color/maskChatIcon"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp">
+        android:layout_weight="1">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/actionBarWithStatusBarSize"
+                android:background="@color/colorPrimary"
+                android:paddingTop="@dimen/statusBarSize">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txt_group_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="有氧健身" />
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:foreground="@color/maskChatIcon"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:elevation="2dp"
         android:orientation="horizontal"
         tools:targetApi="lollipop">
@@ -107,5 +113,20 @@
             android:tint="@color/textPrimary" />
     </LinearLayout>
 
-</LinearLayout>
+    <!--id是固定的airPanelSubLayout-->
+    <net.qiujuer.widget.airpanel.AirPanelFrameLayout
+        android:id="@id/airPanelSubLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <fragment
+            android:id="@+id/frag_panel"
+            class="cn.zjnu.matcha.fragments.panel.PanelFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </net.qiujuer.widget.airpanel.AirPanelFrameLayout>
+
+</cn.zjnu.matcha.widget.MessageLayout>
 

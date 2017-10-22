@@ -5,27 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="cn.zjnu.matcha.fragments.chat.ChatUserFragment">
+    tools:context="cn.zjnu.matcha.fragments.communicate.chat.ChatGroupFragment">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:foreground="@color/maskChatIcon"
-        android:paddingTop="@dimen/statusBarSize">
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/img_header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionBarWithStatusBarSize" />
 
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="@string/exercise"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
-    </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionBarWithStatusBarSize"
+            android:paddingTop="@dimen/statusBarSize">
 
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/textPrimary"
+                android:textSize="20sp"
+                tools:text="有氧健身" />
+        </android.support.v7.widget.Toolbar>
+
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
@@ -45,7 +53,6 @@
         android:layout_height="wrap_content"
         android:elevation="2dp"
         android:orientation="horizontal"
-        android:outlineProvider="bounds"
         tools:targetApi="lollipop">
 
 

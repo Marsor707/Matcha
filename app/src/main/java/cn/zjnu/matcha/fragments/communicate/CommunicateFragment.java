@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import cn.jpush.im.android.api.callback.GetGroupIDListCallback;
 import cn.jpush.im.android.api.callback.GetGroupInfoCallback;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.activities.MessageActivity;
 import cn.zjnu.matcha.core.app.BaseFragment;
 import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
@@ -29,6 +32,8 @@ import cn.zjnu.matcha.widget.adapter.communicate.GroupsAdapter;
  * A simple {@link Fragment} subclass.
  */
 public class CommunicateFragment extends PresenterFragment<CommunicateContract.Presenter> implements CommunicateContract.View {
+
+    private GroupsAdapter mAdapter;
 
     public static CommunicateFragment newInstance(Bundle bundle) {
         CommunicateFragment fragment = new CommunicateFragment();
@@ -51,12 +56,12 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
     }
 
     @Override
-    public void showGroupList(List<GroupInfo> groupInfos) {
-        GroupsAdapter adapter = new GroupsAdapter(R.layout.item_grouplist, groupInfos);
+    public void showGroupList(final List<GroupInfo> groupInfos) {
+        mAdapter = new GroupsAdapter(R.layout.item_grouplist, groupInfos);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        adapter.notifyDataSetChanged();
         mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(mAdapter);
+        initItemClickListener();
     }
 
     @Override
@@ -67,6 +72,15 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
     @Override
     protected CommunicateContract.Presenter initPresenter() {
         return new CommunicatePresenter(this);
+    }
+
+    private void initItemClickListener() {
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MessageActivity.show(getContext(), (GroupInfo) adapter.getData().get(position));
+            }
+        });
     }
 
 }

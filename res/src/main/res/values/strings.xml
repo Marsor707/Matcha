@@ -35,4 +35,5 @@
     <string name="chat_notes">群聊天记录</string>
     <string name="maessage_no_distributing">群消息免打扰</string>
     <string name="set_top_group">设为置顶群</string>
+    <string name="label_setting">设置</string>
 </resources>

@@ -3,16 +3,14 @@ package cn.zjnu.matcha.fragments.communicate.chat;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import butterknife.BindView;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.MessageActivity;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupContract;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
@@ -23,18 +21,12 @@ import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
 
 public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Presenter> implements ChatGroupContract.View {
 
-    RequestOptions options = new RequestOptions()
-            .centerCrop()
-            .dontAnimate();
-
     private long mGroupId;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.txt_group_name)
     AppCompatTextView mTxtGroupName;
-    @BindView(R.id.img_header)
-    ImageView mImgHeader;
 
     public static ChatGroupFragment newInstance(Bundle bundle) {
         ChatGroupFragment fragment = new ChatGroupFragment();
@@ -69,11 +61,14 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
                 getActivity().finish();
             }
         });
-
-        Glide.with(this)
-                .load(R.drawable.default_banner_group)
-                .apply(options)
-                .into(mImgHeader);
+        mToolbar.inflateMenu(R.menu.menu_setting);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Matcha.showToast("hello");
+                return true;
+            }
+        });
     }
 
     @Override

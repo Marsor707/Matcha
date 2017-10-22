@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single"
+        android:enabled="true">
+        <item
+            android:id="@+id/zone"
+            android:enabled="true"
+            android:title="@string/default_member_list" />
+        <item
+            android:id="@+id/communicate"
+            android:enabled="true"
+            android:title="@string/activity_member_list" />
+    </group>
+</menu>

@@ -35,5 +35,9 @@
     <string name="chat_notes">群聊天记录</string>
     <string name="maessage_no_distributing">群消息免打扰</string>
     <string name="set_top_group">设为置顶群</string>
-    <string name="label_setting">设置</string>
+    <string name="add_group_member">添加群成员</string>
+    <string name="group_member">群成员</string>
+    <string name="group_member_name">%1$s</string>
+    <string name="default_member_list">默认排序</string>
+    <string name="activity_member_list">活跃度排序</string>
 </resources>

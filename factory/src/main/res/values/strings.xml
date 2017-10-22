@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Factory</string>
+    <string name="x871101">请求参数不合法</string>
+    <string name="x871303">用户名不合法</string>
+    <string name="x871304">密码不合法</string>
+    <string name="x871305">名称不合法</string>
+    <string name="x871306">其他输入法不合法</string>
+    <string name="x871311">用户为设定头像，下载头像失败</string>
+    <string name="x871317">操作目标用户不能是自己</string>
+    <string name="x898001">用户已存在</string>
+    <string name="x898002">用户不存在</string>
+    <string name="x898003">请求参数不合法</string>
+    <string name="x898004">更新密码操作，用户密码错误</string>
+    <string name="x898006">Group id不存在</string>
+    <string name="x898011">重复添加群成员</string>
+    <string name="x898047">已经设置群组为消息免打扰，重复设置错误</string>
+    <string name="xx">未知错误</string>
 </resources>

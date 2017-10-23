@@ -13,7 +13,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zjnu.matcha.R;
-import cn.zjnu.matcha.activities.AccountActivity;
 import cn.zjnu.matcha.activities.MainActivity;
 import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
@@ -33,8 +32,6 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
     EditText mRePassword = null;
     @BindView(R.id.btn_submit)
     Button mSubmit = null;
-    @BindView(R.id.loading)
-    AVLoadingIndicatorView mLoadingView = null;
     @BindView(R.id.txt_go_login)
     TextView mTxtGoLogin = null;
 
@@ -53,6 +50,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
             mRePassword.setEnabled(false);
             mSubmit.setEnabled(false);
             mTxtGoLogin.setEnabled(false);
+            mPresenter.getContext(getContext());
             mPresenter.register(mName.getText().toString(), mPassword.getText().toString());
         } else {
             Matcha.showToast("请检查所填信息是否有误");
@@ -109,17 +107,20 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
 
     @Override
     public void showSuccess() {
-        stopLoading();
-        MainActivity.show(getContext());
-        getActivity().finish();
+        mName.setText("");
+        mPassword.setText("");
+        mRePassword.setText("");
+        mName.setEnabled(true);
+        mPassword.setEnabled(true);
+        mRePassword.setEnabled(true);
+        mSubmit.setEnabled(true);
+        mTxtGoLogin.setEnabled(true);
+        mAccountTrigger.triggerView();
     }
 
     @Override
-    public void showLoading() {
-        if (mLoadingView != null) {
-            mLoadingView.show();
-            mSubmit.setVisibility(View.GONE);
-        }
+    public void fetchUserNameAndPassword(String username, String password) {
+        mPresenter.registerToLocal(username, password);
     }
 
     @Override
@@ -130,13 +131,15 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         mRePassword.setEnabled(true);
         mSubmit.setEnabled(true);
         mTxtGoLogin.setEnabled(true);
-        mSubmit.setVisibility(View.VISIBLE);
-        stopLoading();
     }
 
-    private void stopLoading() {
-        if (mLoadingView != null) {
-            mLoadingView.hide();
-        }
+    @Override
+    public void showError(String message) {
+        super.showError(message);
+        mName.setEnabled(true);
+        mPassword.setEnabled(true);
+        mRePassword.setEnabled(true);
+        mSubmit.setEnabled(true);
+        mTxtGoLogin.setEnabled(true);
     }
 }

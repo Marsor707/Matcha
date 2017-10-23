@@ -184,14 +184,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"
-            app:indicatorColor="@color/loadingColor" />
-
         <Button
             android:id="@+id/btn_submit"
             android:layout_width="172dp"

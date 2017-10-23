@@ -41,6 +41,11 @@ public abstract class PresenterFragment<Presenter extends BaseContract.Presenter
     }
 
     @Override
+    public void showError(String message) {
+        Matcha.showToast(message);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mPresenter != null)

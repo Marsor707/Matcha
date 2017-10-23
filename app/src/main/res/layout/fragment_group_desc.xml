@@ -143,6 +143,7 @@
                 app:sRightTextGravity="center"
                 app:sRightViewMarginRight="16dp"
                 app:sTopDividerLineMarginLR="16dp" />
+
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="80dp"
                 android:layout_height="match_parent"

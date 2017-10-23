@@ -2,12 +2,17 @@ package cn.zjnu.matcha.core.app;
 
 import android.app.Application;
 import android.os.Handler;
+import android.support.annotation.RawRes;
+import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cn.zjnu.matcha.core.utils.file.FileUtil;
 import okhttp3.Interceptor;
 
 /**

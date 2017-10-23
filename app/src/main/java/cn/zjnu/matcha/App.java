@@ -25,7 +25,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Matcha.init(this)
-                .withApiHost("http://115.159.62.44/RestServer/api/")
+                .withApiHost("http://123.207.214.129:8081/")
                 .withInterceptor(new MainInterceptor())
                 .withLoaderDelayed(300)
                 .configure();

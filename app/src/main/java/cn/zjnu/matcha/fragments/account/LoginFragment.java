@@ -124,6 +124,11 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
         stopLoading();
     }
 
+    @Override
+    public void showError(String message) {
+        super.showError(message);
+    }
+
     private void stopLoading() {
         if (mLoadingView != null) {
             mLoadingView.hide();

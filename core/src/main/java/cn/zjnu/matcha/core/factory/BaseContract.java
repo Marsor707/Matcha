@@ -15,6 +15,8 @@ public interface BaseContract {
         //公共的显示一个字符串错误
         void showError(@StringRes int str);
 
+        void showError(String message);
+
         //支持设置Presenter
         void setPresenter(T presenter);
     }

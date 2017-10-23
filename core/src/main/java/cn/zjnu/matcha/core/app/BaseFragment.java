@@ -29,6 +29,7 @@ public abstract class BaseFragment extends Fragment {
         super.onAttach(context);
         //初始化参数
         initArgs(getArguments());
+        JMessageClient.registerEventReceiver(this);
     }
 
     @Nullable
@@ -93,7 +94,7 @@ public abstract class BaseFragment extends Fragment {
      * 初始化数据
      */
     protected void initData() {
-        JMessageClient.registerEventReceiver(this);
+
     }
 
     /**

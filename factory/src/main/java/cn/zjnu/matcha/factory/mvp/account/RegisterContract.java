@@ -15,7 +15,6 @@ public interface RegisterContract {
         void registerToLocal(String username, String password);
 
         void getContext(Context context);
-
     }
 
     interface View extends BaseContract.View<Presenter> {

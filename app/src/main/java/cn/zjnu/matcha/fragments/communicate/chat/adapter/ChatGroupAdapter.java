@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.factory.model.jiguang.ResponseCodes;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * Created by Hu on 2017/10/22.
@@ -190,16 +192,17 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return msg.getDirect() == MessageDirect.send ? TYPE_SEND_TXT :
                         TYPE_RECEIVE_TXT;
             default:
-                return TYPE_CUSTOM_TXT;
+                return 0;
         }
     }
 
     @Override
     public int getItemCount() {
+        Log.d("mMsgList", mMsgList.size() + "");
         return mMsgList.size();
     }
 
-    public class TextSendViewHolder extends RecyclerView.ViewHolder {
+    class TextSendViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.txt_content)
         TextView txtContent;
         @BindView(R.id.img_portrait)
@@ -211,7 +214,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public class TextReceiverViewHolder extends RecyclerView.ViewHolder {
+    class TextReceiverViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.txt_content)
         TextView txtContent;
         @BindView(R.id.img_portrait)
@@ -250,6 +253,17 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mMsgList.removeAll(forDel);
         mMsgList.add(i, message);
         notifyDataSetChanged();
+    }
+
+    public void addMsgToList(Message message) {
+        mMsgList.add(message);
+        incrementStartPosition();
+        notifyDataSetChanged();
+    }
+
+    //当有新消息加到MsgList，自增mStart
+    private void incrementStartPosition() {
+        ++mStart;
     }
 
     public static abstract class ContentLongClickListener implements View.OnLongClickListener {

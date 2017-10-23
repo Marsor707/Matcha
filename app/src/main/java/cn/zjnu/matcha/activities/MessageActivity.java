@@ -52,6 +52,7 @@ public class MessageActivity extends BaseActivity {
         BaseFragment fragment;
         Bundle bundle = new Bundle();
         bundle.putLong(KEY_RECEIVER_ID, mReceiverId);
+        bundle.putBoolean(KEY_RECEIVER_IS_GROUP,true);
         if (mIsGroup) {
             fragment = ChatGroupFragment.newInstance(bundle);
         } else {

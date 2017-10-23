@@ -64,7 +64,7 @@
 
 
         <ImageView
-            android:id="@+id/btn_voice"
+            android:id="@+id/btn_record"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:enabled="true"
@@ -97,19 +97,19 @@
             android:enabled="true"
             android:foreground="@drawable/ic_touch_fg"
             android:padding="8dp"
-            android:src="@drawable/ic_emoij"
+            android:src="@drawable/ic_emoji"
             android:tint="@color/textPrimary" />
 
 
         <ImageView
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_submit"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:contentDescription="@string/app_name"
             android:enabled="true"
             android:foreground="@drawable/ic_touch_fg"
             android:padding="8dp"
-            android:src="@drawable/ic_more_function"
+            android:src="@drawable/sel_submit"
             android:tint="@color/textPrimary" />
     </LinearLayout>
 

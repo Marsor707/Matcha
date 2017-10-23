@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.widget.adapter;
+package cn.zjnu.matcha.widget.adapter.communicate;
 
 import android.text.Editable;
 import android.text.TextWatcher;

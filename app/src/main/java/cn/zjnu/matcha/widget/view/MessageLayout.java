@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.widget;
+package cn.zjnu.matcha.widget.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;

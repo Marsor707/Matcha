@@ -31,7 +31,7 @@ import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupContract;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
 import cn.zjnu.matcha.fragments.communicate.chat.adapter.ChatGroupAdapter;
 import cn.zjnu.matcha.fragments.panel.PanelFragment;
-import cn.zjnu.matcha.widget.adapter.TextWatcherAdapter;
+import cn.zjnu.matcha.widget.adapter.communicate.TextWatcherAdapter;
 
 /**
  * Created by fsh on 2017/10/17.

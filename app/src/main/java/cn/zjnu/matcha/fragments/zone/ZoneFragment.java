@@ -1,19 +1,39 @@
 package cn.zjnu.matcha.fragments.zone;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.BaseFragment;
+import cn.zjnu.matcha.core.utils.qrcode.QRCode;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ZoneFragment extends BaseFragment {
+
+    @BindView(R.id.edit_content)
+    EditText mEditContent;
+    @BindView(R.id.img_qr)
+    ImageView mImgQR;
+
+    @OnClick(R.id.btn_submit)
+    void onClick() {
+        String edit = mEditContent.getText().toString();
+        Bitmap bitmap = QRCode.createQRCode(edit);
+        mImgQR.setImageBitmap(bitmap);
+    }
 
     @Override
     protected Object getContentLayoutId() {

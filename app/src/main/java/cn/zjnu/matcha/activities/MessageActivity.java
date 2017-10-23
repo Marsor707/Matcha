@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.GroupInfo;
-import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.BaseActivity;
 import cn.zjnu.matcha.core.app.BaseFragment;

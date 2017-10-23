@@ -1,6 +1,5 @@
 package cn.zjnu.matcha.fragments.communicate.chat;
 
-import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -9,13 +8,19 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import net.qiujuer.widget.airpanel.AirPanel;
+import net.qiujuer.widget.airpanel.Util;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.ContentType;
@@ -35,6 +40,8 @@ import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
 import cn.zjnu.matcha.fragments.communicate.chat.adapter.ChatGroupAdapter;
 import cn.zjnu.matcha.fragments.communicate.chat.view.TipItem;
 import cn.zjnu.matcha.fragments.communicate.chat.view.TipView;
+import cn.zjnu.matcha.fragments.panel.PanelFragment;
+import cn.zjnu.matcha.widget.adapter.TextWatcherAdapter;
 
 /**
  * Created by fsh on 2017/10/17.
@@ -42,27 +49,66 @@ import cn.zjnu.matcha.fragments.communicate.chat.view.TipView;
 
 public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Presenter> implements ChatGroupContract.View {
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.txt_group_name)
-    AppCompatTextView mTxtGroupName;
-    @BindView(R.id.btn_submit)
-    ImageView mBtnSubmit;
-    @BindView(R.id.recycler)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.edit_content)
-    EditText mEditContent;
-
     private long mGroupId;
+    private AirPanel.Boss mPanelBoss;
+    private PanelFragment mPanelFragment;
+
     private boolean fromGroup;
 
     private Conversation mConversation;
     private ChatGroupAdapter mAdapter;
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.txt_group_name)
+    AppCompatTextView mTxtGroupName;
+    @BindView(R.id.edit_content)
+    EditText mContent;
+    @BindView(R.id.btn_submit)
+    ImageView mSubmit;
+    @BindView(R.id.recycler)
+    RecyclerView mRecyclerView;
+
+
     public static ChatGroupFragment newInstance(Bundle bundle) {
         ChatGroupFragment fragment = new ChatGroupFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @OnClick(R.id.btn_face)
+    void onFaceClick() {
+        mPanelBoss.openPanel();
+        mPanelFragment.showFace();
+    }
+
+    @OnClick(R.id.btn_record)
+    void onRecordClick() {
+        mPanelBoss.openPanel();
+        mPanelFragment.showRecord();
+    }
+
+    @OnClick(R.id.btn_submit)
+    void onSubmitClick() {
+        if (mSubmit.isActivated()) {
+            //发送
+            String content = mContent.getText().toString();
+            mContent.setText("");
+            // TODO: 发送逻辑
+            Message msg;
+            TextContent msgContent = new TextContent(content);
+            msg = mConversation.createSendMessage(msgContent);
+            mAdapter.addMsgToList(msg);
+            JMessageClient.sendMessage(msg);
+            mContent.setText("");
+        } else {
+            onMoreClick();
+        }
+    }
+
+    private void onMoreClick() {
+        mPanelBoss.openPanel();
+        mPanelFragment.showGallery();
     }
 
     @Override
@@ -82,6 +128,10 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         super.initWidget(root);
         mPresenter.getGroupInfo(mGroupId);
         initToolbar();
+        initPanel(root);
+        initEditContent();
+        mPanelFragment = (PanelFragment) getChildFragmentManager().findFragmentById(R.id.frag_panel);
+
     }
 
     private void initToolbar() {
@@ -90,6 +140,7 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPanelBoss.closePanel();
                 getActivity().finish();
             }
         });
@@ -97,8 +148,46 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Matcha.showToast("hello");
+                // TODO: 打开设置界面
                 return true;
+            }
+        });
+    }
+
+    private void initPanel(View root) {
+        mPanelBoss = (AirPanel.Boss) root.findViewById(R.id.lay_content);
+        mPanelBoss.setup(new AirPanel.PanelListener() {
+            @Override
+            public void requestHideSoftKeyboard() {
+                Util.hideKeyboard(mContent);
+            }
+        });
+        mPanelBoss.setOnStateChangedListener(new AirPanel.OnStateChangedListener() {
+            @Override
+            public void onPanelStateChanged(boolean isOpen) {
+                if (isOpen) {
+                    //进行一些界面操作
+                }
+            }
+
+            @Override
+            public void onSoftKeyboardStateChanged(boolean isOpen) {
+                if (isOpen) {
+                    //进行一些界面操作
+                }
+            }
+        });
+    }
+
+    //初始化输入框监听
+    private void initEditContent() {
+        mContent.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                String content = s.toString().trim();
+                boolean needSendMsg = !TextUtils.isEmpty(content);
+                //设置状态 改变对应的icon
+                mSubmit.setActivated(needSendMsg);
             }
         });
     }
@@ -115,6 +204,16 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
     }
 
     @Override
+    public boolean onBackPressed() {
+        if (mPanelBoss.isOpen()) {
+            //关闭面板并且返回true表示自己已经处理了返回消费
+            mPanelBoss.closePanel();
+            return true;
+        }
+        return super.onBackPressed();
+    }
+
+    @Override
     protected void initData() {
         super.initData();
         if (fromGroup) {
@@ -124,25 +223,6 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
             mRecyclerView.setLayoutManager(manager);
             mRecyclerView.setAdapter(mAdapter);
         }
-        initView();
-    }
-
-    private void initView() {
-        mBtnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String msgContent = mEditContent.getText().toString();
-                if (msgContent.equals("")) {
-                    return;
-                }
-                Message msg;
-                TextContent content = new TextContent(msgContent);
-                msg = mConversation.createSendMessage(content);
-                mAdapter.addMsgToList(msg);
-                JMessageClient.sendMessage(msg);
-                mEditContent.setText("");
-            }
-        });
     }
 
     public void onEvent(MessageEvent event) {

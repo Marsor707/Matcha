@@ -1,8 +1,5 @@
 package cn.zjnu.matcha.fragments.communicate.chat;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,23 +20,16 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
-import cn.jpush.im.android.api.enums.ContentType;
-import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.Message;
-import cn.jpush.im.api.BasicCallback;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.MessageActivity;
-import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
-import cn.zjnu.matcha.factory.model.jiguang.ResponseCodes;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupContract;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
 import cn.zjnu.matcha.fragments.communicate.chat.adapter.ChatGroupAdapter;
-import cn.zjnu.matcha.fragments.communicate.chat.view.TipItem;
-import cn.zjnu.matcha.fragments.communicate.chat.view.TipView;
 import cn.zjnu.matcha.fragments.panel.PanelFragment;
 import cn.zjnu.matcha.widget.adapter.TextWatcherAdapter;
 
@@ -52,8 +42,6 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
     private long mGroupId;
     private AirPanel.Boss mPanelBoss;
     private PanelFragment mPanelFragment;
-
-    private boolean fromGroup;
 
     private Conversation mConversation;
     private ChatGroupAdapter mAdapter;
@@ -99,7 +87,8 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
             TextContent msgContent = new TextContent(content);
             msg = mConversation.createSendMessage(msgContent);
             mAdapter.addMsgToList(msg);
-            JMessageClient.sendMessage(msg);
+            mPresenter.sendMessage(msg);
+            scrollToBottom();
             mContent.setText("");
         } else {
             onMoreClick();
@@ -120,7 +109,6 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
     protected void initArgs(Bundle bundle) {
         Bundle mBundle = getArguments();
         mGroupId = mBundle.getLong(MessageActivity.KEY_RECEIVER_ID);
-        fromGroup = mBundle.getBoolean(MessageActivity.KEY_RECEIVER_IS_GROUP);
     }
 
     @Override
@@ -140,6 +128,7 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Util.hideKeyboard(mContent);
                 mPanelBoss.closePanel();
                 getActivity().finish();
             }
@@ -167,6 +156,7 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
             public void onPanelStateChanged(boolean isOpen) {
                 if (isOpen) {
                     //进行一些界面操作
+                    scrollToBottom();
                 }
             }
 
@@ -174,6 +164,7 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
             public void onSoftKeyboardStateChanged(boolean isOpen) {
                 if (isOpen) {
                     //进行一些界面操作
+                    scrollToBottom();
                 }
             }
         });
@@ -199,6 +190,17 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
     }
 
     @Override
+    public void getConversation(Conversation conversation) {
+        this.mConversation = conversation;
+        mAdapter = new ChatGroupAdapter(getContext(), conversation);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setStackFromEnd(true);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
+//        scrollToBottom();
+    }
+
+    @Override
     protected ChatGroupContract.Presenter initPresenter() {
         return new ChatGroupPresenter(this);
     }
@@ -216,122 +218,26 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
     @Override
     protected void initData() {
         super.initData();
-        if (fromGroup) {
-            mConversation = JMessageClient.getGroupConversation(mGroupId);
-            mAdapter = new ChatGroupAdapter(getContext(), mConversation, longClickListener);
-            LinearLayoutManager manager = new LinearLayoutManager(getContext());
-            mRecyclerView.setLayoutManager(manager);
-            mRecyclerView.setAdapter(mAdapter);
-        }
+        mPresenter.getGroupInfo(mGroupId);
+        mPresenter.fetchConversation(mGroupId);
+    }
+
+    public void scrollToBottom() {
+        mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
     }
 
     public void onEvent(MessageEvent event) {
         final Message message = event.getMessage();
-        switch (message.getContentType()) {
-            case text:
-                TextContent content = (TextContent) message.getContent();
-                content.getText();
-                mAdapter.addMsgToList(message);
-                Log.d("message_content", content.getText());
-                break;
-            default:
-                Log.d("message_content", "111111");
-                break;
+        GroupInfo groupInfo = (GroupInfo) message.getTargetInfo();
+        if (groupInfo.getGroupID() == mGroupId) {
+            switch (message.getContentType()) {
+                case text:
+                    mAdapter.addMsgToList(message);
+                    scrollToBottom();
+                    break;
+                default:
+                    break;
+            }
         }
     }
-
-    private ChatGroupAdapter.ContentLongClickListener longClickListener = new ChatGroupAdapter.ContentLongClickListener() {
-        @Override
-        public void onContentLongClick(int position, View view) {
-            final Message msg = mAdapter.getMessage(position);
-
-            if (msg == null) {
-                return;
-            }
-
-            if (msg.getContentType() == ContentType.text) {
-                if (msg.getDirect() == MessageDirect.receive) {
-                    int[] location = new int[2];
-                    view.getLocationOnScreen(location);
-                    float OldListY = (float) location[1];
-                    float OldListX = (float) location[0];
-                    new TipView.Builder(getContext(), mRecyclerView, (int) OldListX + view.getWidth() / 2, (int) OldListY + view.getHeight())
-                            .addItem(new TipItem("复制"))
-                            .addItem(new TipItem("删除"))
-                            .setOnItemClickListener(new TipView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(String name, int position) {
-                                    if (position == 0) {
-                                        if (msg.getContentType() == ContentType.text) {
-                                            final String content = ((TextContent) msg.getContent()).getText();
-                                            ClipboardManager clipboardManager = (ClipboardManager) getActivity()
-                                                    .getSystemService(Context.CLIPBOARD_SERVICE);
-                                            ClipData clip = ClipData.newPlainText("Simple text", content);
-                                            clipboardManager.setPrimaryClip(clip);
-                                            Matcha.showToast("已复制");
-                                        } else {
-                                            Matcha.showToast("只支持复制文字");
-                                        }
-                                    } else {
-                                        mConversation.deleteMessage(msg.getId());
-                                        mAdapter.removeMessage(msg);
-                                    }
-                                }
-
-                                @Override
-                                public void dismiss() {
-
-                                }
-                            })
-                            .create();
-                } else {
-                    int[] location = new int[2];
-                    view.getLocationOnScreen(location);
-                    float OldListY = (float) location[1];
-                    float OldListX = (float) location[0];
-                    new TipView.Builder(getContext(), mRecyclerView, (int) OldListX + view.getWidth() / 2, (int) OldListY + view.getHeight())
-                            .addItem(new TipItem("复制"))
-                            .addItem(new TipItem("撤回"))
-                            .addItem(new TipItem("删除"))
-                            .setOnItemClickListener(new TipView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(String name, int position) {
-                                    if (position == 0) {
-                                        if (msg.getContentType() == ContentType.text) {
-                                            final String content = ((TextContent) msg.getContent()).getText();
-                                            ClipboardManager clipboardManager = (ClipboardManager) getActivity()
-                                                    .getSystemService(Context.CLIPBOARD_SERVICE);
-                                            ClipData clip = ClipData.newPlainText("Simple text", content);
-                                            clipboardManager.setPrimaryClip(clip);
-                                            Matcha.showToast("已复制");
-                                        } else {
-                                            Matcha.showToast("只支持复制文字");
-                                        }
-                                    } else if (position == 1) {
-                                        mConversation.retractMessage(msg, new BasicCallback() {
-                                            @Override
-                                            public void gotResult(int i, String s) {
-                                                if (i == 855001) {
-                                                    Matcha.showToast("消息发送超过3分钟，不能撤回");
-                                                } else if (i == ResponseCodes.SUCCESSFUL) {
-                                                    mAdapter.delMsgRetract(msg);
-                                                }
-                                            }
-                                        });
-                                    } else {
-                                        mConversation.deleteMessage(msg.getId());
-                                        mAdapter.removeMessage(msg);
-                                    }
-                                }
-
-                                @Override
-                                public void dismiss() {
-
-                                }
-                            })
-                            .create();
-                }
-            }
-        }
-    };
 }

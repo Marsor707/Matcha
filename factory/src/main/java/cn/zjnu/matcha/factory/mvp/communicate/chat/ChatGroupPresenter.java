@@ -2,7 +2,9 @@ package cn.zjnu.matcha.factory.mvp.communicate.chat;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetGroupInfoCallback;
+import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.GroupInfo;
+import cn.jpush.im.android.api.model.Message;
 import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.factory.model.jiguang.ResponseCodes;
@@ -32,4 +34,16 @@ public class ChatGroupPresenter extends BasePresenter<ChatGroupContract.View> im
             }
         });
     }
+
+    @Override
+    public void fetchConversation(long groupId) {
+        Conversation conversation = JMessageClient.getGroupConversation(groupId);
+        getView().getConversation(conversation);
+    }
+
+    @Override
+    public void sendMessage(Message message) {
+        JMessageClient.sendMessage(message);
+    }
+
 }

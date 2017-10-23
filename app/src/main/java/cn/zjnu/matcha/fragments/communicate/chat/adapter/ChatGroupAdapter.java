@@ -53,7 +53,6 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<Message> delMessage = new ArrayList<>();
     //撤回消息
     private List<Message> forDel = new ArrayList<>();
-    private ContentLongClickListener mLongClickListener;
 
     //文本
     private final int TYPE_SEND_TXT = 0;
@@ -62,11 +61,10 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //自定义消息
     private final int TYPE_CUSTOM_TXT = 13;
 
-    public ChatGroupAdapter(Context context, Conversation conversation, ContentLongClickListener longClickListener) {
+    public ChatGroupAdapter(Context context, Conversation conversation) {
         this.mContext = context;
         this.mConversation = conversation;
         this.mInflater = LayoutInflater.from(context);
-        this.mLongClickListener = longClickListener;
         DisplayMetrics dm = new DisplayMetrics();
         mActivity = (Activity) context;
         mActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -78,13 +76,10 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mGroupId = groupInfo.getGroupID();
     }
 
-    public ChatGroupAdapter(Context context, Conversation conversation,
-                            ContentLongClickListener longClickListener,
-                            int msgId) {
+    public ChatGroupAdapter(Context context, Conversation conversation, int msgId) {
         this.mContext = context;
         this.mConversation = conversation;
         this.mInflater = LayoutInflater.from(context);
-        this.mLongClickListener = longClickListener;
         DisplayMetrics dm = new DisplayMetrics();
         mActivity = (Activity) context;
         mActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -110,7 +105,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i("TAG", "onCreateViewHolder: "+viewType);
+        Log.i("TAG", "onCreateViewHolder: " + viewType);
         switch (viewType) {
             case TYPE_SEND_TXT:
                 return new TextSendViewHolder(mInflater.inflate(R.layout.cell_chat_right_text, parent, false));
@@ -143,13 +138,11 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 sendViewHolder.imgPortrait.setImageResource(R.drawable.bg_user_default_portrait);
             }
             sendViewHolder.imgPortrait.setTag(position);
-            sendViewHolder.imgPortrait.setOnLongClickListener(mLongClickListener);
             switch (msg.getContentType()) {
                 case text:
                     final String content = ((TextContent) msg.getContent()).getText();
                     sendViewHolder.txtContent.setText(content);
                     sendViewHolder.txtContent.setTag(position);
-                    sendViewHolder.txtContent.setOnLongClickListener(mLongClickListener);
                     break;
                 default:
                     break;
@@ -171,13 +164,11 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 receiverViewHolder.imgPortrait.setImageResource(R.drawable.bg_user_default_portrait);
             }
             receiverViewHolder.imgPortrait.setTag(position);
-            receiverViewHolder.imgPortrait.setOnLongClickListener(mLongClickListener);
             switch (msg.getContentType()) {
                 case text:
                     final String content = ((TextContent) msg.getContent()).getText();
                     receiverViewHolder.txtContent.setText(content);
                     receiverViewHolder.txtContent.setTag(position);
-                    receiverViewHolder.txtContent.setOnLongClickListener(mLongClickListener);
                     break;
                 default:
                     break;
@@ -227,39 +218,12 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public Message getMessage(int position) {
-        return mMsgList.get(position);
-    }
-
-
-    public void removeMessage(Message message) {
-        for (Message msg : mMsgList) {
-            if (msg.getServerMessageId().equals(message.getServerMessageId())) {
-                delMessage.add(msg);
-            }
-        }
-        mMsgList.removeAll(delMessage);
-        notifyDataSetChanged();
-    }
-
-    //找到撤回的那一条消息,并且用撤回后event下发的去替换掉这条消息在集合中的原位置
-    public void delMsgRetract(Message message) {
-        int i = 0;
-        for (Message msg : mMsgList) {
-            if (msg.getServerMessageId().equals(message.getServerMessageId())) {
-                i = mMsgList.indexOf(msg);
-                forDel.add(msg);
-            }
-        }
-        mMsgList.removeAll(forDel);
-        mMsgList.add(i, message);
-        notifyDataSetChanged();
-    }
-
     public void addMsgToList(Message message) {
+        int oldItemCount = mMsgList.size();
         mMsgList.add(message);
+        int newItemCount = mMsgList.size();
         incrementStartPosition();
-        notifyDataSetChanged();
+        notifyItemInserted(newItemCount - 1);
     }
 
     //当有新消息加到MsgList，自增mStart
@@ -267,14 +231,5 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ++mStart;
     }
 
-    public static abstract class ContentLongClickListener implements View.OnLongClickListener {
-        @Override
-        public boolean onLongClick(View v) {
-            onContentLongClick((Integer) v.getTag(), v);
-            return true;
-        }
-
-        public abstract void onContentLongClick(int position, View view);
-    }
 
 }

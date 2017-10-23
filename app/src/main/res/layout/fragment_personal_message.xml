@@ -123,6 +123,17 @@
                 app:sRightTextGravity="center"
                 app:sRightTvDrawableRight="@drawable/ic_chevron_right"
                 app:sRightViewMarginRight="16dp" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_log_out"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_btn_primary"
+                android:text="@string/log_out"
+                android:textColor="@android:color/white" />
         </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

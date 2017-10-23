@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="cn.zjnu.matcha.fragments.account.LoginFragment">
+    tools:context="cn.zjnu.matcha.fragments.groupmember.GroupDescribe">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -41,11 +41,17 @@
                 android:layout_margin="8dp"
                 android:src="@drawable/ic_group" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_group_portrait"
+            <LinearLayout
+                android:id="@+id/linear_group_member"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:scrollbars="none" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+1" />
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/ib_add_group_member"

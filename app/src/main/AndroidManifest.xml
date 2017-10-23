@@ -26,6 +26,8 @@
             android:name=".activities.MessageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".activities.GroupMemberActivity"/>
+        <activity android:name=".fragments.groupmember.GroupDescribe"/>
     </application>
 
 </manifest>

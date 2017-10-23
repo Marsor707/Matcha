@@ -30,6 +30,7 @@ import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupContract;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
 import cn.zjnu.matcha.fragments.communicate.chat.adapter.ChatGroupAdapter;
+import cn.zjnu.matcha.fragments.groupmember.GroupDescribe;
 import cn.zjnu.matcha.fragments.panel.PanelFragment;
 import cn.zjnu.matcha.widget.adapter.communicate.TextWatcherAdapter;
 
@@ -137,7 +138,7 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                // TODO: 打开设置界面
+                GroupDescribe.show(getContext());
                 return true;
             }
         });

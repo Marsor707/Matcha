@@ -20,6 +20,7 @@ import cn.zjnu.matcha.factory.model.jiguang.ResponseCodes;
 public class RegisterPresenter extends BasePresenter<RegisterContract.View> implements RegisterContract.Presenter {
     private Context mContext;
 
+
     public RegisterPresenter(RegisterContract.View view) {
         super(view);
     }

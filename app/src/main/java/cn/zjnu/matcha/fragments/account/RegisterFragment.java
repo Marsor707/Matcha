@@ -51,6 +51,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
             mSubmit.setEnabled(false);
             mTxtGoLogin.setEnabled(false);
             mPresenter.getContext(getContext());
+
             mPresenter.register(mName.getText().toString(), mPassword.getText().toString());
         } else {
             Matcha.showToast("请检查所填信息是否有误");

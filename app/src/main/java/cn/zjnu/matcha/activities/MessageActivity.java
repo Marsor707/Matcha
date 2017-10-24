@@ -1,14 +1,19 @@
 package cn.zjnu.matcha.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.BaseActivity;
 import cn.zjnu.matcha.core.app.BaseFragment;
+import cn.zjnu.matcha.core.interfaze.OnHideKeyboardListener;
 import cn.zjnu.matcha.fragments.communicate.chat.ChatGroupFragment;
+import cn.zjnu.matcha.interfaze.IKeySend;
 
 public class MessageActivity extends BaseActivity {
 
@@ -19,6 +24,17 @@ public class MessageActivity extends BaseActivity {
 
     private long mReceiverId;
     private boolean mIsGroup;
+
+    private IKeySend mSendListener;
+    private OnHideKeyboardListener mHideListener;
+
+    public void setSendListener(IKeySend mSendListener) {
+        this.mSendListener = mSendListener;
+    }
+
+    public void setHideListener(OnHideKeyboardListener mHideListener) {
+        this.mHideListener = mHideListener;
+    }
 
     /**
      * 发起群聊
@@ -60,4 +76,17 @@ public class MessageActivity extends BaseActivity {
                 .add(R.id.lay_container, fragment)
                 .commit();
     }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            if (mSendListener != null) {
+                mSendListener.onSendMessage();
+                return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+
 }

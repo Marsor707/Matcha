@@ -2,12 +2,14 @@ package cn.zjnu.matcha.fragments.personal;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
+import android.text.TextUtils;
+import android.widget.EditText;
 
 import com.allen.library.SuperTextView;
 import com.bumptech.glide.Glide;
@@ -72,6 +74,32 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
 
     }
 
+    @OnClick(R.id.txt_nickname)
+    void onNickNameClick() {
+        final EditText editText = new EditText(getContext());
+        editText.setBackground(null);
+        editText.setPadding(80, 80, 80, 80);
+        editText.setMaxLines(1);
+        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
+        new AlertDialog.Builder(getContext())
+                .setTitle("请输入用户名")
+                .setView(editText)
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String nickName = editText.getText().toString();
+                        if (TextUtils.isEmpty(nickName)) {
+                            Matcha.showToast("昵称不能为空");
+                        } else {
+                            mPresenter.setNickName(nickName);
+                        }
+                    }
+                })
+                .show();
+    }
+
+
     @OnClick(R.id.txt_portrait)
     void onPortraitClick() {
         mPresenter.initCallback();
@@ -81,7 +109,9 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     @Override
     protected void initData() {
         super.initData();
-        mPresenter.setUserPortrait();
+        mPresenter.getUserPortrait();
+        mPresenter.getUserName();
+        mPresenter.getNickName();
     }
 
     @Override
@@ -109,10 +139,25 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     }
 
     @Override
+    public void initUserName(String userName) {
+        mTxtName.setRightString(userName);
+    }
+
+    @Override
+    public void initNickName(String nickName) {
+        mTxtNickname.setRightString(nickName);
+    }
+
+    @Override
     public void setUserPortrait(Uri uri) {
         Glide.with(getContext())
                 .load(uri)
                 .apply(requestOptions)
                 .into(mImgPortrait);
+    }
+
+    @Override
+    public void updateNickName(String nickName) {
+        mTxtNickname.setRightString(nickName);
     }
 }

@@ -3,6 +3,7 @@ package cn.zjnu.matcha.factory.mvp.personal;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -32,7 +33,7 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
     }
 
     @Override
-    public void setUserPortrait() {
+    public void getUserPortrait() {
         UserInfo userInfo = JMessageClient.getMyInfo();
         userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
             @Override
@@ -62,6 +63,40 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
                         }
                     }
                 });
+    }
+
+    @Override
+    public void getUserName() {
+        UserInfo userInfo = JMessageClient.getMyInfo();
+        String userName = userInfo.getUserName();
+        if (userName != null && !TextUtils.isEmpty(userName)) {
+            getView().initUserName(userName);
+        }
+    }
+
+    @Override
+    public void getNickName() {
+        UserInfo userInfo = JMessageClient.getMyInfo();
+        String nickName = userInfo.getNickname();
+        if (nickName != null && !TextUtils.isEmpty(nickName)) {
+            getView().initNickName(nickName);
+        }
+    }
+
+    @Override
+    public void setNickName(final String nickName) {
+        UserInfo userInfo = JMessageClient.getMyInfo();
+        userInfo.setNickname(nickName);
+        JMessageClient.updateMyInfo(UserInfo.Field.nickname, userInfo, new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if (i == ResponseCodes.SUCCESSFUL) {
+                    getView().updateNickName(nickName);
+                } else {
+                    getView().showError(s);
+                }
+            }
+        });
     }
 
     private void updateUserPortrait(final Uri uri) {

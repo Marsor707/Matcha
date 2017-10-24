@@ -9,6 +9,8 @@
     <color name="textSecond">#8d9ca9</color>
 
     <color name="textView">#d7d9e2</color>
+    <!--警告色-->
+    <color name="textWarn">#FF395E</color>
 
     <!--对话栏背景色-->
     <color name="colorHighWhite">#FFFFFF</color>

@@ -15,12 +15,24 @@ public interface PersonalContract {
     interface View extends BaseContract.View<Presenter> {
         void initPortrait(byte[] bytes);
 
+        void initUserName(String userName);
+
+        void initNickName(String nickName);
+
         void setUserPortrait(Uri uri);
+
+        void updateNickName(String nickName);
     }
 
     interface Presenter extends BaseContract.Presenter {
-        void setUserPortrait();
+        void getUserPortrait();
 
         void initCallback();
+
+        void getUserName();
+
+        void getNickName();
+
+        void setNickName(String nickName);
     }
 }

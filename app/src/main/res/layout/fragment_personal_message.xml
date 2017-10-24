@@ -82,7 +82,6 @@
                 app:sLeftTextSize="18sp"
                 app:sLeftTextString="@string/nick_name"
                 app:sRightTextGravity="center"
-                app:sRightTextString="ABC"
                 app:sRightTvDrawableRight="@drawable/ic_chevron_right"
                 app:sRightViewMarginRight="16dp"
                 app:sTopDividerLineMarginLR="16dp" />
@@ -96,7 +95,6 @@
                 app:sLeftTextSize="18sp"
                 app:sLeftTextString="@string/name"
                 app:sRightTextGravity="center"
-                app:sRightTextString="张三"
                 app:sRightTvDrawableRight="@drawable/ic_chevron_right"
                 app:sRightViewMarginRight="16dp" />
 
@@ -108,7 +106,7 @@
                 app:sLeftTextColor="@color/textPrimary"
                 app:sLeftTextSize="18sp"
                 app:sLeftTextString="@string/phone"
-                app:sRightTextColor="@android:color/black"
+                app:sRightTextColor="@color/textWarn"
                 app:sRightTextGravity="center"
                 app:sRightTextString="未设置"
                 app:sRightTvDrawableRight="@drawable/ic_chevron_right"

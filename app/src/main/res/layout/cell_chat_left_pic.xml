@@ -16,12 +16,21 @@
         android:paddingBottom="8dp"
         android:paddingEnd="8dp"
         android:paddingStart="48dp"
-        android:paddingTop="8dp">
+        android:paddingTop="2dp">
+
+        <TextView
+            android:id="@+id/txt_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="@string/nick_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/textPrimary" />
 
         <ImageView
             android:id="@+id/pic_content"
             android:layout_width="wrap_content"
             android:layout_height="76dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:maxWidth="128dp"
             android:minWidth="48dp"

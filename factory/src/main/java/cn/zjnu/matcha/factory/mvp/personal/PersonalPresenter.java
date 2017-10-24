@@ -42,6 +42,8 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, bo);
                     byte[] bytes = bo.toByteArray();
                     getView().initPortrait(bytes);
+                } else if (i == 871311) {
+                    // 用户没有头像时逻辑
                 } else {
                     getView().showError(s);
                 }

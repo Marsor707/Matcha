@@ -10,6 +10,7 @@
     tools:context="cn.zjnu.matcha.fragments.communicate.chat.ChatGroupFragment">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -79,6 +80,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:hint="@string/chat_send"
+            android:imeOptions="actionSend"
             android:lineSpacingExtra="0dp"
             android:lineSpacingMultiplier="1"
             android:maxHeight="68dp"
@@ -108,7 +110,7 @@
             android:enabled="true"
             android:foreground="@drawable/ic_touch_fg"
             android:padding="8dp"
-            android:src="@drawable/sel_submit"
+            android:src="@drawable/ic_image"
             android:tint="@color/textPrimary" />
     </LinearLayout>
 

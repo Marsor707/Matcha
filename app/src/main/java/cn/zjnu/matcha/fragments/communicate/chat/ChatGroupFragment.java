@@ -1,14 +1,16 @@
 package cn.zjnu.matcha.fragments.communicate.chat;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -26,11 +28,12 @@ import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.GroupSettingActivity;
 import cn.zjnu.matcha.activities.MessageActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
+import cn.zjnu.matcha.core.interfaze.OnHideKeyboardListener;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupContract;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
 import cn.zjnu.matcha.fragments.communicate.chat.adapter.ChatGroupAdapter;
-import cn.zjnu.matcha.fragments.communicate.chat.adapter.TextWatcherAdapter;
 import cn.zjnu.matcha.fragments.panel.PanelFragment;
+import cn.zjnu.matcha.interfaze.IKeySend;
 
 /**
  * Created by fsh on 2017/10/17.
@@ -56,11 +59,34 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
 
+    private IKeySend mSendListener = new IKeySend() {
+        @Override
+        public void onSendMessage() {
+            String content = mContent.getText().toString();
+            mContent.setText("");
+            // TODO: 发送逻辑
+            Message msg;
+            TextContent msgContent = new TextContent(content);
+            msg = mConversation.createSendMessage(msgContent);
+            mAdapter.addMsgToList(msg);
+            mPresenter.sendMessage(msg);
+            scrollToBottom();
+            mContent.setText("");
+        }
+    };
+
+    private OnHideKeyboardListener mHideListener;
 
     public static ChatGroupFragment newInstance(Bundle bundle) {
         ChatGroupFragment fragment = new ChatGroupFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @OnClick(R.id.btn_submit)
+    void onImgClick() {
+        mPanelBoss.openPanel();
+        mPanelFragment.showGallery();
     }
 
     @OnClick(R.id.btn_face)
@@ -75,28 +101,10 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         mPanelFragment.showRecord();
     }
 
-    @OnClick(R.id.btn_submit)
-    void onSubmitClick() {
-        if (mSubmit.isActivated()) {
-            //发送
-            String content = mContent.getText().toString();
-            mContent.setText("");
-            // TODO: 发送逻辑
-            Message msg;
-            TextContent msgContent = new TextContent(content);
-            msg = mConversation.createSendMessage(msgContent);
-            mAdapter.addMsgToList(msg);
-            mPresenter.sendMessage(msg);
-            scrollToBottom();
-            mContent.setText("");
-        } else {
-            onMoreClick();
-        }
-    }
-
-    private void onMoreClick() {
-        mPanelBoss.openPanel();
-        mPanelFragment.showGallery();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MessageActivity) getActivity()).setSendListener(mSendListener);
     }
 
     @Override
@@ -116,7 +124,6 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         mPresenter.getGroupInfo(mGroupId);
         initToolbar();
         initPanel(root);
-        initEditContent();
         mPanelFragment = (PanelFragment) getChildFragmentManager().findFragmentById(R.id.frag_panel);
 
     }
@@ -127,7 +134,6 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.hideKeyboard(mContent);
                 mPanelBoss.closePanel();
                 getActivity().finish();
             }
@@ -169,18 +175,6 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         });
     }
 
-    //初始化输入框监听
-    private void initEditContent() {
-        mContent.addTextChangedListener(new TextWatcherAdapter() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                String content = s.toString().trim();
-                boolean needSendMsg = !TextUtils.isEmpty(content);
-                //设置状态 改变对应的icon
-                mSubmit.setActivated(needSendMsg);
-            }
-        });
-    }
 
     @Override
     public void initHeader(GroupInfo group) {
@@ -196,7 +190,22 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         manager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
-//        scrollToBottom();
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (mPanelBoss.isOpen()) {
+                    mPanelBoss.closePanel();
+                }
+//                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputMethodManager.hideSoftInputFromWindow(mContent.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     @Override
@@ -239,4 +248,5 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
             }
         }
     }
+
 }

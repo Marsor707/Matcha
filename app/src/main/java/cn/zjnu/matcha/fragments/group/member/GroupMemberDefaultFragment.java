@@ -8,17 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.core.app.BaseFragment;
 
 /**
  * Created by fsh on 2017/10/22.
  */
 
-public class GroupMemberDefaultFragment extends Fragment {
+public class GroupMemberDefaultFragment extends BaseFragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_group_member_default, container, false);
-        return view;
+    protected Object getContentLayoutId() {
+        return R.layout.fragment_group_member_default;
     }
 
 }

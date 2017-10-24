@@ -105,7 +105,6 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i("TAG", "onCreateViewHolder: " + viewType);
         switch (viewType) {
             case TYPE_SEND_TXT:
                 return new TextSendViewHolder(mInflater.inflate(R.layout.cell_chat_right_text, parent, false));
@@ -190,7 +189,6 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        Log.d("mMsgList", mMsgList.size() + "");
         return mMsgList.size();
     }
 

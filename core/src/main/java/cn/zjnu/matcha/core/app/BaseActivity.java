@@ -176,11 +176,35 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if (onHideKeyboardListener.hideKeyboard(v,ev)) {
-                hideKeyboard(v.getWindowToken());
+            if (onHideKeyboardListener != null) {
+                if (onHideKeyboardListener.hideKeyboard(v, ev)) {
+                    hideKeyboard(v.getWindowToken());
+                }
+            } else {
+                if (isShouldKeyboardHide(v, ev)) {
+                    hideKeyboard(v.getWindowToken());
+                }
             }
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    private boolean isShouldKeyboardHide(View v, MotionEvent ev) {
+        if (v != null && v instanceof EditText) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0];
+            int top = l[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            if (ev.getX() > left && ev.getX() < right
+                    && ev.getY() > top && ev.getY() < bottom) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
     private void hideKeyboard(IBinder windowToken) {

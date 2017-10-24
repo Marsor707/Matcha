@@ -3,17 +3,13 @@ package cn.zjnu.matcha.fragments.account;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.wang.avi.AVLoadingIndicatorView;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zjnu.matcha.R;
-import cn.zjnu.matcha.activities.MainActivity;
 import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.account.RegisterContract;

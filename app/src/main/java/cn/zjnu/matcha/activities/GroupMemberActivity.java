@@ -14,11 +14,9 @@ import java.util.List;
 import butterknife.BindView;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.BaseActivity;
-import cn.zjnu.matcha.core.app.Matcha;
-import cn.zjnu.matcha.fragments.groupmember.GroupDescribe;
-import cn.zjnu.matcha.fragments.groupmember.GroupMemberActivityFragment;
-import cn.zjnu.matcha.fragments.groupmember.GroupMemberDefaultFrgment;
-import cn.zjnu.matcha.widget.adapter.fragment.FragmentAdapter;
+import cn.zjnu.matcha.fragments.group.member.GroupMemberDefaultFragment;
+import cn.zjnu.matcha.fragments.group.member.GroupMemberRankFragment;
+import cn.zjnu.matcha.fragments.group.member.adapter.GroupMemberAdapter;
 
 /**
  * Created by fsh on 2017/10/23.
@@ -64,15 +62,15 @@ public class GroupMemberActivity extends BaseActivity {
     private void initTabLayout() {
         List<Fragment> fragmentList = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        GroupMemberActivityFragment groupMemberActivityFragment = new GroupMemberActivityFragment();
-        GroupMemberDefaultFrgment groupMemberDefaultFrgment = new GroupMemberDefaultFrgment();
-        fragmentList.add(groupMemberActivityFragment);
-        fragmentList.add(groupMemberDefaultFrgment);
+        GroupMemberRankFragment groupMemberRankFragment = new GroupMemberRankFragment();
+        GroupMemberDefaultFragment groupMemberDefaultFragment = new GroupMemberDefaultFragment();
+        fragmentList.add(groupMemberRankFragment);
+        fragmentList.add(groupMemberDefaultFragment);
         String resActivity = getText(R.string.activity_member_list).toString();
         String resDefault = getText(R.string.default_member_list).toString();
         titles.add(resActivity);
         titles.add(resDefault);
-        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList, titles);
+        GroupMemberAdapter adapter = new GroupMemberAdapter(getSupportFragmentManager(), fragmentList, titles);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

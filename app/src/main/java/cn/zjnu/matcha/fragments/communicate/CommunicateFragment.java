@@ -18,14 +18,14 @@ import cn.zjnu.matcha.activities.MessageActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.communicate.CommunicateContract;
 import cn.zjnu.matcha.factory.mvp.communicate.CommunicatePresenter;
-import cn.zjnu.matcha.widget.adapter.communicate.GroupsAdapter;
+import cn.zjnu.matcha.fragments.communicate.adapter.JoinedGroupsAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CommunicateFragment extends PresenterFragment<CommunicateContract.Presenter> implements CommunicateContract.View {
 
-    private GroupsAdapter mAdapter;
+    private JoinedGroupsAdapter mAdapter;
 
     public static CommunicateFragment newInstance(Bundle bundle) {
         CommunicateFragment fragment = new CommunicateFragment();
@@ -49,7 +49,7 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
 
     @Override
     public void showGroupList(final List<GroupInfo> groupInfos) {
-        mAdapter = new GroupsAdapter(R.layout.item_grouplist, groupInfos);
+        mAdapter = new JoinedGroupsAdapter(R.layout.item_grouplist, groupInfos);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);

@@ -20,9 +20,9 @@ import cn.zjnu.matcha.fragments.function.FunctionFragment;
 import cn.zjnu.matcha.fragments.personal.PersonalFragment;
 import cn.zjnu.matcha.fragments.read.ReadFragment;
 import cn.zjnu.matcha.fragments.zone.ZoneFragment;
+import cn.zjnu.matcha.widget.adapter.BottomViewAdapter;
 import cn.zjnu.matcha.widget.bottom.BottomNavigationHelper;
 import cn.zjnu.matcha.widget.bottom.MyViewPager;
-import cn.zjnu.matcha.widget.adapter.BottomViewAdapter;
 
 public class MainActivity extends BaseActivity implements OnNavigationItemSelectedListener {
 

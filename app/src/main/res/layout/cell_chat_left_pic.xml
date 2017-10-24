@@ -35,5 +35,5 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:padding="1dp"
-        android:src="@drawable/bg_user_default_portrait"/>
+        android:src="@drawable/bg_user_default_portrait" />
 </FrameLayout>

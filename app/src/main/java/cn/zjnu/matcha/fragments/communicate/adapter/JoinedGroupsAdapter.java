@@ -1,4 +1,4 @@
-package cn.zjnu.matcha.widget.adapter.communicate;
+package cn.zjnu.matcha.fragments.communicate.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -17,14 +17,14 @@ import cn.zjnu.matcha.R;
  * Email: 369135912@qq.com
  */
 
-public class GroupsAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> {
+public class JoinedGroupsAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> {
 
-    public GroupsAdapter(@LayoutRes int layoutResId, @Nullable List<GroupInfo> data) {
+    public JoinedGroupsAdapter(@LayoutRes int layoutResId, @Nullable List<GroupInfo> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, GroupInfo item) {
-        helper.setText(R.id.txt_group_name,item.getGroupName());
+        helper.setText(R.id.txt_group_name, item.getGroupName());
     }
 }

@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -18,21 +17,20 @@ import net.qiujuer.widget.airpanel.Util;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.Message;
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.activities.GroupSettingActivity;
 import cn.zjnu.matcha.activities.MessageActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupContract;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
 import cn.zjnu.matcha.fragments.communicate.chat.adapter.ChatGroupAdapter;
-import cn.zjnu.matcha.fragments.groupmember.GroupDescribe;
+import cn.zjnu.matcha.fragments.communicate.chat.adapter.TextWatcherAdapter;
 import cn.zjnu.matcha.fragments.panel.PanelFragment;
-import cn.zjnu.matcha.widget.adapter.communicate.TextWatcherAdapter;
 
 /**
  * Created by fsh on 2017/10/17.
@@ -138,7 +136,7 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                GroupDescribe.show(getContext());
+                GroupSettingActivity.show(getContext());
                 return true;
             }
         });

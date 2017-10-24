@@ -2,7 +2,6 @@ package cn.zjnu.matcha.core.net;
 
 import android.content.Context;
 
-
 import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;

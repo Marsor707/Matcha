@@ -63,15 +63,16 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         @Override
         public void onSendMessage() {
             String content = mContent.getText().toString();
-            mContent.setText("");
-            // TODO: 发送逻辑
-            Message msg;
-            TextContent msgContent = new TextContent(content);
-            msg = mConversation.createSendMessage(msgContent);
-            mAdapter.addMsgToList(msg);
-            mPresenter.sendMessage(msg);
-            scrollToBottom();
-            mContent.setText("");
+            if (!content.equals("")) {
+                mContent.setText("");
+                // TODO: 发送逻辑
+                Message msg;
+                TextContent msgContent = new TextContent(content);
+                msg = mConversation.createSendMessage(msgContent);
+                mAdapter.addMsgToList(msg);
+                mPresenter.sendMessage(msg);
+                scrollToBottom();
+            }
         }
     };
 

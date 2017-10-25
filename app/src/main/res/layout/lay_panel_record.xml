@@ -5,11 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <Button
+        android:id="@+id/btn_voice"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:text="这是录音" />
+        android:background="@drawable/btn_record"
+        android:text="按住录音" />
 
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="play"/>
 </LinearLayout>

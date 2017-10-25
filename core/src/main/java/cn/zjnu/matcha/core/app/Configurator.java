@@ -66,6 +66,16 @@ public class Configurator {
         return this;
     }
 
+    public final Configurator withAppKey(String appKey) {
+        MATCHA_CONFIGS.put(ConfigKeys.APP_KEY, appKey);
+        return this;
+    }
+
+    public final Configurator withMasterSecret(String masterSecret) {
+        MATCHA_CONFIGS.put(ConfigKeys.MASTER_SECRET, masterSecret);
+        return this;
+    }
+
     private void checkConfiguration() {
         final boolean isReady = (boolean) MATCHA_CONFIGS.get(ConfigKeys.CONFIG_READY);
         if (!isReady) {

@@ -13,5 +13,7 @@ public enum ConfigKeys {
     LOADER_DELAYED,
     HANDLER,
     INTERCEPTOR,
-    ERROR_CODE
+    ERROR_CODE,
+    APP_KEY,
+    MASTER_SECRET,
 }

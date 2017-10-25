@@ -28,6 +28,8 @@ public class App extends Application {
                 .withApiHost("http://123.207.214.129:8081/")
                 .withInterceptor(new MainInterceptor())
                 .withLoaderDelayed(300)
+                .withAppKey("2a26068439feefd043504ca8")
+                .withMasterSecret("f63146136efe1ec314f1a45a")
                 .configure();
 
         initJMessage();

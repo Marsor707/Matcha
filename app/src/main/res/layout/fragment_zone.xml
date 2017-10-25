@@ -5,4 +5,10 @@
     android:orientation="vertical"
     tools:context="cn.zjnu.matcha.fragments.zone.ZoneFragment">
 
+    <Button
+        android:id="@+id/btn_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试" />
+
 </LinearLayout>

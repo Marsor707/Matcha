@@ -19,9 +19,13 @@ public interface PersonalContract {
 
         void initNickName(String nickName);
 
+        void initPhone(String phone);
+
         void setUserPortrait(Uri uri);
 
         void updateNickName(String nickName);
+
+        void setPhoneSuccess(String phone);
     }
 
     interface Presenter extends BaseContract.Presenter {
@@ -34,5 +38,9 @@ public interface PersonalContract {
         void getNickName();
 
         void setNickName(String nickName);
+
+        void getUserPhone();
+
+        void setPhone(String phone);
     }
 }

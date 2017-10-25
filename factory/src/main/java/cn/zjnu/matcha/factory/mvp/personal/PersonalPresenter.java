@@ -34,7 +34,7 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
 
     @Override
     public void getUserPortrait() {
-        UserInfo userInfo = JMessageClient.getMyInfo();
+        final UserInfo userInfo = JMessageClient.getMyInfo();
         userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
             @Override
             public void gotResult(int i, String s, Bitmap bitmap) {
@@ -67,8 +67,8 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
 
     @Override
     public void getUserName() {
-        UserInfo userInfo = JMessageClient.getMyInfo();
-        String userName = userInfo.getUserName();
+        final UserInfo userInfo = JMessageClient.getMyInfo();
+        final String userName = userInfo.getUserName();
         if (userName != null && !TextUtils.isEmpty(userName)) {
             getView().initUserName(userName);
         }
@@ -76,8 +76,8 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
 
     @Override
     public void getNickName() {
-        UserInfo userInfo = JMessageClient.getMyInfo();
-        String nickName = userInfo.getNickname();
+        final UserInfo userInfo = JMessageClient.getMyInfo();
+        final String nickName = userInfo.getNickname();
         if (nickName != null && !TextUtils.isEmpty(nickName)) {
             getView().initNickName(nickName);
         }
@@ -85,13 +85,36 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
 
     @Override
     public void setNickName(final String nickName) {
-        UserInfo userInfo = JMessageClient.getMyInfo();
+        final UserInfo userInfo = JMessageClient.getMyInfo();
         userInfo.setNickname(nickName);
         JMessageClient.updateMyInfo(UserInfo.Field.nickname, userInfo, new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
                 if (i == ResponseCodes.SUCCESSFUL) {
                     getView().updateNickName(nickName);
+                } else {
+                    getView().showError(s);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getUserPhone() {
+        final UserInfo userInfo = JMessageClient.getMyInfo();
+        final String phone = userInfo.getAddress();
+        getView().initPhone(phone);
+    }
+
+    @Override
+    public void setPhone(final String phone) {
+        final UserInfo userInfo = JMessageClient.getMyInfo();
+        userInfo.setAddress(phone);
+        JMessageClient.updateMyInfo(UserInfo.Field.address, userInfo, new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if (i == ResponseCodes.SUCCESSFUL) {
+                    getView().setPhoneSuccess(phone);
                 } else {
                     getView().showError(s);
                 }

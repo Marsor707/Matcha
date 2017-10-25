@@ -102,15 +102,15 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
     @Override
     public void getUserPhone() {
         final UserInfo userInfo = JMessageClient.getMyInfo();
-        final String phone = userInfo.getAddress();
+        String phone = userInfo.getExtra("phone");
         getView().initPhone(phone);
     }
 
     @Override
     public void setPhone(final String phone) {
         final UserInfo userInfo = JMessageClient.getMyInfo();
-        userInfo.setAddress(phone);
-        JMessageClient.updateMyInfo(UserInfo.Field.address, userInfo, new BasicCallback() {
+        userInfo.setUserExtras("phone", phone);
+        JMessageClient.updateMyInfo(UserInfo.Field.extras, userInfo, new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
                 if (i == ResponseCodes.SUCCESSFUL) {

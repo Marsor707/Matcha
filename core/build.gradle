@@ -70,8 +70,8 @@ dependencies {
     //webView
     compile 'com.just.agentweb:agentweb:2.0.1'
     //JMessage
-    compile 'cn.jiguang.sdk:jmessage:2.2.1'
-    compile 'cn.jiguang.sdk:jcore:1.1.6'
+    compile 'cn.jiguang.sdk:jmessage:2.3.0'
+    compile 'cn.jiguang.sdk:jcore:1.1.7'
     //recyclerView
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
     //zxing

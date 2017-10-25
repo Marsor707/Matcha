@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
@@ -105,7 +107,7 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
 
     @OnClick(R.id.txt_phone)
     void onPhoneClick() {
-        if (mTxtPhone.getRightString() == "未设置") {
+        if (Objects.equals(mTxtPhone.getRightString(), "未设置")) {
             final EditText editText = new EditText(getContext());
             editText.setBackground(null);
             editText.setPadding(80, 80, 80, 80);

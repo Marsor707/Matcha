@@ -40,6 +40,7 @@ public class App extends Application {
     private void initJMessage() {
         JMessageClient.setDebugMode(true);
         JMessageClient.init(this, true);
+        JMessageClient.setNotificationFlag(JMessageClient.FLAG_NOTIFY_DISABLE);
     }
 
     private void initShowLoginView() {

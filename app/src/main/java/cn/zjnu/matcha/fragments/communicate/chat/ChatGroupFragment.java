@@ -51,8 +51,8 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
     AppCompatTextView mTxtGroupName;
     @BindView(R.id.edit_content)
     EditText mContent;
-    @BindView(R.id.btn_submit)
-    ImageView mSubmit;
+    @BindView(R.id.btn_more)
+    ImageView mMore;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
 
@@ -80,22 +80,10 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         return fragment;
     }
 
-    @OnClick(R.id.btn_submit)
-    void onImgClick() {
+    @OnClick(R.id.btn_more)
+    void onMoreClick() {
         mPanelBoss.openPanel();
-        mPanelFragment.showGallery();
-    }
-
-    @OnClick(R.id.btn_face)
-    void onFaceClick() {
-        mPanelBoss.openPanel();
-        mPanelFragment.showFace();
-    }
-
-    @OnClick(R.id.btn_record)
-    void onRecordClick() {
-        mPanelBoss.openPanel();
-        mPanelFragment.showRecord();
+        mPanelFragment.showMore();
     }
 
     @Override

@@ -53,7 +53,7 @@ public class PanelFragment extends BaseFragment {
         mFacePanel.setVisibility(View.GONE);
     }
 
-    public void showGallery() {
+    public void showMore() {
         mGalleryPanel.setVisibility(View.VISIBLE);
         mRecordPanel.setVisibility(View.GONE);
         mFacePanel.setVisibility(View.GONE);

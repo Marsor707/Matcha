@@ -48,7 +48,7 @@
                 android:layout_centerInParent="true"
                 android:layout_margin="12dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/btn_join_group" />
+                android:src="@drawable/ic_scan" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"

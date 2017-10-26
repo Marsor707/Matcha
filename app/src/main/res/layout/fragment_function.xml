@@ -70,32 +70,6 @@
         android:paddingStart="20dp">
 
         <LinearLayout
-            android:id="@+id/linear_scan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingEnd="5dp"
-            android:paddingStart="5dp">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_scan" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/label_scan" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/linear_reserve"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

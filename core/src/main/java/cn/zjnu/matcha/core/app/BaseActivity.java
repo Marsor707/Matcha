@@ -1,15 +1,11 @@
 package cn.zjnu.matcha.core.app;
 
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 import java.util.List;
 
@@ -17,7 +13,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.LoginStateChangeEvent;
-import cn.zjnu.matcha.core.interfaze.OnHideKeyboardListener;
 import cn.zjnu.matcha.core.utils.callback.CallbackManager;
 import cn.zjnu.matcha.core.utils.callback.CallbackTypes;
 import qiu.niorgai.StatusBarCompat;
@@ -32,7 +27,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private static final long WAIT_TIME = 2000;
     private long TOUCH_TIME = 0;
-    private OnHideKeyboardListener onHideKeyboardListener;
     protected Unbinder mRootUnBinder;
 
     @Override
@@ -170,52 +164,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         CallbackManager.getInstance()
                 .getCallback(CallbackTypes.SHOW_LOGIN_VIEW)
                 .executeCallback(null);
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if (onHideKeyboardListener != null) {
-                if (onHideKeyboardListener.hideKeyboard(v, ev)) {
-                    hideKeyboard(v.getWindowToken());
-                }
-            } else {
-                if (isShouldKeyboardHide(v, ev)) {
-                    hideKeyboard(v.getWindowToken());
-                }
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    private boolean isShouldKeyboardHide(View v, MotionEvent ev) {
-        if (v != null && v instanceof EditText) {
-            int[] l = {0, 0};
-            v.getLocationInWindow(l);
-            int left = l[0];
-            int top = l[1];
-            int bottom = top + v.getHeight();
-            int right = left + v.getWidth();
-            if (ev.getX() > left && ev.getX() < right
-                    && ev.getY() > top && ev.getY() < bottom) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    private void hideKeyboard(IBinder windowToken) {
-        if (windowToken != null) {
-            InputMethodManager im = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            im.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-
-
-    public void setOnHideKeyboardListener(OnHideKeyboardListener onHideKeyboardListener) {
-        this.onHideKeyboardListener = onHideKeyboardListener;
     }
 }

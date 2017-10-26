@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.LoginStateChangeEvent;
-import cn.zjnu.matcha.core.interfaze.OnHideKeyboardListener;
 
 /**
  * Author: Marsor
@@ -33,30 +30,6 @@ public abstract class BaseFragment extends Fragment {
         //初始化参数
         initArgs(getArguments());
         JMessageClient.registerEventReceiver(this);
-        OnHideKeyboardListener listener = new OnHideKeyboardListener() {
-            @SuppressWarnings("RedundantIfStatement")
-            @Override
-            public boolean hideKeyboard(View v, MotionEvent ev) {
-                if (v != null && (v instanceof EditText)) {
-                    int[] l = {0, 0};
-                    //获取输入框当前的location位置
-                    v.getLocationInWindow(l);
-                    int left = l[0];
-                    int top = l[1];
-                    int bottom = top + v.getHeight();
-                    int right = left + v.getWidth();
-                    if (ev.getX() > left && ev.getX() < right
-                            && ev.getY() > top && ev.getY() < bottom) {
-                        //点击的是输入框区域，保留点击EditText的事件
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        };
-        ((BaseActivity) getActivity()).setOnHideKeyboardListener(listener);
     }
 
     @Nullable

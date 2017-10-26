@@ -123,6 +123,11 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (holder instanceof TextSendViewHolder) {
             final TextSendViewHolder sendViewHolder = (TextSendViewHolder) holder;
             if (userInfo != null && !TextUtils.isEmpty(userInfo.getAvatar())) {
+                if (userInfo.getNickname() != null) {
+                    sendViewHolder.texNickname.setText(userInfo.getNickname());
+                } else {
+                    sendViewHolder.texNickname.setText("");
+                }
                 userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
                     @Override
                     public void gotResult(int i, String s, Bitmap bitmap) {
@@ -149,6 +154,11 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (holder instanceof TextReceiverViewHolder) {
             final TextReceiverViewHolder receiverViewHolder = (TextReceiverViewHolder) holder;
             if (userInfo != null && !TextUtils.isEmpty(userInfo.getAvatar())) {
+                if (userInfo.getNickname() != null) {
+                    receiverViewHolder.texNickname.setText(userInfo.getNickname());
+                } else {
+                    receiverViewHolder.texNickname.setText("");
+                }
                 userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
                     @Override
                     public void gotResult(int i, String s, Bitmap bitmap) {
@@ -197,6 +207,8 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView txtContent;
         @BindView(R.id.img_portrait)
         CircleImageView imgPortrait;
+        @BindView(R.id.txt_nickname)
+        TextView texNickname;
 
         public TextSendViewHolder(View itemView) {
             super(itemView);
@@ -209,6 +221,8 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView txtContent;
         @BindView(R.id.img_portrait)
         CircleImageView imgPortrait;
+        @BindView(R.id.txt_nickname)
+        TextView texNickname;
 
         public TextReceiverViewHolder(View itemView) {
             super(itemView);
@@ -229,5 +243,13 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ++mStart;
     }
 
-
+    public void loadMoreMessage() {
+        List<Message> oldMessage = mConversation.getMessagesFromNewest(mStart, mStart + 17);
+        if (oldMessage != null && oldMessage.size() > 0) {
+            mStart += oldMessage.size();
+            reverse(oldMessage);
+            mMsgList.addAll(0, oldMessage);
+            notifyItemRangeInserted(0, oldMessage.size());
+        }
+    }
 }

@@ -9,7 +9,6 @@ import cn.jpush.im.android.api.model.GroupInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.BaseActivity;
 import cn.zjnu.matcha.core.app.BaseFragment;
-import cn.zjnu.matcha.core.interfaze.OnHideKeyboardListener;
 import cn.zjnu.matcha.fragments.communicate.chat.ChatGroupFragment;
 import cn.zjnu.matcha.interfaze.IKeySend;
 
@@ -24,15 +23,12 @@ public class MessageActivity extends BaseActivity {
     private boolean mIsGroup;
 
     private IKeySend mSendListener;
-    private OnHideKeyboardListener mHideListener;
+
 
     public void setSendListener(IKeySend mSendListener) {
         this.mSendListener = mSendListener;
     }
 
-    public void setHideListener(OnHideKeyboardListener mHideListener) {
-        this.mHideListener = mHideListener;
-    }
 
     /**
      * 发起群聊

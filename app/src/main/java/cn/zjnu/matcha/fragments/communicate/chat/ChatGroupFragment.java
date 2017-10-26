@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +26,6 @@ import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.GroupSettingActivity;
 import cn.zjnu.matcha.activities.MessageActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
-import cn.zjnu.matcha.core.interfaze.OnHideKeyboardListener;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupContract;
 import cn.zjnu.matcha.factory.mvp.communicate.chat.ChatGroupPresenter;
 import cn.zjnu.matcha.fragments.communicate.chat.adapter.ChatGroupAdapter;
@@ -73,7 +73,6 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         }
     };
 
-    private OnHideKeyboardListener mHideListener;
 
     public static ChatGroupFragment newInstance(Bundle bundle) {
         ChatGroupFragment fragment = new ChatGroupFragment();
@@ -188,6 +187,21 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         manager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (v instanceof RecyclerView) {
+                        if (mPanelBoss.isOpen()) {
+                            mPanelBoss.closePanel();
+                        }
+                        Util.hideKeyboard(v);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -195,13 +209,16 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
                 if (mPanelBoss.isOpen()) {
                     mPanelBoss.closePanel();
                 }
-//                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                inputMethodManager.hideSoftInputFromWindow(mContent.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager scrollManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int visibleItemCount = scrollManager.findFirstVisibleItemPosition();
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && visibleItemCount == 0) {
+                    recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.loadMoreMessage();
+                        }
+                    });
+                }
             }
         });
     }

@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,8 @@ import java.util.Queue;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
+import cn.jpush.im.android.api.content.EventNotificationContent;
+import cn.jpush.im.android.api.content.PromptContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
@@ -57,7 +58,8 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //文本
     private final int TYPE_SEND_TXT = 0;
     private final int TYPE_RECEIVE_TXT = 1;
-
+    //群成员变动
+    private final int TYPE_GROUP_CHANGE = 10;
     //自定义消息
     private final int TYPE_CUSTOM_TXT = 13;
 
@@ -110,6 +112,8 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new TextSendViewHolder(mInflater.inflate(R.layout.cell_chat_right_text, parent, false));
             case TYPE_RECEIVE_TXT:
                 return new TextReceiverViewHolder(mInflater.inflate(R.layout.cell_chat_left_text, parent, false));
+            case TYPE_GROUP_CHANGE:
+                return new GroupChangeViewHolder(mInflater.inflate(R.layout.cell_chat_item_group_change, parent, false));
             default:
                 return null;
         }
@@ -182,6 +186,30 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 default:
                     break;
             }
+        } else {
+            final GroupChangeViewHolder groupChangeViewHolder = (GroupChangeViewHolder) holder;
+            switch (msg.getContentType()) {
+                case eventNotification:
+                    final String content = ((EventNotificationContent) msg.getContent()).getEventText();
+                    EventNotificationContent.EventNotificationType type =
+                            ((EventNotificationContent) msg.getContent()).getEventNotificationType();
+                    switch (type) {
+                        case group_member_added:
+                        case group_member_exit:
+                        case group_member_removed:
+                            groupChangeViewHolder.groupContent.setText(content);
+                            groupChangeViewHolder.groupContent.setVisibility(View.VISIBLE);
+                            break;
+                    }
+                    break;
+                case prompt:
+                    final String promptContent = ((PromptContent) msg.getContent()).getPromptText();
+                    groupChangeViewHolder.groupContent.setText(promptContent);
+                    groupChangeViewHolder.groupContent.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -192,8 +220,11 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case text:
                 return msg.getDirect() == MessageDirect.send ? TYPE_SEND_TXT :
                         TYPE_RECEIVE_TXT;
+            case eventNotification:
+            case prompt:
+                return TYPE_GROUP_CHANGE;
             default:
-                return 0;
+                return TYPE_CUSTOM_TXT;
         }
     }
 
@@ -225,6 +256,16 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView texNickname;
 
         public TextReceiverViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    class GroupChangeViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.group_content)
+        TextView groupContent;
+
+        public GroupChangeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

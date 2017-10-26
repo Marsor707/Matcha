@@ -11,14 +11,14 @@ import cn.zjnu.matcha.core.factory.BaseContract;
 
 public interface CommunicateContract {
     interface Presenter extends BaseContract.Presenter {
-        void getGroupId();
+        void getGroupList();
 
-        void getGroupList(List<Long> id);
+        void initCallback();
     }
 
     interface View extends BaseContract.View<Presenter> {
         void showGroupList(List<GroupInfo> groupInfos);
 
-        void fetchGroupId(List<Long> id);
+        void joinGroupSuccess(GroupInfo groupInfo);
     }
 }

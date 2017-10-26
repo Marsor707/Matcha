@@ -9,9 +9,11 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.MessageActivity;
@@ -25,7 +27,8 @@ import cn.zjnu.matcha.fragments.communicate.adapter.JoinedGroupsAdapter;
  */
 public class CommunicateFragment extends PresenterFragment<CommunicateContract.Presenter> implements CommunicateContract.View {
 
-    private JoinedGroupsAdapter mAdapter;
+    private JoinedGroupsAdapter mAdapter = null;
+    private List<GroupInfo> mGroupInfos = new ArrayList<>();
 
     public static CommunicateFragment newInstance(Bundle bundle) {
         CommunicateFragment fragment = new CommunicateFragment();
@@ -36,6 +39,11 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+    @OnClick(R.id.txt_join_group)
+    void onJoinGroupClick() {
+        startScanWithCheck(getContext());
+    }
+
     @Override
     protected Object getContentLayoutId() {
         return R.layout.fragment_communicate;
@@ -44,21 +52,32 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
-        mPresenter.getGroupId();
+        initAdapter();
+        mPresenter.getGroupList();
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        mPresenter.initCallback();
     }
 
     @Override
     public void showGroupList(final List<GroupInfo> groupInfos) {
-        mAdapter = new JoinedGroupsAdapter(R.layout.item_grouplist, groupInfos);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
-        initItemClickListener();
+        for (GroupInfo groupInfo : groupInfos) {
+            if (!mGroupInfos.contains(groupInfo)) {
+                mGroupInfos.add(groupInfo);
+            }
+        }
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
-    public void fetchGroupId(List<Long> id) {
-        mPresenter.getGroupList(id);
+    public void joinGroupSuccess(GroupInfo groupInfo) {
+        mGroupInfos.add(groupInfo);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -73,6 +92,16 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
                 MessageActivity.show(getContext(), (GroupInfo) adapter.getData().get(position));
             }
         });
+    }
+
+    private void initAdapter() {
+        if (mAdapter == null) {
+            mAdapter = new JoinedGroupsAdapter(R.layout.item_grouplist, mGroupInfos);
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            mRecyclerView.setLayoutManager(manager);
+            mRecyclerView.setAdapter(mAdapter);
+            initItemClickListener();
+        }
     }
 
 }

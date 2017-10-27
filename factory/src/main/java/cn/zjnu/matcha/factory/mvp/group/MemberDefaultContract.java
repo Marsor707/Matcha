@@ -10,12 +10,12 @@ public interface MemberDefaultContract {
     interface Presenter extends BaseContract.Presenter {
         void getMemberInfos(long groupId);
 
-        void getMemberAvatar(String mediaId);
+        void getMemberAvatar(int position, String mediaId);
     }
 
     interface View extends BaseContract.View<Presenter> {
         void getMemberInfosSuccess(String response);
 
-        void getMemberAvatarSuccess(String response);
+        void getMemberAvatarSuccess(int position,String response);
     }
 }

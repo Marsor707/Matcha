@@ -5,6 +5,7 @@ import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
 import cn.zjnu.matcha.core.net.callbacks.IFailure;
 import cn.zjnu.matcha.core.net.callbacks.ISuccess;
+import cn.zjnu.matcha.factory.model.group.member.MemberInfo;
 
 /**
  * Created by Hu on 2017/10/27.
@@ -43,14 +44,14 @@ public class MemberDefaultPresenter extends BasePresenter<MemberDefaultContract.
     }
 
     @Override
-    public void getMemberAvatar(String mediaId) {
+    public void getMemberAvatar(final int position, String mediaId) {
         RestClient.builder()
                 .url("https://api.im.jpush.cn/v1/resource/")
                 .params("mediaId", mediaId)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        getView().getMemberAvatarSuccess(response);
+                        getView().getMemberAvatarSuccess(position,response);
                     }
                 })
                 .failure(new IFailure() {

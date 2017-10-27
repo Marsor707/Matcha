@@ -2,6 +2,7 @@ package cn.zjnu.matcha.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -32,8 +33,9 @@ public class GroupMemberActivity extends BaseActivity {
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
-    public static void show(Context context) {
+    public static void show(Context context, long id) {
         Intent intent = new Intent(context, GroupMemberActivity.class);
+        intent.putExtra("group_id", id);
         context.startActivity(intent);
     }
 
@@ -63,7 +65,7 @@ public class GroupMemberActivity extends BaseActivity {
         List<Fragment> fragmentList = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         GroupMemberRankFragment groupMemberRankFragment = new GroupMemberRankFragment();
-        GroupMemberDefaultFragment groupMemberDefaultFragment = new GroupMemberDefaultFragment();
+        GroupMemberDefaultFragment groupMemberDefaultFragment = GroupMemberDefaultFragment.newInstance(getIntent().getExtras());
         fragmentList.add(groupMemberRankFragment);
         fragmentList.add(groupMemberDefaultFragment);
         String resActivity = getText(R.string.activity_member_list).toString();

@@ -51,4 +51,6 @@
     <string name="jmui_saturday">周六</string>
     <string name="jmui_sunday">周日</string>
     <string name="log_out">退出登录</string>
+
+    <string name="quit_group">退群</string>
 </resources>

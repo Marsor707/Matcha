@@ -35,7 +35,6 @@
             android:layout_marginEnd="0dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-
             android:background="@drawable/chat_bubble_right"
             android:foreground="@color/maskChatHeader"
             android:gravity="center_vertical"

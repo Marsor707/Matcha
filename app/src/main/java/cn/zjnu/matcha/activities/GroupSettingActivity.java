@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.model.GroupInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.PresenterActivity;
 import cn.zjnu.matcha.core.utils.qrcode.QRCode;
@@ -30,6 +32,7 @@ import cn.zjnu.matcha.factory.mvp.communicate.group.GroupSettingPresenter;
 public class GroupSettingActivity extends PresenterActivity<GroupSettingContract.Presenter> implements GroupSettingContract.View {
 
     public static final String GROUP_ID = "GROUP_ID";
+    private long mGroupId;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -37,7 +40,8 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
     LinearLayout mLinear;
     @BindView(R.id.btn_quit_group)
     AppCompatButton mBtnQuitGroup;
-    private long mGroupId;
+    @BindView(R.id.txt_group_name)
+    AppCompatTextView mTxtGroupName;
 
     @OnClick(R.id.btn_quit_group)
     void onClickQuitGroup() {
@@ -77,6 +81,12 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
         return super.initArgs(bundle);
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        mPresenter.getGroupInfo(mGroupId);
+    }
+
     @OnClick(R.id.img_qrcode)
     void onQRClick() {
         final Dialog dialog = new AlertDialog.Builder(this).create();
@@ -105,5 +115,12 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
     @Override
     public void quit() {
         finish();
+    }
+
+    @Override
+    public void getGroupInfoSuccess(GroupInfo groupInfo) {
+        String groupName = groupInfo.getGroupName();
+        mTxtGroupName.setText(groupName);
+        // TODO: 2017/10/27 初始化其他群信息
     }
 }

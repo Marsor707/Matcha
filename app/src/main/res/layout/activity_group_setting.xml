@@ -8,29 +8,38 @@
     android:orientation="vertical"
     tools:context="cn.zjnu.matcha.activities.GroupSettingActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="173dp"
-        android:background="@color/colorPrimary"
-        android:paddingTop="@dimen/statusBarSize">
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"
+            android:background="@color/colorPrimary"
+            android:paddingTop="@dimen/statusBarSize" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txt_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:text="@string/exercise"
+            android:layout_gravity="start|bottom"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="24dp"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:text="有氧健身" />
 
         <ImageView
             android:id="@+id/img_qrcode"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="80dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
             android:src="@drawable/ic_qrcode" />
-    </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <FrameLayout
         android:id="@+id/frame_group_member"

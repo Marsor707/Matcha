@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="30dp">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txt_group_member_name_head"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/textView"
-        android:textColor="@color/black"
         android:foreground="@color/maskChatHeader"
         android:gravity="center_vertical|start"
         android:paddingEnd="@dimen/dp_4"
         android:paddingStart="15dp"
-        android:text="%1$s\t(%1$s人)" />
+        android:text="@string/group_member_header"
+        android:textColor="@color/black" />
+
+    <include layout="@layout/item_group_member_list" />
+
 </LinearLayout>

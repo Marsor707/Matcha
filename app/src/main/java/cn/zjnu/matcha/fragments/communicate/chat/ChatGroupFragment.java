@@ -17,6 +17,7 @@ import net.qiujuer.widget.airpanel.Util;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.content.EventNotificationContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
@@ -127,7 +128,7 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                GroupSettingActivity.show(getContext());
+                GroupSettingActivity.show(getContext(), mGroupId);
                 return true;
             }
         });
@@ -241,15 +242,25 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
         final Message message = event.getMessage();
         GroupInfo groupInfo = (GroupInfo) message.getTargetInfo();
         if (groupInfo.getGroupID() == mGroupId) {
+            mAdapter.addMsgToList(message);
+            scrollToBottom();
             switch (message.getContentType()) {
-                case text:
-                    mAdapter.addMsgToList(message);
-                    scrollToBottom();
+                case eventNotification:
+                    EventNotificationContent.EventNotificationType type =
+                            ((EventNotificationContent) message.getContent()).getEventNotificationType();
+                    switch (type) {
+                        case group_member_exit:
+                            getActivity().finish();
+                            break;
+                        case group_member_removed:
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
             }
         }
     }
-
 }

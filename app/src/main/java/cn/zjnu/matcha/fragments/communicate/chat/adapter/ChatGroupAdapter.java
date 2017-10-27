@@ -115,7 +115,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case TYPE_GROUP_CHANGE:
                 return new GroupChangeViewHolder(mInflater.inflate(R.layout.cell_chat_item_group_change, parent, false));
             default:
-                return null;
+                return new GroupChangeViewHolder(mInflater.inflate(R.layout.cell_chat_item_group_change, parent, false));
         }
     }
 
@@ -200,6 +200,8 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             groupChangeViewHolder.groupContent.setText(content);
                             groupChangeViewHolder.groupContent.setVisibility(View.VISIBLE);
                             break;
+                        default:
+                            break;
                     }
                     break;
                 case prompt:
@@ -208,6 +210,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     groupChangeViewHolder.groupContent.setVisibility(View.VISIBLE);
                     break;
                 default:
+                    groupChangeViewHolder.groupContent.setVisibility(View.GONE);
                     break;
             }
         }

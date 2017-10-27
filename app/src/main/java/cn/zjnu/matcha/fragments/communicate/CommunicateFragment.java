@@ -14,7 +14,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.content.EventNotificationContent;
+import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.GroupInfo;
+import cn.jpush.im.android.api.model.Message;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.MessageActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
@@ -64,6 +67,7 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
 
     @Override
     public void showGroupList(final List<GroupInfo> groupInfos) {
+        mGroupInfos.clear();
         for (GroupInfo groupInfo : groupInfos) {
             if (!mGroupInfos.contains(groupInfo)) {
                 mGroupInfos.add(groupInfo);
@@ -104,4 +108,29 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
         }
     }
 
+    public void onEvent(MessageEvent event) {
+        final Message message = event.getMessage();
+        switch (message.getContentType()) {
+            case eventNotification:
+                EventNotificationContent.EventNotificationType type =
+                        ((EventNotificationContent) message.getContent()).getEventNotificationType();
+                GroupInfo groupInfo = (GroupInfo) message.getTargetInfo();
+                switch (type) {
+                    case group_member_exit:
+                        for (int i = 0; i < mGroupInfos.size(); i++) {
+                            if (mGroupInfos.get(i).getGroupID() == groupInfo.getGroupID()) {
+                                mGroupInfos.remove(i);
+                                mAdapter.notifyItemRemoved(i);
+                                break;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }

@@ -34,6 +34,11 @@ public abstract class PresenterActivity<Presenter extends BaseContract.Presenter
         Matcha.showToast(str);
     }
 
+    @Override
+    public void showError(String message) {
+        Matcha.showToast(message);
+    }
+
     /**
      * 初始化Presenter
      *

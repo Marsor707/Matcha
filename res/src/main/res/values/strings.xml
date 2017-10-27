@@ -53,4 +53,5 @@
     <string name="log_out">退出登录</string>
 
     <string name="quit_group">退群</string>
+    <string name="label_qr_add_group">扫一扫加群</string>
 </resources>

@@ -28,12 +28,13 @@ import cn.zjnu.matcha.factory.mvp.communicate.group.GroupSettingPresenter;
  */
 
 public class GroupSettingActivity extends PresenterActivity<GroupSettingContract.Presenter> implements GroupSettingContract.View {
+
+    public static final String GROUP_ID = "GROUP_ID";
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.linear_group_member)
     LinearLayout mLinear;
-    @BindView(R.id.iv_qrcode)
-    ImageView mQrcode;
     @BindView(R.id.btn_quit_group)
     AppCompatButton mBtnQuitGroup;
     private long mGroupId;
@@ -72,12 +73,12 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
 
     @Override
     protected boolean initArgs(Bundle bundle) {
-        mGroupId = bundle.getLong("group_id");
+        mGroupId = bundle.getLong(GROUP_ID);
         return super.initArgs(bundle);
     }
 
-    @OnClick(R.id.toolbar)
-    void toQRCode() {
+    @OnClick(R.id.img_qrcode)
+    void onQRClick() {
         final Dialog dialog = new AlertDialog.Builder(this).create();
         Bitmap qrcode = QRCode.createQRCode(String.valueOf(mGroupId));
         dialog.show();
@@ -85,14 +86,14 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
         if (window != null) {
             window.setContentView(R.layout.dialog_qrcode);
             window.setWindowAnimations(R.style.anim_panel_up_from_bottom);
-            ((ImageView) window.findViewById(R.id.iv_qrcode)).setImageBitmap(qrcode);
+            ((ImageView) window.findViewById(R.id.img_qrcode)).setImageBitmap(qrcode);
         }
     }
 
 
     public static void show(Context context, long mGroupId) {
         Intent intent = new Intent(context, GroupSettingActivity.class);
-        intent.putExtra("group_id", mGroupId);
+        intent.putExtra(GROUP_ID, mGroupId);
         context.startActivity(intent);
     }
 

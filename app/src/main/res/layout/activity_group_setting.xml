@@ -24,7 +24,7 @@
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/iv_qrcode"
+            android:id="@+id/img_qrcode"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="150dp"

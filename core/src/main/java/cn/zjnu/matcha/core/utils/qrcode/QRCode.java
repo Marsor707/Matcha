@@ -43,6 +43,7 @@ public class QRCode {
         try {
             Hashtable<EncodeHintType, String> hints = new Hashtable<>();
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+            hints.put(EncodeHintType.MARGIN, String.valueOf(0));
             BitMatrix bitMatrix = new QRCodeWriter().encode(text,
                     BarcodeFormat.QR_CODE, size, size, hints);
             int[] pixels = new int[size * size];

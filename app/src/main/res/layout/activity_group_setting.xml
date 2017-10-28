@@ -92,7 +92,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_marginEnd="20dp"
-                android:text="%s人"
+                android:text="@string/group_member_size"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 

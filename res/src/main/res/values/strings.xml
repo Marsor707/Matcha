@@ -37,7 +37,7 @@
     <string name="add_group_member">添加群成员</string>
     <string name="group_member">群成员</string>
     <string name="group_member_name">%1$s</string>
-    <string name="group_member_header">%1$s\t(%2$s人)</string>
+    <string name="group_member_header">%1$s</string>
     <string name="default_member_list">默认排序</string>
     <string name="activity_member_list">活跃度排序</string>
     <string name="label_setting">设置</string>
@@ -54,4 +54,5 @@
 
     <string name="quit_group">退群</string>
     <string name="label_qr_add_group">扫一扫加群</string>
+    <string name="group_member_size">%1$s人</string>
 </resources>

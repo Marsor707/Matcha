@@ -43,30 +43,4 @@ public class MemberDefaultPresenter extends BasePresenter<MemberDefaultContract.
 
     }
 
-    @Override
-    public void getMemberAvatar(final int position, String mediaId) {
-        RestClient.builder()
-                .url("https://api.im.jpush.cn/v1/resource/")
-                .params("mediaId", mediaId)
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        getView().getMemberAvatarSuccess(position,response);
-                    }
-                })
-                .failure(new IFailure() {
-                    @Override
-                    public void onFailure() {
-                        getView().showError("网络不见了");
-                    }
-                })
-                .error(new IError() {
-                    @Override
-                    public void onError(int code, String msg) {
-                        getView().showError(msg);
-                    }
-                })
-                .build()
-                .get();
-    }
 }

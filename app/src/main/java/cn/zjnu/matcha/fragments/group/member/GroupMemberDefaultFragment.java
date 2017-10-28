@@ -2,6 +2,7 @@ package cn.zjnu.matcha.fragments.group.member;
 
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
@@ -57,14 +58,10 @@ public class GroupMemberDefaultFragment extends PresenterFragment<MemberDefaultC
     @Override
     public void getMemberInfosSuccess(String response) {
         mMemberInfos = JSONObject.parseArray(response, MemberInfo.class);
-        for (int i = 0; i < mMemberInfos.size(); i++) {
-            mPresenter.getMemberAvatar(i, mMemberInfos.get(i).getAvatar());
-        }
-    }
-
-    @Override
-    public void getMemberAvatarSuccess(int position, String response) {
-        mMemberInfos.get(position).setAvatar(response);
+        mAdapter = new GroupMemberDefaultAdapter(getContext(), mMemberInfos);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

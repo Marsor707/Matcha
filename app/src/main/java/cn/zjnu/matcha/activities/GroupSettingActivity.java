@@ -12,10 +12,13 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.zjnu.matcha.R;
@@ -32,7 +35,11 @@ import cn.zjnu.matcha.factory.mvp.communicate.group.GroupSettingPresenter;
 public class GroupSettingActivity extends PresenterActivity<GroupSettingContract.Presenter> implements GroupSettingContract.View {
 
     public static final String GROUP_ID = "GROUP_ID";
+    @BindView(R.id.group_member_count)
+    TextView mGroupMemberCount;
     private long mGroupId;
+    @BindView(R.id.frame_group_member)
+    FrameLayout mGroupMember;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -56,6 +63,11 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
                     }
                 })
                 .show();
+    }
+
+    @OnClick(R.id.frame_group_member)
+    void onClickMember() {
+        GroupMemberActivity.show(this, mGroupId);
     }
 
     @Override
@@ -121,6 +133,8 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
     public void getGroupInfoSuccess(GroupInfo groupInfo) {
         String groupName = groupInfo.getGroupName();
         mTxtGroupName.setText(groupName);
+        mGroupMemberCount.setText(String.format(getString(R.string.group_member_size),
+                String.valueOf(groupInfo.getGroupMembers().size())));
         // TODO: 2017/10/27 初始化其他群信息
     }
 }

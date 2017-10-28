@@ -98,7 +98,7 @@ public class GroupMemberDefaultAdapter extends RecyclerView.Adapter<RecyclerView
             Character c = mMemberInfos.get(position).getUsername().charAt(0);
             normalHolder.txtGroupMemberName
                     .setText(String.format(Matcha.getApplicationContext().getString(R.string.group_member_header)
-                            , getLetter(c)));
+                            , mMemberInfos.get(position).getUsername()));
         }
     }
 

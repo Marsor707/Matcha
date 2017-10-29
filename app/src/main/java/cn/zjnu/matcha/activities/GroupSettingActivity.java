@@ -44,6 +44,7 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
 
     RequestOptions requestOptions = new RequestOptions()
             .dontAnimate()
+            .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.NONE);
 
     public static final String GROUP_ID = "GROUP_ID";
@@ -64,6 +65,8 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
     AppCompatTextView mTxtGroupName;
     @BindView(R.id.txt_more_group_members)
     TextView mMoreGroupMemebers;
+    @BindView(R.id.toolbar_bg)
+    ImageView mToolbarBg;
 
     @OnClick(R.id.btn_quit_group)
     void onClickQuitGroup() {
@@ -149,6 +152,13 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
         final String groupName = groupInfo.getGroupName();
         final List<UserInfo> memberInfos = groupInfo.getGroupMembers();
         final int groupSize = memberInfos.size();
+        File file = groupInfo.getAvatarFile();
+        if (file != null) {
+            Glide.with(this)
+                    .load(R.drawable.bg_group_default_portrait)
+                    .apply(requestOptions)
+                    .into(mToolbarBg);
+        }
         mTxtGroupName.setText(groupName);
         mGroupMemberCount.setText(String.format(getString(R.string.group_member_size),
                 String.valueOf(groupSize)));
@@ -160,10 +170,12 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
             ImageView p = (ImageView) inflater.inflate(R.layout.lay_chat_group_portrait, mLayMembers, false);
             mLayMembers.addView(p);
             File avatarFile = memberInfos.get(i).getAvatarFile();
-            Glide.with(this)
-                    .load(avatarFile)
-                    .apply(requestOptions)
-                    .into(p);
+            if (avatarFile != null) {
+                Glide.with(this)
+                        .load(avatarFile)
+                        .apply(requestOptions)
+                        .into(p);
+            }
         }
     }
 }

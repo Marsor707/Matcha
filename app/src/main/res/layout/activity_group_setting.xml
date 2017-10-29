@@ -9,14 +9,20 @@
     tools:context="cn.zjnu.matcha.activities.GroupSettingActivity">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/toolbar_bg"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"
+            android:background="@color/colorPrimary" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="173dp"
-            android:background="@color/colorPrimary"
             android:paddingTop="@dimen/statusBarSize" />
 
         <android.support.v7.widget.AppCompatTextView
@@ -127,7 +133,7 @@
             android:layout_height="match_parent"
             app:sLeftTextColor="@color/black"
             app:sLeftTextSize="22sp"
-            app:sLeftTextString="@string/chat_bg"
+            app:sLeftTextString="@string/label_set_chat_bg"
             app:sRightTextGravity="center"
             app:sRightTvDrawableRight="@drawable/ic_chevron_right"
             app:sRightViewMarginRight="20dp" />

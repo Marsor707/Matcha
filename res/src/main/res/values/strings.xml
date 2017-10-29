@@ -30,7 +30,7 @@
     <string name="label_evaluate">评估</string>
     <string name="chat_send">说点什么吧。。。</string>
     <string name="group_material">群资料</string>
-    <string name="chat_bg">聊天背景</string>
+    <string name="label_set_chat_bg">设置群图片</string>
     <string name="chat_notes">群聊天记录</string>
     <string name="maessage_no_distributing">群消息免打扰</string>
     <string name="set_top_group">设为置顶群</string>
@@ -55,4 +55,5 @@
     <string name="quit_group">退群</string>
     <string name="label_qr_add_group">扫一扫加群</string>
     <string name="group_member_size">%1$s人</string>
+    <string name="label_more_group_members">...</string>
 </resources>

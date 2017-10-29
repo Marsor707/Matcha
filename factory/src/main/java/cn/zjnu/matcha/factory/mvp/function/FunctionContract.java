@@ -11,10 +11,10 @@ import cn.zjnu.matcha.core.factory.BaseContract;
 public interface FunctionContract {
 
     interface Presenter extends BaseContract.Presenter {
-        void setUserPortrait();
+        void getUserPortrait();
     }
 
     interface View extends BaseContract.View<Presenter> {
-        void initPortrait(byte[] bytes);
+        void initPortrait(String url);
     }
 }

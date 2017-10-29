@@ -1,20 +1,20 @@
 package cn.zjnu.matcha.factory.mvp.personal;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
-import java.io.ByteArrayOutputStream;
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import cn.zjnu.matcha.core.factory.BasePresenter;
+import cn.zjnu.matcha.core.net.RestClient;
+import cn.zjnu.matcha.core.net.callbacks.ISuccess;
 import cn.zjnu.matcha.core.utils.callback.CallbackManager;
 import cn.zjnu.matcha.core.utils.callback.CallbackTypes;
 import cn.zjnu.matcha.core.utils.callback.IGlobalCallback;
@@ -33,23 +33,45 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
     }
 
     @Override
-    public void getUserPortrait() {
+    public void onFirstInit() {
         final UserInfo userInfo = JMessageClient.getMyInfo();
-        userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
-            @Override
-            public void gotResult(int i, String s, Bitmap bitmap) {
-                if (i == ResponseCodes.SUCCESSFUL) {
-                    ByteArrayOutputStream bo = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, bo);
-                    byte[] bytes = bo.toByteArray();
-                    getView().initPortrait(bytes);
-                } else if (i == 871311) {
-                    // 用户没有头像时逻辑
-                } else {
-                    getView().showError(s);
-                }
-            }
-        });
+        String userName = userInfo.getUserName();
+        getView().initUserName(userName);
+        RestClient.builder()
+                .url("https://api.im.jpush.cn/v1/users/" + userName)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        final JSONObject user = JSONObject.parseObject(response);
+                        JSONObject extras = user.getJSONObject("extras");
+                        String avatarMediaId = user.getString("avatar");
+                        String nickName = user.getString("nickname");
+                        if (extras != null) {
+                            String phone = extras.getString("phone");
+                            getView().initPhone(phone);
+                        }
+                        getView().initNickName(nickName);
+                        initUserPortrait(avatarMediaId);
+                    }
+                })
+                .build()
+                .get();
+    }
+
+    private void initUserPortrait(String mediaId) {
+        RestClient.builder()
+                .url("https://api.im.jpush.cn/v1/resource")
+                .params("mediaId", mediaId)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        JSONObject avatarInfo = JSONObject.parseObject(response);
+                        String url = avatarInfo.getString("url");
+                        getView().initPortrait(url);
+                    }
+                })
+                .build()
+                .get();
     }
 
     @Override
@@ -66,24 +88,6 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
     }
 
     @Override
-    public void getUserName() {
-        final UserInfo userInfo = JMessageClient.getMyInfo();
-        final String userName = userInfo.getUserName();
-        if (userName != null && !TextUtils.isEmpty(userName)) {
-            getView().initUserName(userName);
-        }
-    }
-
-    @Override
-    public void getNickName() {
-        final UserInfo userInfo = JMessageClient.getMyInfo();
-        final String nickName = userInfo.getNickname();
-        if (nickName != null && !TextUtils.isEmpty(nickName)) {
-            getView().initNickName(nickName);
-        }
-    }
-
-    @Override
     public void setNickName(final String nickName) {
         final UserInfo userInfo = JMessageClient.getMyInfo();
         userInfo.setNickname(nickName);
@@ -97,13 +101,6 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
                 }
             }
         });
-    }
-
-    @Override
-    public void getUserPhone() {
-        final UserInfo userInfo = JMessageClient.getMyInfo();
-        String phone = userInfo.getExtra("phone");
-        getView().initPhone(phone);
     }
 
     @Override

@@ -143,12 +143,9 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     }
 
     @Override
-    protected void initData() {
-        super.initData();
-        mPresenter.getUserPortrait();
-        mPresenter.getUserName();
-        mPresenter.getNickName();
-        mPresenter.getUserPhone();
+    protected void onFirstInit() {
+        super.onFirstInit();
+        mPresenter.onFirstInit();
     }
 
     @Override
@@ -168,11 +165,13 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     }
 
     @Override
-    public void initPortrait(byte[] bytes) {
-        Glide.with(getContext())
-                .load(bytes)
-                .apply(requestOptions)
-                .into(mImgPortrait);
+    public void initPortrait(String url) {
+        if (!TextUtils.isEmpty(url)) {
+            Glide.with(getContext())
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(mImgPortrait);
+        }
     }
 
     @Override

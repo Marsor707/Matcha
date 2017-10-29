@@ -13,7 +13,7 @@ import cn.zjnu.matcha.core.factory.BaseContract;
 public interface PersonalContract {
 
     interface View extends BaseContract.View<Presenter> {
-        void initPortrait(byte[] bytes);
+        void initPortrait(String url);
 
         void initUserName(String userName);
 
@@ -29,17 +29,11 @@ public interface PersonalContract {
     }
 
     interface Presenter extends BaseContract.Presenter {
-        void getUserPortrait();
+        void onFirstInit();
 
         void initCallback();
 
-        void getUserName();
-
-        void getNickName();
-
         void setNickName(String nickName);
-
-        void getUserPhone();
 
         void setPhone(String phone);
     }

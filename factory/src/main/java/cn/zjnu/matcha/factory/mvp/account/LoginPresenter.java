@@ -25,7 +25,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                     getView().loginSuccess();
 
                 } else {
-
+                    getView().showError(s);
                 }
             }
         });

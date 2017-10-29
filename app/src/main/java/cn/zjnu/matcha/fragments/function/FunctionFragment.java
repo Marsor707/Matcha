@@ -3,6 +3,7 @@ package cn.zjnu.matcha.fragments.function;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ public class FunctionFragment extends PresenterFragment<FunctionContract.Present
     protected void initData() {
         super.initData();
         initUserInfo();
-        mPresenter.setUserPortrait();
+        mPresenter.getUserPortrait();
     }
 
     private void initUserInfo() {
@@ -72,10 +73,12 @@ public class FunctionFragment extends PresenterFragment<FunctionContract.Present
     }
 
     @Override
-    public void initPortrait(byte[] bytes) {
-        Glide.with(getContext())
-                .load(bytes)
-                .apply(requestOptions)
-                .into(mPortrait);
+    public void initPortrait(String url) {
+        if (!TextUtils.isEmpty(url)) {
+            Glide.with(getContext())
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(mPortrait);
+        }
     }
 }

@@ -64,14 +64,14 @@ public class GroupMemberActivity extends BaseActivity {
     private void initTabLayout() {
         List<Fragment> fragmentList = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        GroupMemberRankFragment groupMemberRankFragment = new GroupMemberRankFragment();
         GroupMemberDefaultFragment groupMemberDefaultFragment = GroupMemberDefaultFragment.newInstance(getIntent().getExtras());
-        fragmentList.add(groupMemberRankFragment);
+        GroupMemberRankFragment groupMemberRankFragment = new GroupMemberRankFragment();
         fragmentList.add(groupMemberDefaultFragment);
-        String resActivity = getText(R.string.activity_member_list).toString();
+        fragmentList.add(groupMemberRankFragment);
         String resDefault = getText(R.string.default_member_list).toString();
-        titles.add(resActivity);
+        String resActivity = getText(R.string.activity_member_list).toString();
         titles.add(resDefault);
+        titles.add(resActivity);
         GroupMemberAdapter adapter = new GroupMemberAdapter(getSupportFragmentManager(), fragmentList, titles);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);

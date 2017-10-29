@@ -49,7 +49,7 @@
 
         <LinearLayout
             android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -61,25 +61,29 @@
                 android:textColor="@color/textSecond"
                 android:textSize="18sp" />
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_group" />
-
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_group_member"
+            android:id="@+id/lay_group_members"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="80dp"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="36dp" />
 
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/txt_more_group_members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_more_group_members"
+            android:textColor="#d8d8d8"
+            android:textSize="36sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -109,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_gravity="center"
-        android:background="@android:color/transparent"
+        android:background="#d8d8d8"
         android:gravity="center" />
 
     <LinearLayout

@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -17,10 +18,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+
+import java.io.File;
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.im.android.api.model.GroupInfo;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.PresenterActivity;
 import cn.zjnu.matcha.core.utils.qrcode.QRCode;
@@ -34,21 +42,28 @@ import cn.zjnu.matcha.factory.mvp.communicate.group.GroupSettingPresenter;
 
 public class GroupSettingActivity extends PresenterActivity<GroupSettingContract.Presenter> implements GroupSettingContract.View {
 
+    RequestOptions requestOptions = new RequestOptions()
+            .dontAnimate()
+            .diskCacheStrategy(DiskCacheStrategy.NONE);
+
     public static final String GROUP_ID = "GROUP_ID";
+    public static final int MAX_GROUP_MEMBER_SIZE = 6;
+
     @BindView(R.id.group_member_count)
     TextView mGroupMemberCount;
     private long mGroupId;
     @BindView(R.id.frame_group_member)
     FrameLayout mGroupMember;
-
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.linear_group_member)
-    LinearLayout mLinear;
+    @BindView(R.id.lay_group_members)
+    LinearLayout mLayMembers;
     @BindView(R.id.btn_quit_group)
     AppCompatButton mBtnQuitGroup;
     @BindView(R.id.txt_group_name)
     AppCompatTextView mTxtGroupName;
+    @BindView(R.id.txt_more_group_members)
+    TextView mMoreGroupMemebers;
 
     @OnClick(R.id.btn_quit_group)
     void onClickQuitGroup() {
@@ -131,10 +146,24 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
 
     @Override
     public void getGroupInfoSuccess(GroupInfo groupInfo) {
-        String groupName = groupInfo.getGroupName();
+        final String groupName = groupInfo.getGroupName();
+        final List<UserInfo> memberInfos = groupInfo.getGroupMembers();
+        final int groupSize = memberInfos.size();
         mTxtGroupName.setText(groupName);
         mGroupMemberCount.setText(String.format(getString(R.string.group_member_size),
-                String.valueOf(groupInfo.getGroupMembers().size())));
-        // TODO: 2017/10/27 初始化其他群信息
+                String.valueOf(groupSize)));
+        final int size = groupSize < MAX_GROUP_MEMBER_SIZE ? groupSize : MAX_GROUP_MEMBER_SIZE;
+        final boolean hasMore = groupSize > MAX_GROUP_MEMBER_SIZE;
+        mMoreGroupMemebers.setVisibility(hasMore ? View.VISIBLE : View.GONE);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        for (int i = 0; i < size; i++) {
+            ImageView p = (ImageView) inflater.inflate(R.layout.lay_chat_group_portrait, mLayMembers, false);
+            mLayMembers.addView(p);
+            File avatarFile = memberInfos.get(i).getAvatarFile();
+            Glide.with(this)
+                    .load(avatarFile)
+                    .apply(requestOptions)
+                    .into(p);
+        }
     }
 }

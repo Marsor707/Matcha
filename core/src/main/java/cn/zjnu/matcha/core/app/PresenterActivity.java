@@ -10,7 +10,7 @@ import cn.zjnu.matcha.core.factory.BaseContract;
  * Email: 369135912@qq.com
  */
 
-public abstract class PresenterActivity<Presenter extends BaseContract.Presenter> extends BaseActivity implements BaseContract.View<Presenter> {
+public abstract class PresenterActivity<Presenter extends BaseContract.Presenter> extends PermissionActivity implements BaseContract.View<Presenter> {
     protected Presenter mPresenter;
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
@@ -18,19 +19,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.allen.library.SuperTextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.PresenterActivity;
+import cn.zjnu.matcha.core.ui.camera.RequestCodes;
+import cn.zjnu.matcha.core.utils.file.FileUtil;
 import cn.zjnu.matcha.core.utils.qrcode.QRCode;
 import cn.zjnu.matcha.factory.mvp.communicate.group.GroupSettingContract;
 import cn.zjnu.matcha.factory.mvp.communicate.group.GroupSettingPresenter;
@@ -49,10 +55,11 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
 
     public static final String GROUP_ID = "GROUP_ID";
     public static final int MAX_GROUP_MEMBER_SIZE = 6;
+    private long mGroupId;
+    private GroupInfo mGroupInfo;
 
     @BindView(R.id.group_member_count)
     TextView mGroupMemberCount;
-    private long mGroupId;
     @BindView(R.id.frame_group_member)
     FrameLayout mGroupMember;
     @BindView(R.id.toolbar)
@@ -67,6 +74,8 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
     TextView mMoreGroupMemebers;
     @BindView(R.id.toolbar_bg)
     ImageView mToolbarBg;
+    @BindView(R.id.btn_set_group_portrait)
+    SuperTextView mBtnSetGroupPortrait;
 
     @OnClick(R.id.btn_quit_group)
     void onClickQuitGroup() {
@@ -77,7 +86,7 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.quitGroup(mGroupId);
+                        mPresenter.quitGroup(mGroupInfo);
                     }
                 })
                 .show();
@@ -130,6 +139,26 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
         }
     }
 
+    @OnClick(R.id.btn_set_group_portrait)
+    void onSetGroupPortraitClick() {
+        pickPhoto();
+    }
+
+    private void pickPhoto() {
+        startPickPhotoWithCheck();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RequestCodes.PICK_PHOTO && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            String filePath = FileUtil.getPath(this, uri);
+            if (filePath != null) {
+                File file = new File(filePath);
+                mPresenter.setGroupBackground(mGroupInfo, file);
+            }
+        }
+    }
 
     public static void show(Context context, long mGroupId) {
         Intent intent = new Intent(context, GroupSettingActivity.class);
@@ -149,19 +178,30 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
 
     @Override
     public void getGroupInfoSuccess(GroupInfo groupInfo) {
-        final String groupName = groupInfo.getGroupName();
-        final List<UserInfo> memberInfos = groupInfo.getGroupMembers();
+        mGroupInfo = groupInfo;
+        final String groupName = mGroupInfo.getGroupName();
+        final List<UserInfo> memberInfos = mGroupInfo.getGroupMembers();
         final int groupSize = memberInfos.size();
-        File file = groupInfo.getAvatarFile();
+        final String groupOwner = mGroupInfo.getGroupOwner();
+        final String userName = JMessageClient.getMyInfo().getUserName();
+        //群主才能设置群图片
+        if (Objects.equals(userName, groupOwner)) {
+            mBtnSetGroupPortrait.setVisibility(View.VISIBLE);
+        }
+        //设置群图片
+        File file = mGroupInfo.getAvatarFile();
         if (file != null) {
             Glide.with(this)
-                    .load(R.drawable.bg_group_default_portrait)
+                    .load(file)
                     .apply(requestOptions)
                     .into(mToolbarBg);
         }
+        //设置群名
         mTxtGroupName.setText(groupName);
+        //设置群人数
         mGroupMemberCount.setText(String.format(getString(R.string.group_member_size),
                 String.valueOf(groupSize)));
+        //设置群成员头像缩略图
         final int size = groupSize < MAX_GROUP_MEMBER_SIZE ? groupSize : MAX_GROUP_MEMBER_SIZE;
         final boolean hasMore = groupSize > MAX_GROUP_MEMBER_SIZE;
         mMoreGroupMemebers.setVisibility(hasMore ? View.VISIBLE : View.GONE);
@@ -177,5 +217,13 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
                         .into(p);
             }
         }
+    }
+
+    @Override
+    public void updateAvatarSuccess(File file) {
+        Glide.with(this)
+                .load(file)
+                .apply(requestOptions)
+                .into(mToolbarBg);
     }
 }

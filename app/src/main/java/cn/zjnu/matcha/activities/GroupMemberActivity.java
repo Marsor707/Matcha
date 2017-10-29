@@ -65,7 +65,7 @@ public class GroupMemberActivity extends BaseActivity {
         List<Fragment> fragmentList = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         GroupMemberDefaultFragment groupMemberDefaultFragment = GroupMemberDefaultFragment.newInstance(getIntent().getExtras());
-        GroupMemberRankFragment groupMemberRankFragment = new GroupMemberRankFragment();
+        GroupMemberRankFragment groupMemberRankFragment = GroupMemberRankFragment.newInstance(getIntent().getExtras());
         fragmentList.add(groupMemberDefaultFragment);
         fragmentList.add(groupMemberRankFragment);
         String resDefault = getText(R.string.default_member_list).toString();

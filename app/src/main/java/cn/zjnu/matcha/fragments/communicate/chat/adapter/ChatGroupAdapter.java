@@ -197,6 +197,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         case group_member_added:
                         case group_member_exit:
                         case group_member_removed:
+                        case group_info_updated:
                             groupChangeViewHolder.groupContent.setText(content);
                             groupChangeViewHolder.groupContent.setVisibility(View.VISIBLE);
                             break;

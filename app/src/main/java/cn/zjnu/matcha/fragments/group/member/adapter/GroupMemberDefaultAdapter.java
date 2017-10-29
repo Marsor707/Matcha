@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -51,6 +52,17 @@ public class GroupMemberDefaultAdapter extends RecyclerView.Adapter<RecyclerView
                 return o1.getUsername().compareTo(o2.getUsername());
             }
         });
+        List<MemberInfo> numberInfo = new ArrayList<>();
+        for (int i = 0; i < mUserInfos.size(); i++) {
+            Character c = mUserInfos.get(i).getUsername().charAt(0);
+            if (Character.isDigit(c)) {
+                numberInfo.add(mUserInfos.get(i));
+            }
+        }
+        if (numberInfo.size() > 0) {
+            mUserInfos.removeAll(numberInfo);
+            mUserInfos.addAll(numberInfo);
+        }
     }
 
     @Override

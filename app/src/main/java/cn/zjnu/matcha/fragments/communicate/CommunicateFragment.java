@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
@@ -15,12 +15,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.EventNotificationContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.Message;
-import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.MessageActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
@@ -115,15 +113,16 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
         final Message message = event.getMessage();
         switch (message.getContentType()) {
             case eventNotification:
-                final String content = ((EventNotificationContent) message.getContent()).getEventText();
                 EventNotificationContent.EventNotificationType type =
                         ((EventNotificationContent) message.getContent()).getEventNotificationType();
                 GroupInfo groupInfo = (GroupInfo) message.getTargetInfo();
-                UserInfo userInfo = JMessageClient.getMyInfo();
-                String quickNickName = fetchQuitUserNickName(content);
-                if (userInfo.getNickname().equals(quickNickName)) {
-                    switch (type) {
-                        case group_member_exit:
+                switch (type) {
+                    case group_member_removed:
+                    case group_member_exit:
+                        final boolean isContainsMyself = JSONObject
+                                .parseObject(message.getContent().toJson())
+                                .getBoolean("isContainsMyself");
+                        if (isContainsMyself)
                             for (int i = 0; i < mGroupInfos.size(); i++) {
                                 if (mGroupInfos.get(i).getGroupID() == groupInfo.getGroupID()) {
                                     mGroupInfos.remove(i);
@@ -131,20 +130,13 @@ public class CommunicateFragment extends PresenterFragment<CommunicateContract.P
                                     break;
                                 }
                             }
-                            break;
-                        default:
-                            break;
-                    }
+                        break;
+                    default:
+                        break;
                 }
                 break;
             default:
                 break;
         }
-    }
-
-    private String fetchQuitUserNickName(String content) {
-        int firstIndex = content.indexOf("[");
-        int lastIndex = content.indexOf("]");
-        return content.substring(firstIndex + 1, lastIndex);
     }
 }

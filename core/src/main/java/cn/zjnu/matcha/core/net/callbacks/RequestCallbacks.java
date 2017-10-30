@@ -76,5 +76,7 @@ public class RequestCallbacks implements Callback<String> {
                 }
             }, delayed);
         }
+        RestCreator.getParams().clear();
+
     }
 }

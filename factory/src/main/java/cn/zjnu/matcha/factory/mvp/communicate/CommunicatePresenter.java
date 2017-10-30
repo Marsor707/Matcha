@@ -16,6 +16,7 @@ import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
+import cn.zjnu.matcha.core.net.callbacks.IFailure;
 import cn.zjnu.matcha.core.net.callbacks.ISuccess;
 import cn.zjnu.matcha.core.utils.callback.CallbackManager;
 import cn.zjnu.matcha.core.utils.callback.CallbackTypes;
@@ -96,6 +97,12 @@ public class CommunicatePresenter extends BasePresenter<CommunicateContract.View
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
+                        getView().showError("加群失败");
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
                         getView().showError("加群失败");
                     }
                 })

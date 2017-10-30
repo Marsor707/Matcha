@@ -2,7 +2,10 @@ package cn.zjnu.matcha.fragments.group.member;
 
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,14 +25,11 @@ import cn.zjnu.matcha.fragments.group.member.adapter.GroupMemberRankAdapter;
  */
 
 public class GroupMemberRankFragment extends PresenterFragment<MemberRankContract.Presenter> implements MemberRankContract.View {
-
+    private List<MemberInfo> mMemberInfos;
+    private GroupMemberRankAdapter mAdapter;
+    private long mGroupId;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-
-    private GroupMemberRankAdapter mAdapter;
-    List<MemberInfo> mMemberInfos;
-    private long mGroupId;
-    private Map<String, Integer> mMsgCount = new HashMap<>();
 
     public static GroupMemberRankFragment newInstance(Bundle bundle) {
         GroupMemberRankFragment fragment = new GroupMemberRankFragment();
@@ -38,8 +38,9 @@ public class GroupMemberRankFragment extends PresenterFragment<MemberRankContrac
     }
 
     @Override
-    protected Object getContentLayoutId() {
-        return R.layout.fragment_group_member_rank;
+    protected void initData() {
+        super.initData();
+        mPresenter.getMemberInfos(mGroupId);
     }
 
     @Override
@@ -50,27 +51,25 @@ public class GroupMemberRankFragment extends PresenterFragment<MemberRankContrac
 
     @Override
     public void getConversation(Conversation conversation) {
-//        List<Message> mMsgList = conversation.getAllMessage();
-//        for (MemberInfo mInfo : mMemberInfos) {
-//            mMsgCount.put(mInfo.getUsername(), 0);
-//        }
-//        for (Message msg : mMsgList) {
-//            UserInfo userInfo = msg.getFromUser();
-//            int count = mMsgCount.get(userInfo.getUserName());
-//            if (count != null) {
-//                mMsgCount.put(userInfo.getUserName(), ++count);
-//            }
-//        }
+
     }
 
     @Override
     public void getMemberInfosSuccess(String response) {
-//        mMemberInfos = JSONArray.parseArray(response, MemberInfo.class);
-//        mPresenter.fetchConversation(mGroupId);
+        mMemberInfos = JSONObject.parseArray(response, MemberInfo.class);
+        mAdapter = new GroupMemberRankAdapter(getContext(), mMemberInfos);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected MemberRankContract.Presenter initPresenter() {
         return new MemberRankPresenter(this);
+    }
+
+    @Override
+    protected Object getContentLayoutId() {
+        return R.layout.fragment_group_member_rank;
     }
 }

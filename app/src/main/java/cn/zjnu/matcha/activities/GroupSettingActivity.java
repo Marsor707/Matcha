@@ -134,7 +134,7 @@ public class GroupSettingActivity extends PresenterActivity<GroupSettingContract
         final Window window = dialog.getWindow();
         if (window != null) {
             window.setContentView(R.layout.dialog_qrcode);
-            window.setWindowAnimations(R.style.anim_panel_up_from_bottom);
+            window.setWindowAnimations(R.style.qrdialog);
             ((ImageView) window.findViewById(R.id.img_qrcode)).setImageBitmap(qrcode);
         }
     }

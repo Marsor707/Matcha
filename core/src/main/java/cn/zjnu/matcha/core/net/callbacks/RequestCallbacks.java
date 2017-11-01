@@ -71,12 +71,10 @@ public class RequestCallbacks implements Callback<String> {
             HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    RestCreator.getParams().clear();
                     MarsLoader.stopLoading();
                 }
             }, delayed);
         }
         RestCreator.getParams().clear();
-
     }
 }

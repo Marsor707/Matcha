@@ -40,7 +40,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     @Override
     public void registerToLocal(String username, String password) {
         RestClient.builder()
-                .url("sport/register")
+                .url("register")
                 .params("userName", username)
                 .params("password", password)
                 .loader(mContext)

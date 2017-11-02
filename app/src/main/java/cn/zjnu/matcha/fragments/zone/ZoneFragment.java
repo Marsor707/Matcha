@@ -3,6 +3,7 @@ package cn.zjnu.matcha.fragments.zone;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,19 +13,23 @@ import java.util.List;
 
 import butterknife.BindView;
 import cn.zjnu.matcha.R;
-import cn.zjnu.matcha.core.app.BaseFragment;
+import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.model.notification.NotificationModel;
+import cn.zjnu.matcha.factory.mvp.zone.ZoneContract;
+import cn.zjnu.matcha.factory.mvp.zone.ZonePresenter;
 import cn.zjnu.matcha.fragments.zone.adapter.NotificationAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ZoneFragment extends BaseFragment {
+public class ZoneFragment extends PresenterFragment<ZoneContract.Presenter> implements ZoneContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private List<NotificationModel> models = new ArrayList<>();
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecycler;
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout mRefresh;
 
     @Override
     protected Object getContentLayoutId() {
@@ -34,14 +39,7 @@ public class ZoneFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-        NotificationModel model = new NotificationModel();
-        model.setDate_day("30");
-        model.setDate_year_month("2017.10");
-        model.setTitle("title");
-        model.setContent("content");
-        for (int i = 0; i < 10; i++) {
-            models.add(model);
-        }
+        mPresenter.getData();
     }
 
     @Override
@@ -51,6 +49,7 @@ public class ZoneFragment extends BaseFragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecycler.setAdapter(adapter);
         mRecycler.setLayoutManager(manager);
+        mRefresh.setOnRefreshListener(this);
     }
 
     public static ZoneFragment newInstance(Bundle bundle) {
@@ -59,4 +58,25 @@ public class ZoneFragment extends BaseFragment {
         return fragment;
     }
 
+    @Override
+    protected ZoneContract.Presenter initPresenter() {
+        return new ZonePresenter(this);
+    }
+
+    @Override
+    public void getDataSuccess(List<NotificationModel> notificationModels) {
+        if (models.size() > 0) {
+            models.clear();
+        }
+        models.addAll(notificationModels);
+        mRecycler.getAdapter().notifyDataSetChanged();
+        if (mRefresh.isRefreshing()) {
+            mRefresh.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getData();
+    }
 }

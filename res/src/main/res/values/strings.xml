@@ -56,4 +56,7 @@
     <string name="label_qr_add_group">扫一扫加群</string>
     <string name="group_member_size">%1$s人</string>
     <string name="label_more_group_members">...</string>
+    <string name="label_divider">/</string>
+    <string name="label_introduction">相关介绍:</string>
+    <string name="label_confirm_reserve">确定预约</string>
 </resources>

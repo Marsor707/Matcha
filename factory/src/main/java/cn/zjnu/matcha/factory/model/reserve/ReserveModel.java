@@ -10,8 +10,8 @@ public class ReserveModel {
 
     private int id;
     private String name;
-    private String numberNow;
-    private String numberTotal;
+    private int numberNow;
+    private int numberTotal;
     private String content;
 
     public int getId() {
@@ -30,19 +30,19 @@ public class ReserveModel {
         this.name = name;
     }
 
-    public String getNumberNow() {
+    public int getNumberNow() {
         return numberNow;
     }
 
-    public void setNumberNow(String numberNow) {
+    public void setNumberNow(int numberNow) {
         this.numberNow = numberNow;
     }
 
-    public String getNumberTotal() {
+    public int getNumberTotal() {
         return numberTotal;
     }
 
-    public void setNumberTotal(String numberTotal) {
+    public void setNumberTotal(int numberTotal) {
         this.numberTotal = numberTotal;
     }
 

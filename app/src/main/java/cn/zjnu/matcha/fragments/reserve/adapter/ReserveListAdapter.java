@@ -26,7 +26,7 @@ public class ReserveListAdapter extends BaseQuickAdapter<ReserveModel, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, ReserveModel item) {
         helper.setText(R.id.txt_reserve_name, item.getName());
-        helper.setText(R.id.txt_reserve_number_now, item.getNumberNow());
-        helper.setText(R.id.txt_reserve_number_total, item.getNumberTotal());
+        helper.setText(R.id.txt_reserve_number_now, item.getNumberNow() + "");
+        helper.setText(R.id.txt_reserve_number_total, item.getNumberTotal() + "");
     }
 }

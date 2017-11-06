@@ -52,7 +52,9 @@ public class ReserveListFragment extends PresenterFragment<ReserveListContract.P
     @Override
     protected void initData() {
         super.initData();
-        mPresenter.getData();
+        if (mReserveData.size() == 0) {
+            mPresenter.getData();
+        }
     }
 
     @Override
@@ -74,5 +76,6 @@ public class ReserveListFragment extends PresenterFragment<ReserveListContract.P
     @Override
     public void getDataSuccess(List<ReserveModel> models) {
         mReserveData.addAll(models);
+        mAdapter.notifyDataSetChanged();
     }
 }

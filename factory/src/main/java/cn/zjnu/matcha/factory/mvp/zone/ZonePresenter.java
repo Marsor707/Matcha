@@ -28,7 +28,7 @@ public class ZonePresenter extends BasePresenter<ZoneContract.View> implements Z
     @Override
     public void getData() {
         RestClient.builder()
-                .url("quryAllNotice")
+                .url("queryAllNotice")
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
@@ -66,6 +66,6 @@ public class ZonePresenter extends BasePresenter<ZoneContract.View> implements Z
                     }
                 })
                 .build()
-                .post();
+                .get();
     }
 }

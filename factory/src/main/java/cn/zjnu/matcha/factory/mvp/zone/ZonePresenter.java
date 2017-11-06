@@ -57,12 +57,14 @@ public class ZonePresenter extends BasePresenter<ZoneContract.View> implements Z
                     @Override
                     public void onError(int code, String msg) {
                         getView().showError("获取数据失败");
+                        getView().getDataFail();
                     }
                 })
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
                         getView().showError("获取数据失败");
+                        getView().getDataFail();
                     }
                 })
                 .build()

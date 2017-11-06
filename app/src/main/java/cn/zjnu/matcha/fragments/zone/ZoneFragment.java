@@ -76,6 +76,13 @@ public class ZoneFragment extends PresenterFragment<ZoneContract.Presenter> impl
     }
 
     @Override
+    public void getDataFail() {
+        if (mRefresh.isRefreshing()) {
+            mRefresh.setRefreshing(false);
+        }
+    }
+
+    @Override
     public void onRefresh() {
         mPresenter.getData();
     }

@@ -15,6 +15,8 @@ public interface ZoneContract {
 
     interface View extends BaseContract.View<Presenter> {
         void getDataSuccess(List<NotificationModel> notificationModels);
+
+        void getDataFail();
     }
 
     interface Presenter extends BaseContract.Presenter {

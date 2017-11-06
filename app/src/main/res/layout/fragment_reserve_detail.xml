@@ -47,7 +47,7 @@
         android:layout_marginBottom="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="12dp"
-        android:background="@drawable/bg_btn_light_blue"
+        android:background="@drawable/sel_btn_reserve"
         android:padding="12dp"
         android:text="@string/label_confirm_reserve"
         android:textColor="@color/white"

@@ -17,7 +17,7 @@ import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.model.reserve.ReserveModel;
 import cn.zjnu.matcha.factory.mvp.reserve.ReserveListContract;
-import cn.zjnu.matcha.factory.mvp.reserve.ReservePresenter;
+import cn.zjnu.matcha.factory.mvp.reserve.ReserveListPresenter;
 import cn.zjnu.matcha.fragments.reserve.adapter.ReserveListAdapter;
 
 /**
@@ -46,7 +46,7 @@ public class ReserveListFragment extends PresenterFragment<ReserveListContract.P
 
     @Override
     protected ReserveListContract.Presenter initPresenter() {
-        return new ReservePresenter(this);
+        return new ReserveListPresenter(this);
     }
 
     @Override
@@ -70,7 +70,11 @@ public class ReserveListFragment extends PresenterFragment<ReserveListContract.P
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         final ReserveModel model = (ReserveModel) adapter.getData().get(position);
-        mTrigger.triggerView(model);
+        final int numberNow = model.getNumberNow();
+        final int numberTotal = model.getNumberTotal();
+        if (numberNow < numberTotal) {
+            mTrigger.triggerView(model);
+        }
     }
 
     @Override

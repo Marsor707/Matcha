@@ -19,9 +19,9 @@ import cn.zjnu.matcha.factory.model.reserve.ReserveModel;
  * Email: 369135912@qq.com
  */
 
-public class ReservePresenter extends BasePresenter<ReserveListContract.View> implements ReserveListContract.Presenter {
+public class ReserveListPresenter extends BasePresenter<ReserveListContract.View> implements ReserveListContract.Presenter {
 
-    public ReservePresenter(ReserveListContract.View view) {
+    public ReserveListPresenter(ReserveListContract.View view) {
         super(view);
     }
 

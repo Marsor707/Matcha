@@ -1,6 +1,7 @@
 package cn.zjnu.matcha.factory.mvp.account;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.factory.model.jiguang.ResponseCodes;
@@ -23,7 +24,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
             public void gotResult(int i, String s) {
                 if (i == ResponseCodes.SUCCESSFUL) {
                     getView().loginSuccess();
-
+                    syncUser();
                 } else {
                     getView().showError(s);
                 }
@@ -36,5 +37,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         if (JMessageClient.getMyInfo() != null) {
             getView().loginSuccess();
         }
+    }
+
+    private void syncUser() {
+        final UserInfo userInfo = JMessageClient.getMyInfo();
+        final long userId = userInfo.getUserID();
+        final String userName = userInfo.getUserName();
+        // TODO: 2017/11/6 传给后端
     }
 }

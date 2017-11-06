@@ -63,7 +63,6 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
             String content = mContent.getText().toString();
             if (!content.equals("")) {
                 mContent.setText("");
-                // TODO: 发送逻辑
                 Message msg;
                 TextContent msgContent = new TextContent(content);
                 msg = mConversation.createSendMessage(msgContent);

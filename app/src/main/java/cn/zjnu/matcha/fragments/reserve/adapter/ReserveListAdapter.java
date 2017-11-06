@@ -1,7 +1,9 @@
 package cn.zjnu.matcha.fragments.reserve.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -25,6 +27,15 @@ public class ReserveListAdapter extends BaseQuickAdapter<ReserveModel, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, ReserveModel item) {
+        final TextView reserveNumberNow = helper.getView(R.id.txt_reserve_number_now);
+        final int numberNow = item.getNumberNow();
+        final int numberTotal = item.getNumberTotal();
+        final float per = numberNow / numberTotal;
+        if (per >= 0.5 && per <= 0.75) {
+            reserveNumberNow.setTextColor(Color.YELLOW);
+        } else if (per > 0.75) {
+            reserveNumberNow.setTextColor(Color.RED);
+        }
         helper.setText(R.id.txt_reserve_name, item.getName());
         helper.setText(R.id.txt_reserve_number_now, item.getNumberNow() + "");
         helper.setText(R.id.txt_reserve_number_total, item.getNumberTotal() + "");

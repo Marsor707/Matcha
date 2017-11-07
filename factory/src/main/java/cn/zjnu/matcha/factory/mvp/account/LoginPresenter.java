@@ -4,6 +4,10 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import cn.zjnu.matcha.core.factory.BasePresenter;
+import cn.zjnu.matcha.core.net.RestClient;
+import cn.zjnu.matcha.core.net.callbacks.IError;
+import cn.zjnu.matcha.core.net.callbacks.IFailure;
+import cn.zjnu.matcha.core.net.callbacks.ISuccess;
 import cn.zjnu.matcha.factory.model.jiguang.ResponseCodes;
 
 /**
@@ -43,6 +47,29 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         final UserInfo userInfo = JMessageClient.getMyInfo();
         final long userId = userInfo.getUserID();
         final String userName = userInfo.getUserName();
-        // TODO: 2017/11/6 传给后端
+        RestClient.builder()
+                .url("GetUserID")
+                .params("userId", userId)
+                .params("userName", userName)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+
+                    }
+                })
+                .error(new IError() {
+                    @Override
+                    public void onError(int code, String msg) {
+                        getView().showError(msg);
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        getView().showError("网络连接失败");
+                    }
+                })
+                .build()
+                .get();
     }
 }

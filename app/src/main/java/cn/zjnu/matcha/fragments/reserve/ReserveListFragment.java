@@ -3,6 +3,7 @@ package cn.zjnu.matcha.fragments.reserve;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,7 +25,8 @@ import cn.zjnu.matcha.fragments.reserve.adapter.ReserveListAdapter;
  * A simple {@link Fragment} subclass.
  */
 public class ReserveListFragment extends PresenterFragment<ReserveListContract.Presenter>
-        implements ReserveListContract.View, BaseQuickAdapter.OnItemClickListener {
+        implements ReserveListContract.View, BaseQuickAdapter.OnItemClickListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     private List<ReserveModel> mReserveData = new ArrayList<>();
     private ReserveListAdapter mAdapter;
@@ -32,6 +34,8 @@ public class ReserveListFragment extends PresenterFragment<ReserveListContract.P
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout mRefresh;
 
     @Override
     protected Object getContentLayoutId() {
@@ -45,16 +49,14 @@ public class ReserveListFragment extends PresenterFragment<ReserveListContract.P
     }
 
     @Override
-    protected ReserveListContract.Presenter initPresenter() {
-        return new ReserveListPresenter(this);
+    protected void onFirstInit() {
+        super.onFirstInit();
+        mPresenter.getData();
     }
 
     @Override
-    protected void initData() {
-        super.initData();
-        if (mReserveData.size() == 0) {
-            mPresenter.getData();
-        }
+    protected ReserveListContract.Presenter initPresenter() {
+        return new ReserveListPresenter(this);
     }
 
     @Override
@@ -65,6 +67,7 @@ public class ReserveListFragment extends PresenterFragment<ReserveListContract.P
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(manager);
+        mRefresh.setOnRefreshListener(this);
     }
 
     @Override
@@ -79,7 +82,18 @@ public class ReserveListFragment extends PresenterFragment<ReserveListContract.P
 
     @Override
     public void getDataSuccess(List<ReserveModel> models) {
+        if (mReserveData.size() > 0) {
+            mReserveData.clear();
+        }
         mReserveData.addAll(models);
         mAdapter.notifyDataSetChanged();
+        if (mRefresh.isRefreshing()) {
+            mRefresh.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getData();
     }
 }

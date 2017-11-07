@@ -12,5 +12,5 @@ import cn.zjnu.matcha.factory.model.reserve.ReserveModel;
 
 public interface IReserveTrigger {
 
-    void triggerView(@NonNull ReserveModel id);
+    void triggerView(@NonNull ReserveModel model);
 }

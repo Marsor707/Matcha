@@ -82,16 +82,16 @@ public class ReserveDetailFragment extends PresenterFragment<ReserveDetailContra
 
     @Override
     public void reserveSuccess() {
-        setBtnEnabled(true);
+        setBtnEnabled(false);
     }
 
     @Override
     public void getReserveStateSuccess(boolean isReserved) {
-        setBtnEnabled(isReserved);
+        setBtnEnabled(!isReserved);
     }
 
     private void setBtnEnabled(boolean enabled) {
-        mBtnReserve.setEnabled(!enabled);
+        mBtnReserve.setEnabled(enabled);
         mBtnReserve.setText(enabled ? "已预约" : "确定预约");
     }
 }

@@ -1,5 +1,7 @@
 package cn.zjnu.matcha.factory.model.advisory;
 
+import java.util.List;
+
 /**
  * Created by Hu on 2017/11/7.
  */
@@ -7,6 +9,15 @@ package cn.zjnu.matcha.factory.model.advisory;
 public class SpecialistModel {
     private String name;
     private String skill;
+    private List<LeaveMessageModel> messageModels;
+
+    public List<LeaveMessageModel> getMessageModels() {
+        return messageModels;
+    }
+
+    public void setMessageModels(List<LeaveMessageModel> messageModels) {
+        this.messageModels = messageModels;
+    }
 
     public String getName() {
         return name;

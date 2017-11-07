@@ -61,4 +61,5 @@
     <string name="label_confirm_reserve">确定预约</string>
     <string name="specialist_name">专家姓名:%1$s</string>
     <string name="specialist_skill">擅长邻域:%1$s</string>
+    <string name="leave_msg_content">%1$s:%2$s</string>
 </resources>

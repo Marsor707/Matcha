@@ -2,7 +2,6 @@ package cn.zjnu.matcha.fragments.account;
 
 
 import android.content.Context;
-import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -114,18 +113,13 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter> im
     }
 
     @Override
-    public void showError(@StringRes int str) {
-        super.showError(str);
+    public void showError(String message) {
+        super.showError(message);
         mEditUsername.setEnabled(true);
         mEditPassword.setEnabled(true);
         mTxtGoRegister.setEnabled(true);
         mBtnSubmit.setVisibility(View.VISIBLE);
         stopLoading();
-    }
-
-    @Override
-    public void showError(String message) {
-        super.showError(message);
     }
 
     private void stopLoading() {

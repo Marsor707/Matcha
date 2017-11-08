@@ -100,7 +100,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        hidePanelAndKeyBoard(view);
     }
 
     private void initRecyclerView() {
@@ -110,10 +110,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (mPanelBoss.isOpen()) {
-                    mPanelBoss.closePanel();
-                }
-                mMsgBar.setVisibility(View.GONE);
+                hidePanelAndKeyBoard(recyclerView);
             }
         });
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
@@ -121,11 +118,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     if (v instanceof RecyclerView) {
-                        if (mPanelBoss.isOpen()) {
-                            mPanelBoss.closePanel();
-                        }
-                        Util.hideKeyboard(v);
-                        mMsgBar.setVisibility(View.GONE);
+                        hidePanelAndKeyBoard(v);
                     }
                     return true;
                 }
@@ -183,6 +176,14 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
             return true;
         }
         return super.onBackPressed();
+    }
+
+    private void hidePanelAndKeyBoard(View view) {
+        if (mPanelBoss.isOpen()) {
+            mPanelBoss.closePanel();
+        }
+        Util.hideKeyboard(view);
+        mMsgBar.setVisibility(View.GONE);
     }
 
 }

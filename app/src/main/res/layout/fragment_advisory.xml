@@ -63,7 +63,7 @@
     <net.qiujuer.widget.airpanel.AirPanelFrameLayout
         android:id="@id/airPanelSubLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:visibility="gone" />
 
 

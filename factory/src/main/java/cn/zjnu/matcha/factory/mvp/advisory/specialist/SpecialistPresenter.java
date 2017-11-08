@@ -1,6 +1,9 @@
 package cn.zjnu.matcha.factory.mvp.advisory.specialist;
 
 import cn.zjnu.matcha.core.factory.BasePresenter;
+import cn.zjnu.matcha.core.net.RestClient;
+import cn.zjnu.matcha.core.net.callbacks.IFailure;
+import cn.zjnu.matcha.core.net.callbacks.ISuccess;
 
 /**
  * Created by Hu on 2017/11/7.
@@ -13,6 +16,21 @@ public class SpecialistPresenter extends BasePresenter<SpecialistContract.View> 
 
     @Override
     public void getSpecialist() {
-        //TODO: 从后端获取专家数据
+        RestClient.builder()
+                .url("listExpert")
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        getView().getSpecialistSuccess(response);
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        getView().showError("网络不见了");
+                    }
+                })
+                .build()
+                .get();
     }
 }

@@ -9,20 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import net.qiujuer.widget.airpanel.AirPanel;
 import net.qiujuer.widget.airpanel.Util;
-
-import java.util.List;
 
 import butterknife.BindView;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.AdvisoryActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.core.ui.recycler.DataConvert;
-import cn.zjnu.matcha.factory.model.advisory.SpecialistModel;
 import cn.zjnu.matcha.factory.mvp.advisory.specialist.SpecialistContract;
 import cn.zjnu.matcha.factory.mvp.advisory.specialist.SpecialistPresenter;
 import cn.zjnu.matcha.fragments.advisory.adpater.AdvisoryAdapter;
@@ -65,6 +61,12 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+        mPresenter.getSpecialist();
+    }
+
+    @Override
     public void getSpecialistSuccess(String response) {
         final DataConvert convert = new AdvisoryDataConvert();
         mAdapter = AdvisoryAdapter.create(convert.setJsonData(response));
@@ -94,7 +96,6 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
         mMsgBar.setVisibility(View.VISIBLE);
-        mPanelBoss.openPanel();
     }
 
     @Override

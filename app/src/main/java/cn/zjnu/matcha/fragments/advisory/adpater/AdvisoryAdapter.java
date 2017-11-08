@@ -6,6 +6,9 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -15,20 +18,20 @@ import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.ui.recycler.DataConvert;
 import cn.zjnu.matcha.factory.model.advisory.LeaveMessageModel;
 import cn.zjnu.matcha.factory.model.advisory.SpecialistModel;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Hu on 2017/11/7.
  */
 
 public class AdvisoryAdapter extends BaseQuickAdapter<SpecialistModel, BaseViewHolder> {
+    private RequestOptions requestOptions = new RequestOptions()
+            .centerCrop()
+            .dontAnimate()
+            .diskCacheStrategy(DiskCacheStrategy.NONE);
+
     private AdvisoryAdapter(@Nullable List<SpecialistModel> data) {
         super(R.layout.item_specialist, data);
-    }
-
-    private View.OnClickListener mOnClickListener;
-
-    public void setOnClickListener(View.OnClickListener mOnClickListener) {
-        this.mOnClickListener = mOnClickListener;
     }
 
     public static AdvisoryAdapter create(List<SpecialistModel> data) {
@@ -42,28 +45,14 @@ public class AdvisoryAdapter extends BaseQuickAdapter<SpecialistModel, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, SpecialistModel item) {
         helper.setText(R.id.specialist_name,
-                String.format(mContext.getString(R.string.specialist_name), item.getName()));
+                String.format(mContext.getString(R.string.specialist_name), item.getExpertName()));
         helper.setText(R.id.specialist_skill,
-                String.format(mContext.getString(R.string.specialist_skill), item.getSkill()));
+                String.format(mContext.getString(R.string.specialist_skill), item.getArea()));
+        final CircleImageView mImageView = helper.getView(R.id.img_portrait);
+        Glide.with(mContext)
+                .load(item.getPicture())
+                .apply(requestOptions)
+                .into(mImageView);
         helper.addOnClickListener(R.id.img_leave_msg);
-        final int leaveMsgSize = item.getMessageModels().size();
-        if (leaveMsgSize > 0) {
-            helper.getView(R.id.lin_leave_msg).setVisibility(View.VISIBLE);
-            for (int i = 0; i < leaveMsgSize; i++) {
-                final LeaveMessageModel leaveMessageModel = item.getMessageModels().get(i);
-                final LinearLayoutCompat mParentView = helper.getView(R.id.lin_leave_msg);
-                final AppCompatTextView msgContent = (AppCompatTextView) LayoutInflater.from(mContext)
-                        .inflate(R.layout.item_leave_msg_content, mParentView, false);
-                mParentView.addView(msgContent);
-                if (mOnClickListener != null) {
-                    msgContent.setOnClickListener(mOnClickListener);
-                }
-                msgContent.setText(String.format(mContext.getString(R.string.leave_msg_content)
-                        , leaveMessageModel.getUserName()
-                        , leaveMessageModel.getContent()));
-            }
-        } else {
-            helper.getView(R.id.lin_leave_msg).setVisibility(View.INVISIBLE);
-        }
     }
 }

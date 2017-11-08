@@ -1,37 +1,39 @@
 package cn.zjnu.matcha.factory.model.advisory;
 
-import java.util.List;
-
 /**
  * Created by Hu on 2017/11/7.
  */
 
 public class SpecialistModel {
-    private String name;
-    private String skill;
-    private List<LeaveMessageModel> messageModels;
+    private String expertName;
+    private String area;
+    private String picture;
 
-    public List<LeaveMessageModel> getMessageModels() {
-        return messageModels;
+    public String getExpertName() {
+        return expertName;
     }
 
-    public void setMessageModels(List<LeaveMessageModel> messageModels) {
-        this.messageModels = messageModels;
+    public SpecialistModel setExpertName(String expertName) {
+        this.expertName = expertName;
+        return this;
     }
 
-    public String getName() {
-        return name;
+    public String getArea() {
+        return area;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public SpecialistModel setArea(String area) {
+        this.area = area;
+        return this;
     }
 
-    public String getSkill() {
-        return skill;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
+    public SpecialistModel setPicture(String picture) {
+        this.picture = picture;
+        return this;
     }
+
 }

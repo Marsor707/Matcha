@@ -92,6 +92,6 @@ public class ReserveDetailFragment extends PresenterFragment<ReserveDetailContra
 
     private void setBtnEnabled(boolean enabled) {
         mBtnReserve.setEnabled(enabled);
-        mBtnReserve.setText(enabled ? "已预约" : "确定预约");
+        mBtnReserve.setText(enabled ? "确定预约" : "已预约");
     }
 }

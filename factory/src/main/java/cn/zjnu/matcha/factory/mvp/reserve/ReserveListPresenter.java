@@ -41,7 +41,7 @@ public class ReserveListPresenter extends BasePresenter<ReserveListContract.View
                             final int id = object.getInteger("id");
                             final String reserveName = object.getString("orderName");
                             final int numberTotal = object.getInteger("numberLimit");
-                            final int numberNow = object.getInteger("number");
+                            final int numberNow = object.getInteger("orderNumber");
                             final String content = object.getString("content");
                             model.setId(id);
                             model.setName(reserveName);

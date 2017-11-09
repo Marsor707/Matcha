@@ -52,6 +52,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     private int mExpertPosition = -1;
     private String mExpertId = null;
     private String msgContent = null;
+    private int pos;
 
     @BindView(R.id.lin_msg_bar)
     LinearLayoutCompat mMsgBar;
@@ -155,7 +156,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
         mExpertPosition = position;
         mPresenter.getMsg(mUserId, mExpertId);
         Util.showKeyboard(mContent);
-//        scrollToPosition(position);
+        pos=position;
     }
 
     @Override
@@ -222,7 +223,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
             public void onSoftKeyboardStateChanged(boolean isOpen) {
                 if (isOpen) {
                     //进行一些界面操作
-//                    mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+                    mRecyclerView.smoothScrollToPosition(pos);
                 }
             }
         });
@@ -246,9 +247,4 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
         Util.hideKeyboard(view);
         mMsgBar.setVisibility(View.GONE);
     }
-
-    private void scrollToPosition(int pos) {
-        mRecyclerView.smoothScrollToPosition(pos);
-    }
-
 }

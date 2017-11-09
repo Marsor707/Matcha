@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -155,7 +154,8 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
         mExpertId = model.getExpertId();
         mExpertPosition = position;
         mPresenter.getMsg(mUserId, mExpertId);
-        mContent.setFocusable(true);
+        Util.showKeyboard(mContent);
+//        scrollToPosition(position);
     }
 
     @Override
@@ -170,7 +170,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                hidePanelAndKeyBoard(recyclerView);
+//                hidePanelAndKeyBoard(recyclerView);
             }
         });
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
@@ -208,23 +208,24 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
                 Util.hideKeyboard(mContent);
             }
         });
-//        mPanelBoss.setOnStateChangedListener(new AirPanel.OnStateChangedListener() {
-//            @Override
-//            public void onPanelStateChanged(boolean isOpen) {
-//                if (isOpen) {
-//                    //进行一些界面操作
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onSoftKeyboardStateChanged(boolean isOpen) {
-//                if (isOpen) {
-//                    //进行一些界面操作
-//
-//                }
-//            }
-//        });
+        mPanelBoss.setOnStateChangedListener(new AirPanel.OnStateChangedListener() {
+            @Override
+            public void onPanelStateChanged(boolean isOpen) {
+                if (isOpen) {
+                    //进行一些界面操作
+//                    mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+
+                }
+            }
+
+            @Override
+            public void onSoftKeyboardStateChanged(boolean isOpen) {
+                if (isOpen) {
+                    //进行一些界面操作
+//                    mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+                }
+            }
+        });
     }
 
     @Override
@@ -244,6 +245,10 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
         }
         Util.hideKeyboard(view);
         mMsgBar.setVisibility(View.GONE);
+    }
+
+    private void scrollToPosition(int pos) {
+        mRecyclerView.smoothScrollToPosition(pos);
     }
 
 }

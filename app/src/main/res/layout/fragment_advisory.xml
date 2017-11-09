@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cn.zjnu.matcha.widget.view.MessageLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lay_content"
     android:layout_width="match_parent"
@@ -7,27 +8,41 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="@color/colorPrimary"
-        android:paddingTop="@dimen/statusBarSize">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/label_advisory"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_advisory"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/actionBarWithStatusBarSize"
+                android:background="@color/colorPrimary"
+                android:paddingTop="@dimen/statusBarSize">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/label_advisory"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_advisory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/lin_msg_bar"

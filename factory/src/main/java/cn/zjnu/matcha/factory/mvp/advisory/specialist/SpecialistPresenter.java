@@ -55,4 +55,27 @@ public class SpecialistPresenter extends BasePresenter<SpecialistContract.View> 
                 .build()
                 .post();
     }
+
+    @Override
+    public void sendMsg(String content, long userId, String expertId) {
+        RestClient.builder()
+                .url("insertWords")
+                .params("content", content)
+                .params("user.id", userId)
+                .params("expert.id", expertId)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        getView().sendMsgSuccess(response);
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        getView().showError("网络不见了");
+                    }
+                })
+                .build()
+                .post();
+    }
 }

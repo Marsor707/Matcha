@@ -6,14 +6,20 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import net.qiujuer.widget.airpanel.AirPanel;
 import net.qiujuer.widget.airpanel.Util;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,6 +27,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.AdvisoryActivity;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.core.ui.recycler.DataConvert;
 import cn.zjnu.matcha.factory.model.advisory.LeaveMessageModel;
@@ -42,6 +49,11 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     private AdvisoryAdapter mAdapter;
     private AirPanel.Boss mPanelBoss;
     private long mUserId = -1;
+    private String mUserName = null;
+    private int mExpertPosition = -1;
+    private String mExpertId = null;
+    private String msgContent = null;
+
     @BindView(R.id.lin_msg_bar)
     LinearLayoutCompat mMsgBar;
     @BindView(R.id.edit_content)
@@ -54,10 +66,13 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     private IKeySend mSendListener = new IKeySend() {
         @Override
         public void onSendMessage() {
-            String content = mContent.getText().toString();
+            final String content = mContent.getText().toString();
             if (!content.equals("")) {
+                msgContent = content;
+                mPresenter.sendMsg(content, mUserId, mExpertId);
                 mContent.setText("");
             }
+            hidePanelAndKeyBoard(mRecyclerView);
         }
     };
 
@@ -74,6 +89,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
         final UserInfo userInfo = JMessageClient.getMyInfo();
         if (userInfo != null) {
             mUserId = userInfo.getUserID();
+            mUserName = userInfo.getUserName();
         }
     }
 
@@ -89,8 +105,29 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     @Override
     public void getMsgSuccess(String response) {
         final MsgDataConvert convert = new MsgDataConvert();
-        final List<LeaveMessageModel> messageModels = convert.convert();
+        convert.setJsonData(response);
+        final List<LeaveMessageModel> messageModels = new ArrayList<>();
+        messageModels.addAll(convert.convert());
+        mAdapter.showMsg(messageModels, mExpertId, mExpertPosition);
+    }
 
+    @Override
+    public void sendMsgSuccess(String response) {
+        final JSONObject object = JSON.parseObject(response);
+        final int code = object.getInteger("code");
+        if (code == 1) {
+            final Date date = new Date();
+            final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            final String time = dateFormat.format(date);
+            final LeaveMessageModel messageModel = new LeaveMessageModel();
+            messageModel.setExpertId(mExpertId)
+                    .setTime(time)
+                    .setUserName(mUserName)
+                    .setContent(msgContent);
+            mAdapter.updateMsg(mExpertId, messageModel, mExpertPosition);
+        } else {
+            Matcha.showToast("留言失败");
+        }
     }
 
     @Override
@@ -115,8 +152,10 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
         mMsgBar.setVisibility(View.VISIBLE);
         final SpecialistModel model = (SpecialistModel) adapter.getData().get(position);
-        final String specialId = model.getExpertId();
-        mPresenter.getMsg(mUserId, specialId);
+        mExpertId = model.getExpertId();
+        mExpertPosition = position;
+        mPresenter.getMsg(mUserId, mExpertId);
+        mContent.setFocusable(true);
     }
 
     @Override

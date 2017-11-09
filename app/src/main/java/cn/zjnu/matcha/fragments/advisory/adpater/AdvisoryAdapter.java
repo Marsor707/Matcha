@@ -3,6 +3,7 @@ package cn.zjnu.matcha.fragments.advisory.adpater;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -53,18 +54,21 @@ public class AdvisoryAdapter extends BaseQuickAdapter<SpecialistModel, BaseViewH
         helper.setText(R.id.specialist_skill,
                 String.format(mContext.getString(R.string.specialist_skill), item.getArea()));
         final CircleImageView mImageView = helper.getView(R.id.img_portrait);
-        final int msgSize = msgList.get(item.getExpertId()).size();
+        final int msgSize = msgList.get(item.getExpertId()) == null ? 0 : msgList.get(item.getExpertId()).size();
         final LinearLayoutCompat linMsg = helper.getView(R.id.lin_leave_msg);
         if (msgSize > 0) {
-            final AppCompatTextView textView = (AppCompatTextView) LayoutInflater.from(mContext)
-                    .inflate(R.layout.item_leave_msg_content, linMsg, false);
+            linMsg.setVisibility(View.VISIBLE);
+            if (linMsg.getChildCount() > 0) {
+                linMsg.removeAllViews();
+            }
             for (int i = 0; i < msgSize; i++) {
+                final AppCompatTextView textView = (AppCompatTextView) LayoutInflater.from(mContext)
+                        .inflate(R.layout.item_leave_msg_content, linMsg, false);
                 textView.setText(String.format(mContext.getString(R.string.leave_msg_content),
                         msgList.get(item.getExpertId()).get(i).getUserName(),
                         msgList.get(item.getExpertId()).get(i).getContent()));
                 linMsg.addView(textView);
             }
-            linMsg.setVisibility(View.VISIBLE);
         } else {
             linMsg.setVisibility(View.GONE);
         }
@@ -75,8 +79,20 @@ public class AdvisoryAdapter extends BaseQuickAdapter<SpecialistModel, BaseViewH
         helper.addOnClickListener(R.id.img_leave_msg);
     }
 
-    public final void showMsg(List<LeaveMessageModel> models) {
-        msgList.put(models.get(0).getExpertId(), models);
-//        notifyItemChanged();
+    public final void showMsg(List<LeaveMessageModel> models, String expertId,int position) {
+        msgList.put(expertId, models);
+        notifyItemChanged(position);
+    }
+
+    public final void updateMsg(String expertId, LeaveMessageModel messageModel, int position) {
+        final List<LeaveMessageModel> model = msgList.get(expertId);
+        if (model != null) {
+            msgList.get(expertId).add(messageModel);
+        } else {
+            final List<LeaveMessageModel> models = new ArrayList<>();
+            models.add(messageModel);
+            msgList.put(expertId, models);
+        }
+        notifyItemChanged(position);
     }
 }

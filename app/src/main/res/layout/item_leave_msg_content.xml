@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
     android:layout_height="25dp"
+    android:layout_marginLeft="16dp"
     android:background="@android:color/white"
     android:text="@string/leave_msg_content"
     android:gravity="center_vertical"
-    android:textColor="@color/textPrimary" />
+    android:textColor="@color/textPrimary"
+    tools:ignore="RtlHardcoded" />

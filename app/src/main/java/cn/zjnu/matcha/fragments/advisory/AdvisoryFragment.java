@@ -14,15 +14,22 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import net.qiujuer.widget.airpanel.AirPanel;
 import net.qiujuer.widget.airpanel.Util;
 
+import java.util.List;
+
 import butterknife.BindView;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.AdvisoryActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.core.ui.recycler.DataConvert;
+import cn.zjnu.matcha.factory.model.advisory.LeaveMessageModel;
+import cn.zjnu.matcha.factory.model.advisory.SpecialistModel;
 import cn.zjnu.matcha.factory.mvp.advisory.specialist.SpecialistContract;
 import cn.zjnu.matcha.factory.mvp.advisory.specialist.SpecialistPresenter;
 import cn.zjnu.matcha.fragments.advisory.adpater.AdvisoryAdapter;
-import cn.zjnu.matcha.fragments.advisory.adpater.AdvisoryDataConvert;
+import cn.zjnu.matcha.fragments.advisory.adpater.MsgDataConvert;
+import cn.zjnu.matcha.fragments.advisory.adpater.SpecialDataConvert;
 import cn.zjnu.matcha.interfaze.IKeySend;
 
 /**
@@ -34,7 +41,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
 
     private AdvisoryAdapter mAdapter;
     private AirPanel.Boss mPanelBoss;
-
+    private long mUserId = -1;
     @BindView(R.id.lin_msg_bar)
     LinearLayoutCompat mMsgBar;
     @BindView(R.id.edit_content)
@@ -64,15 +71,26 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     protected void initData() {
         super.initData();
         mPresenter.getSpecialist();
+        final UserInfo userInfo = JMessageClient.getMyInfo();
+        if (userInfo != null) {
+            mUserId = userInfo.getUserID();
+        }
     }
 
     @Override
     public void getSpecialistSuccess(String response) {
-        final DataConvert convert = new AdvisoryDataConvert();
+        final DataConvert convert = new SpecialDataConvert();
         mAdapter = AdvisoryAdapter.create(convert.setJsonData(response));
         mAdapter.setOnItemClickListener(this);
         mAdapter.setOnItemChildClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void getMsgSuccess(String response) {
+        final MsgDataConvert convert = new MsgDataConvert();
+        final List<LeaveMessageModel> messageModels = convert.convert();
+
     }
 
     @Override
@@ -96,6 +114,9 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
         mMsgBar.setVisibility(View.VISIBLE);
+        final SpecialistModel model = (SpecialistModel) adapter.getData().get(position);
+        final String specialId = model.getExpertId();
+        mPresenter.getMsg(mUserId, specialId);
     }
 
     @Override

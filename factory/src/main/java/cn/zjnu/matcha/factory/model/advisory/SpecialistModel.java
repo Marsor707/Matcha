@@ -5,6 +5,7 @@ package cn.zjnu.matcha.factory.model.advisory;
  */
 
 public class SpecialistModel {
+    private String expertId;
     private String expertName;
     private String area;
     private String picture;
@@ -36,4 +37,12 @@ public class SpecialistModel {
         return this;
     }
 
+    public String getExpertId() {
+        return expertId;
+    }
+
+    public SpecialistModel setExpertId(String expertId) {
+        this.expertId = expertId;
+        return this;
+    }
 }

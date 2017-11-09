@@ -13,7 +13,7 @@ import cn.zjnu.matcha.factory.model.advisory.SpecialistModel;
  * Created by HuQiang on 2017/11/7.
  */
 
-public class AdvisoryDataConvert extends DataConvert<SpecialistModel> {
+public class SpecialDataConvert extends DataConvert<SpecialistModel> {
     @Override
     public ArrayList<SpecialistModel> convert() {
         final JSONArray dataList = JSON.parseArray(getJsonData());
@@ -23,10 +23,12 @@ public class AdvisoryDataConvert extends DataConvert<SpecialistModel> {
             final String name = jsonObject.getString("expertName");
             final String area = jsonObject.getString("area");
             final String picture = jsonObject.getString("picture");
+            final String id = jsonObject.getString("expertId");
             final SpecialistModel model = new SpecialistModel();
             model.setArea(area)
                     .setExpertName(name)
-                    .setPicture(picture);
+                    .setPicture(picture)
+                    .setExpertId(id);
             ENTITIES.add(model);
         }
         return ENTITIES;

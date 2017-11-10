@@ -17,6 +17,7 @@ import net.qiujuer.widget.airpanel.Util;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.EventNotificationContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
@@ -65,7 +66,8 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
                 mContent.setText("");
                 Message msg;
                 TextContent msgContent = new TextContent(content);
-                msg = mConversation.createSendMessage(msgContent);
+//                msg = mConversation.createSendMessage(msgContent);
+                msg = JMessageClient.createGroupTextMessage(mGroupId, content);
                 mAdapter.addMsgToList(msg);
                 mPresenter.sendMessage(msg);
                 scrollToBottom();
@@ -234,7 +236,9 @@ public class ChatGroupFragment extends PresenterFragment<ChatGroupContract.Prese
     }
 
     public void scrollToBottom() {
-        mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+        if (mAdapter.getItemCount() > 0) {
+            mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+        }
     }
 
     public void onEvent(MessageEvent event) {

@@ -71,11 +71,13 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mActivity = (Activity) context;
         mActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         mWidth = dm.widthPixels;
-        mMsgList = mConversation.getMessagesFromNewest(0, mOffset);
+        if (mConversation != null) {
+            mMsgList = mConversation.getMessagesFromNewest(0, mOffset);
+        }
         reverse(mMsgList);
         mStart = mOffset;
-        GroupInfo groupInfo = (GroupInfo) mConversation.getTargetInfo();
-        mGroupId = groupInfo.getGroupID();
+//        GroupInfo groupInfo = (GroupInfo) mConversation.getTargetInfo();
+//        mGroupId = groupInfo.getGroupID();
     }
 
     public ChatGroupAdapter(Context context, Conversation conversation, int msgId) {

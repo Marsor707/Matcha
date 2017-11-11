@@ -16,6 +16,8 @@
     <string name="label_username">用户名</string>
     <string name="label_password">密码</string>
     <string name="label_password_confirm">确认密码</string>
+    <string name="label_sex">性别</string>
+    <string name="label_birthday">出生日期</string>
     <string name="label_go_register">去注册</string>
     <string name="label_go_login">去登录</string>
     <string name="label_personal_info">个人信息</string>

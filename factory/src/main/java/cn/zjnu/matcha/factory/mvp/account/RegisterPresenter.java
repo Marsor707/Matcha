@@ -38,7 +38,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     }
 
     @Override
-    public void registerToLocal(String username, String password) {
+    public void registerToLocal(String username, String password, int sex, String birthday) {
+        // TODO: 2017/11/11 新增性别出生日期
         RestClient.builder()
                 .url("register")
                 .params("userName", username)
@@ -59,7 +60,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
-
+                        getView().showError(msg);
                     }
                 })
                 .build()

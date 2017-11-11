@@ -12,7 +12,7 @@ public interface RegisterContract {
     interface Presenter extends BaseContract.Presenter {
         void register(String username, String password);
 
-        void registerToLocal(String username, String password);
+        void registerToLocal(String username, String password, int sex, String birthday);
 
         void getContext(Context context);
     }

@@ -1,9 +1,14 @@
 package cn.zjnu.matcha.fragments.account;
 
 
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.icu.util.Calendar;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,8 +35,13 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
     Button mSubmit = null;
     @BindView(R.id.txt_go_login)
     TextView mTxtGoLogin = null;
+    @BindView(R.id.edit_sex)
+    EditText mEditSex;
+    @BindView(R.id.edit_birthday)
+    EditText mEditBirthday;
 
     private IAccountTrigger mAccountTrigger;
+    private String[] sexArray = new String[]{"男", "女"};
 
     @OnClick(R.id.txt_go_login)
     void onGoLoginClick() {
@@ -46,6 +56,8 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
             mRePassword.setEnabled(false);
             mSubmit.setEnabled(false);
             mTxtGoLogin.setEnabled(false);
+            mEditSex.setEnabled(false);
+            mEditBirthday.setEnabled(false);
             mPresenter.getContext(getContext());
 
             mPresenter.register(mName.getText().toString(), mPassword.getText().toString());
@@ -54,10 +66,22 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         }
     }
 
+    @OnClick(R.id.edit_sex)
+    void onSexChooseClick() {
+        showSexChooseDialog();
+    }
+
+    @OnClick(R.id.edit_birthday)
+    void onBirthdayChooserClick() {
+        showDataPickerDialog();
+    }
+
     private boolean checkForm() {
         final String name = mName.getText().toString();
         final String password = mPassword.getText().toString();
         final String rePassword = mRePassword.getText().toString();
+        final String birthday = mEditBirthday.getText().toString();
+        final String sex = mEditSex.getText().toString();
         boolean isPass = true;
 
         if (name.isEmpty()) {
@@ -83,6 +107,20 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         } else {
             mRePassword.setError(null);
         }
+
+        if (birthday.isEmpty()) {
+            mEditBirthday.setError("出身日期不能为空");
+            isPass = false;
+        } else {
+            mEditBirthday.setError(null);
+        }
+
+        if (sex.isEmpty()) {
+            mEditSex.setError("性别不能为空");
+            isPass = false;
+        } else {
+            mEditSex.setError(null);
+        }
         return isPass;
     }
 
@@ -104,6 +142,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
 
     @Override
     public void showSuccess() {
+        Matcha.showToast("注册成功");
         mName.setText("");
         mPassword.setText("");
         mRePassword.setText("");
@@ -112,12 +151,17 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         mRePassword.setEnabled(true);
         mSubmit.setEnabled(true);
         mTxtGoLogin.setEnabled(true);
+        mEditSex.setEnabled(true);
+        mEditBirthday.setEnabled(true);
         mAccountTrigger.triggerView();
     }
 
     @Override
     public void fetchUserNameAndPassword(String username, String password) {
-        mPresenter.registerToLocal(username, password);
+        final String sexStr = mEditSex.getText().toString();
+        final int sex = sexStr.equals(sexArray[0]) ? 1 : 0;
+        final String birthday = mEditBirthday.getText().toString();
+        mPresenter.registerToLocal(username, password, sex, birthday);
     }
 
     @Override
@@ -128,6 +172,8 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         mRePassword.setEnabled(true);
         mSubmit.setEnabled(true);
         mTxtGoLogin.setEnabled(true);
+        mEditSex.setEnabled(true);
+        mEditBirthday.setEnabled(true);
     }
 
     @Override
@@ -138,5 +184,38 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         mRePassword.setEnabled(true);
         mSubmit.setEnabled(true);
         mTxtGoLogin.setEnabled(true);
+        mEditSex.setEnabled(true);
+        mEditBirthday.setEnabled(true);
+    }
+
+    private void showSexChooseDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setSingleChoiceItems(sexArray, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mEditSex.setText(sexArray[which]);
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void showDataPickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int year = 2008;
+        int month = 8;
+        int day = 8;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+        }
+        new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                final String birthday = year + "-" + (month + 1) + "-" + dayOfMonth;
+                mEditBirthday.setText(birthday);
+            }
+        }, year, month, day).show();
     }
 }

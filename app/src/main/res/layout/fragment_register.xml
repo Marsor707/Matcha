@@ -143,6 +143,78 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_birthday"
+                android:tint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/edit_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="4dp"
+                android:background="@null"
+                android:focusable="false"
+                android:hint="@string/label_birthday"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecond"
+                android:textCursorDrawable="@drawable/ic_cursor"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_sex"
+                android:tint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/edit_sex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="4dp"
+                android:background="@null"
+                android:focusable="false"
+                android:hint="@string/label_sex"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecond"
+                android:textCursorDrawable="@drawable/ic_cursor"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <FrameLayout

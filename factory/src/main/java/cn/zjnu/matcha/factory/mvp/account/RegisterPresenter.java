@@ -44,6 +44,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                 .url("register")
                 .params("userName", username)
                 .params("password", password)
+                .params("sex", sex)
+                .params("birthday", birthday)
                 .loader(mContext)
                 .success(new ISuccess() {
                     @Override

@@ -5,7 +5,6 @@ import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
 import cn.zjnu.matcha.core.net.callbacks.IFailure;
 import cn.zjnu.matcha.core.net.callbacks.ISuccess;
-import cn.zjnu.matcha.factory.model.group.member.MemberInfo;
 
 /**
  * Created by Hu on 2017/10/27.

@@ -26,7 +26,7 @@ public class ReadFragment extends BaseFragment {
                 .useDefaultIndicator()
                 .createAgentWeb()
                 .ready()
-                .go("http://www.zjnu.edu.cn/");
+                .go("http://123.207.214.129:8081/pe/");
     }
 
     @Override

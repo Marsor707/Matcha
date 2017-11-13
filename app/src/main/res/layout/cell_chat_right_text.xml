@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.ContentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="4dp"
@@ -8,7 +7,7 @@
     android:paddingStart="16dp"
     android:paddingTop="4dp">
 
-    <FrameLayout
+    <android.support.v7.widget.ContentFrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -18,18 +17,17 @@
         android:paddingStart="8dp"
         android:paddingTop="2dp">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/txt_nickname"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_gravity="end"
             android:layout_marginEnd="12dp"
-            android:text="@string/nick_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/textPrimary"
             android:textSize="13sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/txt_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,11 +43,8 @@
             android:paddingStart="20dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/textPrimary"
-            android:textSize="14sp"
-            tools:text="欢迎新人加入群聊" />
-
-    </FrameLayout>
-
+            android:textSize="14sp" />
+    </android.support.v7.widget.ContentFrameLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_portrait"
@@ -58,4 +53,4 @@
         android:layout_gravity="end"
         android:padding="1dp"
         android:src="@drawable/bg_user_default_portrait" />
-</FrameLayout>
+</android.support.v7.widget.ContentFrameLayout>

@@ -26,11 +26,12 @@ public class MsgDataConvert extends DataConvert<LeaveMessageModel> {
             final String expertId = expertObj.getString("expertId");
             final String content = object.getString("content");
             final String time = object.getString("formatWordtime");
-            final LeaveMessageModel messageModel = new LeaveMessageModel();
-            messageModel.setContent(content)
+            final LeaveMessageModel messageModel = new LeaveMessageModel.Builder()
+                    .setContent(content)
                     .setExpertId(expertId)
                     .setTime(time)
-                    .setUserName(name);
+                    .setUserName(name)
+                    .build();
             ENTITIES.add(messageModel);
         }
         return ENTITIES;

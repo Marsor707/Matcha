@@ -156,7 +156,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
         mExpertPosition = position;
         mPresenter.getMsg(mUserId, mExpertId);
         Util.showKeyboard(mContent);
-        pos=position;
+        pos = position;
     }
 
     @Override

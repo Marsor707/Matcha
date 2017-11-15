@@ -63,6 +63,7 @@ public class SpecialistPresenter extends BasePresenter<SpecialistContract.View> 
                 .params("content", content)
                 .params("user.id", userId)
                 .params("expert.id", expertId)
+                .params("item", 1)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {

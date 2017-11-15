@@ -5,62 +5,64 @@ package cn.zjnu.matcha.factory.model.advisory;
  */
 
 public class LeaveMessageModel {
-    private String mExpertId;
-    private String mUserName;
-    private String mContent;
-    private String mTime;
-
-    public LeaveMessageModel(String mExpertId, String mUserName, String mContent, String mTime) {
-        this.mExpertId = mExpertId;
-        this.mUserName = mUserName;
-        this.mContent = mContent;
-        this.mTime = mTime;
-    }
-
-    public String getExpertId() {
-        return mExpertId;
-    }
+    private String expertId;
+    private String userName;
+    private String expertName;
+    private String content;
+    private String time;
+    private int item;
 
     public String getUserName() {
-        return mUserName;
+        return userName;
+    }
+
+    public LeaveMessageModel setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+
+    public String getExpertName() {
+        return expertName;
+    }
+
+    public LeaveMessageModel setExpertName(String expertName) {
+        this.expertName = expertName;
+        return this;
     }
 
     public String getContent() {
-        return mContent;
+        return content;
+    }
+
+    public LeaveMessageModel setContent(String content) {
+        this.content = content;
+        return this;
     }
 
     public String getTime() {
-        return mTime;
+        return time;
     }
 
-    public static final class Builder {
-        private String expertId;
-        private String userName;
-        private String content;
-        private String time;
+    public LeaveMessageModel setTime(String time) {
+        this.time = time;
+        return this;
+    }
 
-        public Builder setExpertId(String expertId) {
-            this.expertId = expertId;
-            return this;
-        }
+    public LeaveMessageModel setItem(int item) {
+        this.item = item;
+        return this;
+    }
 
-        public Builder setUserName(String userName) {
-            this.userName = userName;
-            return this;
-        }
+    public int getItem() {
+        return item;
+    }
 
-        public Builder setContent(String content) {
-            this.content = content;
-            return this;
-        }
+    public String getExpertId() {
+        return expertId;
+    }
 
-        public Builder setTime(String time) {
-            this.time = time;
-            return this;
-        }
-
-        public LeaveMessageModel build() {
-            return new LeaveMessageModel(expertId, userName, content, time);
-        }
+    public LeaveMessageModel setExpertId(String expertId) {
+        this.expertId = expertId;
+        return this;
     }
 }

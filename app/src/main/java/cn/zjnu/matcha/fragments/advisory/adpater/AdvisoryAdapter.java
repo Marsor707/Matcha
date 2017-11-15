@@ -63,8 +63,15 @@ public class AdvisoryAdapter extends BaseQuickAdapter<SpecialistModel, BaseViewH
             for (int i = 0; i < msgSize; i++) {
                 final AppCompatTextView textView = (AppCompatTextView) LayoutInflater.from(mContext)
                         .inflate(R.layout.item_leave_msg_content, linMsg, false);
+                final int type = msgList.get(item.getExpertId()).get(i).getItem();
+                String name = null;
+                if (type == 1) {
+                    name = msgList.get(item.getExpertId()).get(i).getUserName();
+                } else if (type == 2) {
+                    name = msgList.get(item.getExpertId()).get(i).getExpertName();
+                }
                 textView.setText(String.format(mContext.getString(R.string.leave_msg_content),
-                        msgList.get(item.getExpertId()).get(i).getUserName(),
+                        name,
                         msgList.get(item.getExpertId()).get(i).getContent()));
                 linMsg.addView(textView);
             }
@@ -78,7 +85,7 @@ public class AdvisoryAdapter extends BaseQuickAdapter<SpecialistModel, BaseViewH
         helper.addOnClickListener(R.id.img_leave_msg);
     }
 
-    public final void showMsg(List<LeaveMessageModel> models, String expertId,int position) {
+    public final void showMsg(List<LeaveMessageModel> models, String expertId, int position) {
         msgList.put(expertId, models);
         notifyItemChanged(position);
     }

@@ -24,14 +24,17 @@ public class MsgDataConvert extends DataConvert<LeaveMessageModel> {
             final String name = userObj.getString("userName");
             final JSONObject expertObj = object.getJSONObject("expert");
             final String expertId = expertObj.getString("expertId");
+            final String expertName = expertObj.getString("expertName");
             final String content = object.getString("content");
             final String time = object.getString("formatWordtime");
-            final LeaveMessageModel messageModel = new LeaveMessageModel.Builder()
-                    .setContent(content)
+            final int item = object.getInteger("item");
+            final LeaveMessageModel messageModel = new LeaveMessageModel();
+            messageModel.setContent(content)
                     .setExpertId(expertId)
                     .setTime(time)
                     .setUserName(name)
-                    .build();
+                    .setExpertName(expertName)
+                    .setItem(item);
             ENTITIES.add(messageModel);
         }
         return ENTITIES;

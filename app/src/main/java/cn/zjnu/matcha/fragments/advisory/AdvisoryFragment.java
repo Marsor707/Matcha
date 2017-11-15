@@ -123,6 +123,7 @@ public class AdvisoryFragment extends PresenterFragment<SpecialistContract.Prese
             messageModel.setExpertId(mExpertId)
                     .setTime(time)
                     .setUserName(mUserName)
+                    .setItem(1)
                     .setContent(msgContent);
             mAdapter.updateMsg(mExpertId, messageModel, mExpertPosition);
         } else {

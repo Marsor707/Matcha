@@ -26,6 +26,7 @@ import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.AccountActivity;
+import cn.zjnu.matcha.activities.PEDataActivity;
 import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.personal.PersonalContract;
@@ -140,6 +141,11 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     void onPortraitClick() {
         mPresenter.initCallback();
         startCameraWithCheck();
+    }
+
+    @OnClick(R.id.txt_pe_data)
+    void onPeDataClick() {
+        PEDataActivity.show(getContext());
     }
 
     @Override

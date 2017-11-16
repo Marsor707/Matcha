@@ -64,4 +64,13 @@
     <string name="specialist_name">专家姓名:%1$s</string>
     <string name="specialist_skill">擅长邻域:%1$s</string>
     <string name="leave_msg_content">%1$s:%2$s</string>
+    <string name="label_pe_data">体质健康测试成绩</string>
+    <string name="label_pe_category">类别</string>
+    <string name="label_pe_target">测试指标</string>
+    <string name="label_pe_mark">数据</string>
+    <string name="label_pe_score">得分</string>
+    <string name="label_pe_shape">形态</string>
+    <string name="label_pe_function">机能</string>
+    <string name="label_pe_quality">素质</string>
+    <string name="label_pe_data_total_score">总成绩:\t\t%s</string>
 </resources>

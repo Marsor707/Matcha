@@ -39,6 +39,9 @@
             android:name=".activities.AdvisoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities.PEDataActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

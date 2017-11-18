@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.zjnu.matcha.core.app.BaseActivity;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -33,7 +34,7 @@ public class PEDataPresenter extends BasePresenter<PEDataContract.View> implemen
         final List<PEDataModel> function = new ArrayList<>();
         final List<PEDataModel> quality = new ArrayList<>();
         RestClient.builder()
-                .url("http://10.7.90.230:8888/getPe")
+                .url("http://10.7.90.230:8080/getPe")
                 .params("userId", id)
                 .loader((BaseActivity) getView())
                 .success(new ISuccess() {
@@ -53,8 +54,10 @@ public class PEDataPresenter extends BasePresenter<PEDataContract.View> implemen
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("查询失败");
-                        getView().getPEDataFail();
+                        Matcha.showToast("网络连接失败");
+                        if (getView() != null) {
+                            getView().getPEDataFail();
+                        }
                     }
                 })
                 .error(new IError() {

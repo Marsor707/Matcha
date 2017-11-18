@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -57,13 +58,15 @@ public class ZonePresenter extends BasePresenter<ZoneContract.View> implements Z
                     @Override
                     public void onError(int code, String msg) {
                         getView().showError("获取数据失败");
-                        getView().getDataFail();
+                        if (getView() != null) {
+                            getView().getDataFail();
+                        }
                     }
                 })
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("获取数据失败");
+                        Matcha.showToast("网络连接失败");
                         getView().getDataFail();
                     }
                 })

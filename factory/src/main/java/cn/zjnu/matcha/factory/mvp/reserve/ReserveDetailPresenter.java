@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.zjnu.matcha.core.app.BaseFragment;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -48,7 +49,7 @@ public class ReserveDetailPresenter extends BasePresenter<ReserveDetailContract.
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("网络连接失败");
+                        Matcha.showToast("网络连接失败");
                     }
                 })
                 .build()
@@ -85,7 +86,7 @@ public class ReserveDetailPresenter extends BasePresenter<ReserveDetailContract.
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("网络连接失败");
+                        Matcha.showToast("网络连接失败");
                     }
                 })
                 .build()

@@ -3,6 +3,7 @@ package cn.zjnu.matcha.factory.mvp.account;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -66,7 +67,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("网络连接失败");
+                        Matcha.showToast("网络连接失败");
                     }
                 })
                 .build()

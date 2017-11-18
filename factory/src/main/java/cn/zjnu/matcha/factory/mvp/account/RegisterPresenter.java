@@ -4,6 +4,7 @@ import android.content.Context;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -56,7 +57,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("错误");
+                        Matcha.showToast("网络连接失败");
                     }
                 })
                 .error(new IError() {

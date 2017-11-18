@@ -103,7 +103,7 @@ public class CommunicatePresenter extends BasePresenter<CommunicateContract.View
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("加群失败");
+                        Matcha.showToast("网络连接失败");
                     }
                 })
                 .build()

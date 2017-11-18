@@ -1,5 +1,6 @@
 package cn.zjnu.matcha.factory.mvp.group;
 
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -34,7 +35,7 @@ public class MemberDefaultPresenter extends BasePresenter<MemberDefaultContract.
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("网络不见了");
+                        Matcha.showToast("网络连接失败");
                     }
                 })
                 .build()

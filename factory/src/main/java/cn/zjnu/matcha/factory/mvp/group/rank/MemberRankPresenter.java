@@ -2,6 +2,7 @@ package cn.zjnu.matcha.factory.mvp.group.rank;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.Conversation;
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -43,7 +44,7 @@ public class MemberRankPresenter extends BasePresenter<MemberRankContract.View> 
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("网络不见了");
+                        Matcha.showToast("网络连接失败");
                     }
                 })
                 .build()

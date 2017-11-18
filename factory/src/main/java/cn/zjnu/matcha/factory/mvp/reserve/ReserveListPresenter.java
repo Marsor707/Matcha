@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.zjnu.matcha.core.app.Matcha;
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -57,7 +58,7 @@ public class ReserveListPresenter extends BasePresenter<ReserveListContract.View
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        getView().showError("获取数据失败");
+                        Matcha.showToast("网络连接失败");
                     }
                 })
                 .error(new IError() {

@@ -33,7 +33,7 @@ public class PEDataPresenter extends BasePresenter<PEDataContract.View> implemen
         final List<PEDataModel> function = new ArrayList<>();
         final List<PEDataModel> quality = new ArrayList<>();
         RestClient.builder()
-                .url("http:127.0.0.1:8080/getPe")
+                .url("http://10.7.90.230:8888/getPe")
                 .params("userId", id)
                 .loader((BaseActivity) getView())
                 .success(new ISuccess() {

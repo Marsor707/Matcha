@@ -82,9 +82,9 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
 
     @Override
     public void getPEDataSuccess(List<PEDataModel> shape, List<PEDataModel> function, List<PEDataModel> quality, float total) {
-        initShape(shape);
-        initFunction(function);
-        initQuality(quality);
+        initPeData(shape, mShapeContainer);
+        initPeData(function, mFunctionContainer);
+        initPeData(quality, mQualityContainer);
         initTotalScore(total);
     }
 
@@ -93,45 +93,17 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
         mBtnEvaluate.setEnabled(false);
     }
 
-    private void initShape(List<PEDataModel> shape) {
-        final int size = shape.size();
+    private void initPeData(List<PEDataModel> dataList, LinearLayout layoutContainer) {
+        final int size = dataList.size();
         for (int i = 0; i < size; i++) {
-            View root = inflater.inflate(R.layout.lay_pe_data_detail, mShapeContainer, false);
+            View root = inflater.inflate(R.layout.lay_pe_data_detail, layoutContainer, false);
             TextView peDataName = (TextView) root.findViewById(R.id.txt_lay_pe_data_name);
             TextView peDataMark = (TextView) root.findViewById(R.id.txt_lay_pe_data_mark);
             TextView peDataScore = (TextView) root.findViewById(R.id.txt_lay_pe_data_score);
-            peDataName.setText(shape.get(i).getName());
-            peDataMark.setText(shape.get(i).getMark());
-            peDataScore.setText(String.valueOf(shape.get(i).getScore()));
-            mShapeContainer.addView(root);
-        }
-    }
-
-    private void initFunction(List<PEDataModel> function) {
-        final int size = function.size();
-        for (int i = 0; i < size; i++) {
-            View root = inflater.inflate(R.layout.lay_pe_data_detail, mFunctionContainer, false);
-            TextView peDataName = (TextView) root.findViewById(R.id.txt_lay_pe_data_name);
-            TextView peDataMark = (TextView) root.findViewById(R.id.txt_lay_pe_data_mark);
-            TextView peDataScore = (TextView) root.findViewById(R.id.txt_lay_pe_data_score);
-            peDataName.setText(function.get(i).getName());
-            peDataMark.setText(function.get(i).getMark());
-            peDataScore.setText(String.valueOf(function.get(i).getScore()));
-            mFunctionContainer.addView(root);
-        }
-    }
-
-    private void initQuality(List<PEDataModel> quality) {
-        final int size = quality.size();
-        for (int i = 0; i < size; i++) {
-            View root = inflater.inflate(R.layout.lay_pe_data_detail, mQualityContainer, false);
-            TextView peDataName = (TextView) root.findViewById(R.id.txt_lay_pe_data_name);
-            TextView peDataMark = (TextView) root.findViewById(R.id.txt_lay_pe_data_mark);
-            TextView peDataScore = (TextView) root.findViewById(R.id.txt_lay_pe_data_score);
-            peDataName.setText(quality.get(i).getName());
-            peDataMark.setText(quality.get(i).getMark());
-            peDataScore.setText(String.valueOf(quality.get(i).getScore()));
-            mQualityContainer.addView(root);
+            peDataName.setText(dataList.get(i).getName());
+            peDataMark.setText(dataList.get(i).getMark());
+            peDataScore.setText(String.valueOf(dataList.get(i).getScore()));
+            layoutContainer.addView(root);
         }
     }
 

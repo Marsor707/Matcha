@@ -91,6 +91,7 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
     @Override
     public void getPEDataFail() {
         mBtnEvaluate.setEnabled(false);
+        initTotalScore(0);
     }
 
     private void initPeData(List<PEDataModel> dataList, LinearLayout layoutContainer) {

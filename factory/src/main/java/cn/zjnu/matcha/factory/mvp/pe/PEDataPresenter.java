@@ -29,12 +29,12 @@ public class PEDataPresenter extends BasePresenter<PEDataContract.View> implemen
 
     @Override
     public void getPEData(long id) {
-        // TODO: 2017/11/16 请求后端根据userId拿体测数据
+        //请求后端根据userId拿体测数据
         final List<PEDataModel> shape = new ArrayList<>();
         final List<PEDataModel> function = new ArrayList<>();
         final List<PEDataModel> quality = new ArrayList<>();
         RestClient.builder()
-                .url("http://10.7.90.230:8080/getPe")
+                .url("queryScoreByuserId")
                 .params("userId", id)
                 .loader((BaseActivity) getView())
                 .success(new ISuccess() {

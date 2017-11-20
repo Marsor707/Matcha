@@ -39,6 +39,7 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
 
     @OnClick(R.id.btn_pe_data_evaluate)
     void onGoEvaluateClick() {
+        EvaluateActivity.show(this);
     }
 
     public static void show(Context context) {

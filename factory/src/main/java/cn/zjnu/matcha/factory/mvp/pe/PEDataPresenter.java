@@ -1,5 +1,7 @@
 package cn.zjnu.matcha.factory.mvp.pe;
 
+import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -40,15 +42,17 @@ public class PEDataPresenter extends BasePresenter<PEDataContract.View> implemen
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        JSONObject obj = JSONObject.parseObject(response);
-                        JSONArray shapeArray = obj.getJSONArray("shape");
-                        JSONArray functionArray = obj.getJSONArray("function");
-                        JSONArray qualityArray = obj.getJSONArray("quality");
-                        final long total = obj.getLong("totalScore");
-                        shape.addAll(parseArray(shapeArray));
-                        function.addAll(parseArray(functionArray));
-                        quality.addAll(parseArray(qualityArray));
-                        getView().getPEDataSuccess(shape, function, quality, total);
+                        if (!TextUtils.isEmpty(response)) {
+                            JSONObject obj = JSONObject.parseObject(response);
+                            JSONArray shapeArray = obj.getJSONArray("shape");
+                            JSONArray functionArray = obj.getJSONArray("function");
+                            JSONArray qualityArray = obj.getJSONArray("quality");
+                            final long total = obj.getLong("totalScore");
+                            shape.addAll(parseArray(shapeArray));
+                            function.addAll(parseArray(functionArray));
+                            quality.addAll(parseArray(qualityArray));
+                            getView().getPEDataSuccess(shape, function, quality, total);
+                        }
                     }
                 })
                 .failure(new IFailure() {

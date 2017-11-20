@@ -213,7 +213,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="12dp"
             android:background="@drawable/sel_btn_reserve"
-            android:text="@string/label_evaluate"
+            android:text="@string/label_check_evaluate"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

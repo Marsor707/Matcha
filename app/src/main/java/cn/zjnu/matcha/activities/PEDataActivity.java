@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.core.app.PresenterActivity;
@@ -34,13 +32,8 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
     LinearLayout mQualityContainer;
     @BindView(R.id.txt_pe_data_total_score)
     TextView mTotalScore;
-    @BindView(R.id.btn_pe_data_evaluate)
-    Button mBtnEvaluate;
-
-    @OnClick(R.id.btn_pe_data_evaluate)
-    void onGoEvaluateClick() {
-        EvaluateActivity.show(this);
-    }
+    @BindView(R.id.txt_special_evaluate)
+    TextView mSpecialEvaluate;
 
     public static void show(Context context) {
         Intent intent = new Intent(context, PEDataActivity.class);
@@ -82,16 +75,16 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
     }
 
     @Override
-    public void getPEDataSuccess(List<PEDataModel> shape, List<PEDataModel> function, List<PEDataModel> quality, float total) {
+    public void getPEDataSuccess(List<PEDataModel> shape, List<PEDataModel> function, List<PEDataModel> quality, float total, String evaluate) {
         initPeData(shape, mShapeContainer);
         initPeData(function, mFunctionContainer);
         initPeData(quality, mQualityContainer);
         initTotalScore(total);
+        mSpecialEvaluate.setText(evaluate);
     }
 
     @Override
     public void getPEDataFail() {
-        mBtnEvaluate.setEnabled(false);
         initTotalScore(0);
     }
 

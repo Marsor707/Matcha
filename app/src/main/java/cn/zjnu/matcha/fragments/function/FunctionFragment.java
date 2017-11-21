@@ -21,7 +21,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.AdvisoryActivity;
-import cn.zjnu.matcha.activities.EvaluateActivity;
+import cn.zjnu.matcha.activities.PEDataActivity;
 import cn.zjnu.matcha.activities.ReserveActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.function.FunctionContract;
@@ -56,7 +56,7 @@ public class FunctionFragment extends PresenterFragment<FunctionContract.Present
 
     @OnClick(R.id.linear_evaluate)
     void onEvaluateClick() {
-        EvaluateActivity.show(getContext());
+        PEDataActivity.show(getContext());
     }
 
     @Override

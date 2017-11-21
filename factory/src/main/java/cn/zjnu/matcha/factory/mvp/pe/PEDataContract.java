@@ -14,7 +14,7 @@ import cn.zjnu.matcha.factory.model.pe.PEDataModel;
 public interface PEDataContract extends BaseContract {
 
     interface View extends BaseContract.View<Presenter> {
-        void getPEDataSuccess(List<PEDataModel> shape, List<PEDataModel> function, List<PEDataModel> quality, float total);
+        void getPEDataSuccess(List<PEDataModel> shape, List<PEDataModel> function, List<PEDataModel> quality, float total, String evaluate);
 
         void getPEDataFail();
     }

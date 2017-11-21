@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    tools:layout_height="100dp">
+                    tools:layout_height="50dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -124,7 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    tools:layout_height="100dp">
+                    tools:layout_height="50dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -161,7 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    tools:layout_height="100dp">
+                    tools:layout_height="50dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -185,6 +185,30 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:text="@string/label_special_evaluate"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:id="@+id/txt_special_evaluate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    tools:text="你的身体素质非常棒，但还是需要锻炼" />
+            </LinearLayout>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -204,18 +228,6 @@
             android:paddingTop="9dp"
             android:text="@string/label_pe_data_total_score"
             android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/btn_pe_data_evaluate"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/sel_btn_reserve"
-            android:text="@string/label_check_evaluate"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
 
     </RelativeLayout>
 

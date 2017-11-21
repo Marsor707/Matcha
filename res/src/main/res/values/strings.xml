@@ -75,4 +75,5 @@
     <string name="label_pe_data_total_score">总成绩:\t\t%s</string>
     <string name="label_check_evaluate">查看评估</string>
     <string name="label_empty">好像没有数据哦～</string>
+    <string name="label_special_evaluate">专家意见:</string>
 </resources>

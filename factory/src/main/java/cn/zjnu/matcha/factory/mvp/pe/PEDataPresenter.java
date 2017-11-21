@@ -51,7 +51,7 @@ public class PEDataPresenter extends BasePresenter<PEDataContract.View> implemen
                             shape.addAll(parseArray(shapeArray));
                             function.addAll(parseArray(functionArray));
                             quality.addAll(parseArray(qualityArray));
-                            getView().getPEDataSuccess(shape, function, quality, total);
+                            getView().getPEDataSuccess(shape, function, quality, total, "你的身体素质非常棒，但还是需要锻炼,你的身体素质非常棒，但还是需要锻炼,你的身体素质非常棒，但还是需要锻炼");
                         }
                     }
                 })

@@ -30,11 +30,13 @@ public class ReserveListAdapter extends BaseQuickAdapter<ReserveModel, BaseViewH
         final TextView reserveNumberNow = helper.getView(R.id.txt_reserve_number_now);
         final int numberNow = item.getNumberNow();
         final int numberTotal = item.getNumberTotal();
-        final float per = numberNow / numberTotal;
-        if (per >= 0.5 && per <= 0.75) {
-            reserveNumberNow.setTextColor(Color.YELLOW);
-        } else if (per > 0.75) {
-            reserveNumberNow.setTextColor(Color.RED);
+        if (numberTotal >0) {
+            final float per = numberNow / numberTotal;
+            if (per >= 0.5 && per <= 0.75) {
+                reserveNumberNow.setTextColor(Color.YELLOW);
+            } else if (per > 0.75) {
+                reserveNumberNow.setTextColor(Color.RED);
+            }
         }
         helper.setText(R.id.txt_reserve_name, item.getName());
         helper.setText(R.id.txt_reserve_number_now, item.getNumberNow() + "");

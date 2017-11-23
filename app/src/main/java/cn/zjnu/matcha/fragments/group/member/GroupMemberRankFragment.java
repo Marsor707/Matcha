@@ -61,14 +61,16 @@ public class GroupMemberRankFragment extends PresenterFragment<MemberRankContrac
 
     @Override
     public void getConversation(Conversation conversation) {
-        final List<Message> messageList = conversation.getAllMessage();
-        for (Message message : messageList) {
-            if (message.getContentType() == ContentType.text) {
-                final String userName = message.getFromUser().getUserName();
-                if (isInGroup(userName)) {
-                    final MessageContent messageContent = message.getContent();
-                    messageMap.get(userName).add(messageContent);
-                    messageMap.put(userName, messageMap.get(userName));
+        if (conversation != null) {
+            final List<Message> messageList = conversation.getAllMessage();
+            for (Message message : messageList) {
+                if (message.getContentType() == ContentType.text) {
+                    final String userName = message.getFromUser().getUserName();
+                    if (isInGroup(userName)) {
+                        final MessageContent messageContent = message.getContent();
+                        messageMap.get(userName).add(messageContent);
+                        messageMap.put(userName, messageMap.get(userName));
+                    }
                 }
             }
         }

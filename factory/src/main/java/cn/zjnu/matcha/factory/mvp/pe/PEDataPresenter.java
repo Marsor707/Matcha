@@ -48,12 +48,11 @@ public class PEDataPresenter extends BasePresenter<PEDataContract.View> implemen
                             JSONArray functionArray = obj.getJSONArray("function");
                             JSONArray qualityArray = obj.getJSONArray("quality");
                             final long total = obj.getLong("totalScore");
-                            // TODO: 2017/11/22 评估字段
-//                            final String evaluate = obj.getString("evaluate");
+                            final String evaluate = obj.getString("evaluate");
                             shape.addAll(parseArray(shapeArray));
                             function.addAll(parseArray(functionArray));
                             quality.addAll(parseArray(qualityArray));
-                            getView().getPEDataSuccess(shape, function, quality, total, "");
+                            getView().getPEDataSuccess(shape, function, quality, total, evaluate);
                         }
                     }
                 })

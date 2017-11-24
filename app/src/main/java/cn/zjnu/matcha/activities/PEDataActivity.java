@@ -34,6 +34,10 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
     TextView mTotalScore;
     @BindView(R.id.txt_special_evaluate)
     TextView mSpecialEvaluate;
+    @BindView(R.id.linear_empty_stub)
+    LinearLayout mLayEmpty;
+    @BindView(R.id.linear_pe_content)
+    LinearLayout mLayContent;
 
     public static void show(Context context) {
         Intent intent = new Intent(context, PEDataActivity.class);
@@ -76,6 +80,8 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
 
     @Override
     public void getPEDataSuccess(List<PEDataModel> shape, List<PEDataModel> function, List<PEDataModel> quality, float total, String evaluate) {
+        mLayEmpty.setVisibility(View.GONE);
+        mLayContent.setVisibility(View.VISIBLE);
         initPeData(shape, mShapeContainer);
         initPeData(function, mFunctionContainer);
         initPeData(quality, mQualityContainer);
@@ -85,6 +91,8 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
 
     @Override
     public void getPEDataFail() {
+        mLayContent.setVisibility(View.GONE);
+        mLayEmpty.setVisibility(View.VISIBLE);
         initTotalScore(0);
     }
 

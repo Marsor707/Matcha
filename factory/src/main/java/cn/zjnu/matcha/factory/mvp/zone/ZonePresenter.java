@@ -57,8 +57,8 @@ public class ZonePresenter extends BasePresenter<ZoneContract.View> implements Z
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
-                        getView().showError("获取数据失败");
                         if (getView() != null) {
+                            getView().showError("获取数据失败");
                             getView().getDataFail();
                         }
                     }

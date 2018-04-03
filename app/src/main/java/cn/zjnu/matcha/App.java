@@ -28,8 +28,8 @@ public class App extends Application {
                 .withApiHost("http://123.207.214.129:8081/sport/")
                 .withInterceptor(new MainInterceptor())
                 .withLoaderDelayed(300)
-                .withAppKey("2a26068439feefd043504ca8")
-                .withMasterSecret("f63146136efe1ec314f1a45a")
+                .withAppKey("90a09a8436f382c3eb0b7800")
+                .withMasterSecret("df0408ee6306c6f9c8f72974")
                 .configure();
 
         initJMessage();

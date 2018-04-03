@@ -62,7 +62,7 @@ public class SpecialistPresenter extends BasePresenter<SpecialistContract.View> 
         RestClient.builder()
                 .url("insertWords")
                 .params("content", content)
-                .params("user.id", userId)
+                .params("user.userId", userId)
                 .params("expert.id", expertId)
                 .params("item", 1)
                 .success(new ISuccess() {

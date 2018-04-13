@@ -30,6 +30,8 @@
     <string name="label_reserve">预约</string>
     <string name="label_advisory">咨询</string>
     <string name="label_evaluate">评估</string>
+    <string name="label_train_advice">锻炼方案</string>
+    <string name="label_food_advice">饮食建议</string>
     <string name="chat_send">说点什么吧。。。</string>
     <string name="group_material">群资料</string>
     <string name="label_set_chat_bg">设置群图片</string>

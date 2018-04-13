@@ -21,8 +21,10 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.zjnu.matcha.R;
 import cn.zjnu.matcha.activities.AdvisoryActivity;
+import cn.zjnu.matcha.activities.FoodAdviceActivity;
 import cn.zjnu.matcha.activities.PEDataActivity;
 import cn.zjnu.matcha.activities.ReserveActivity;
+import cn.zjnu.matcha.activities.TrainAdviceActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.mvp.function.FunctionContract;
 import cn.zjnu.matcha.factory.mvp.function.FunctionPresenter;
@@ -57,6 +59,16 @@ public class FunctionFragment extends PresenterFragment<FunctionContract.Present
     @OnClick(R.id.linear_evaluate)
     void onEvaluateClick() {
         PEDataActivity.show(getContext());
+    }
+
+    @OnClick(R.id.linear_train_advice)
+    void onTrainAdviceClick() {
+        TrainAdviceActivity.show(getContext());
+    }
+
+    @OnClick(R.id.linear_food_advice)
+    void onFoodAdviceClick() {
+        FoodAdviceActivity.show(getContext());
     }
 
     @Override

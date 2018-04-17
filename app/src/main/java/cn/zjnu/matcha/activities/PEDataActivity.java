@@ -32,8 +32,8 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
     LinearLayout mQualityContainer;
     @BindView(R.id.txt_pe_data_total_score)
     TextView mTotalScore;
-    @BindView(R.id.txt_special_evaluate)
-    TextView mSpecialEvaluate;
+//    @BindView(R.id.txt_special_evaluate)
+//    TextView mSpecialEvaluate;
     @BindView(R.id.linear_empty_stub)
     LinearLayout mLayEmpty;
     @BindView(R.id.linear_pe_content)
@@ -86,7 +86,7 @@ public class PEDataActivity extends PresenterActivity<PEDataContract.Presenter> 
         initPeData(function, mFunctionContainer);
         initPeData(quality, mQualityContainer);
         initTotalScore(total);
-        mSpecialEvaluate.setText(evaluate);
+//        mSpecialEvaluate.setText(evaluate);
     }
 
     @Override

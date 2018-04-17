@@ -220,29 +220,29 @@
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="6dp">
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="16dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:padding="6dp">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:gravity="center_horizontal"
-                            android:text="@string/label_special_evaluate"
-                            android:textSize="26sp" />
+                    <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:text="@string/label_special_evaluate"-->
+                    <!--android:textSize="26sp" />-->
 
-                        <TextView
-                            android:id="@+id/txt_special_evaluate"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            tools:text="你的身体素质非常棒，但还是需要锻炼" />
-                    </LinearLayout>
+                    <!--<TextView-->
+                    <!--android:id="@+id/txt_special_evaluate"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="5"-->
+                    <!--tools:text="你的身体素质非常棒，但还是需要锻炼" />-->
+                    <!--</LinearLayout>-->
 
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>

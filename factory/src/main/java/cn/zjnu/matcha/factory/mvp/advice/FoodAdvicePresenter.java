@@ -16,6 +16,6 @@ public class FoodAdvicePresenter extends BasePresenter<FoodAdviceContract.View> 
 
     @Override
     public void getFoodAdviceData(long id) {
-
+        //TODO 请求后端拿数据
     }
 }

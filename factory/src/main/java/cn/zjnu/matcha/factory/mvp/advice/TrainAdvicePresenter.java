@@ -16,6 +16,6 @@ public class TrainAdvicePresenter extends BasePresenter<TrainAdviceContract.View
 
     @Override
     public void getTrainAdviceData(long id) {
-
+        //TODO 请求后端拿数据
     }
 }

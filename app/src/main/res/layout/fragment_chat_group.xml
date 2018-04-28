@@ -91,7 +91,8 @@
             android:foreground="@drawable/ic_touch_fg"
             android:padding="8dp"
             android:src="@drawable/ic_add"
-            android:tint="@color/textPrimary" />
+            android:tint="@color/textPrimary"
+            android:visibility="gone" />
     </LinearLayout>
 
     <!--id是固定的airPanelSubLayout-->

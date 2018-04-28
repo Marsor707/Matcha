@@ -37,7 +37,7 @@ public class ChatGroupPresenter extends BasePresenter<ChatGroupContract.View> im
 
     @Override
     public void fetchConversation(long groupId) {
-        Conversation conversation = JMessageClient.getGroupConversation(groupId);
+        Conversation conversation = Conversation.createGroupConversation(groupId);
         getView().getConversation(conversation);
     }
 

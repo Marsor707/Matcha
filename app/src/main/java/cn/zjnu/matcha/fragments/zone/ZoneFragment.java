@@ -8,11 +8,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import cn.zjnu.matcha.R;
+import cn.zjnu.matcha.activities.ZoneDetailActivity;
 import cn.zjnu.matcha.core.app.PresenterFragment;
 import cn.zjnu.matcha.factory.model.notification.NotificationModel;
 import cn.zjnu.matcha.factory.mvp.zone.ZoneContract;
@@ -22,7 +25,8 @@ import cn.zjnu.matcha.fragments.zone.adapter.NotificationAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ZoneFragment extends PresenterFragment<ZoneContract.Presenter> implements ZoneContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class ZoneFragment extends PresenterFragment<ZoneContract.Presenter> implements ZoneContract.View,
+        SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener {
 
     private List<NotificationModel> models = new ArrayList<>();
 
@@ -46,6 +50,7 @@ public class ZoneFragment extends PresenterFragment<ZoneContract.Presenter> impl
     protected void initWidget(View root) {
         super.initWidget(root);
         NotificationAdapter adapter = new NotificationAdapter(R.layout.item_notification, models);
+        adapter.setOnItemClickListener(this);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecycler.setAdapter(adapter);
         mRecycler.setLayoutManager(manager);
@@ -85,5 +90,11 @@ public class ZoneFragment extends PresenterFragment<ZoneContract.Presenter> impl
     @Override
     public void onRefresh() {
         mPresenter.getData();
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        NotificationModel model = (NotificationModel) adapter.getItem(position);
+        ZoneDetailActivity.show(getActivity(), model);
     }
 }

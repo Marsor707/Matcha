@@ -26,6 +26,7 @@ public class NotificationAdapter extends BaseQuickAdapter<NotificationModel, Bas
         helper.setText(R.id.txt_notification_date_day, item.getDate_day());
         helper.setText(R.id.txt_notification_date_year_month, item.getDate_year_month());
         helper.setText(R.id.txt_notification_title, item.getTitle());
-        helper.setText(R.id.txt_notification_content, item.getContent());
+        helper.setText(R.id.txt_notification_content, item.getContent().length() < 50 ?
+                item.getContent() : item.getContent().substring(0, 50) + " ......");
     }
 }

@@ -2,8 +2,6 @@ package cn.zjnu.matcha.factory.mvp.advice;
 
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSONObject;
-
 import cn.zjnu.matcha.core.factory.BasePresenter;
 import cn.zjnu.matcha.core.net.RestClient;
 import cn.zjnu.matcha.core.net.callbacks.IError;
@@ -24,17 +22,13 @@ public class TrainAdvicePresenter extends BasePresenter<TrainAdviceContract.View
     @Override
     public void getTrainAdviceData(long id) {
         RestClient.builder()
-                .url("queryScoreByuserId")
+                .url("getTrain")
                 .params("userId", id)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
                         if (!TextUtils.isEmpty(response)) {
-                            JSONObject object = JSONObject.parseObject(response);
-                            String advice = object.getString("evaluate");
-                            if (!advice.equals("")) {
-                                getView().getTrainAdviceSuccess(advice);
-                            }
+                            getView().getTrainAdviceSuccess(response);
                         }
                     }
                 })
@@ -45,6 +39,6 @@ public class TrainAdvicePresenter extends BasePresenter<TrainAdviceContract.View
                     }
                 })
                 .build()
-                .get();
+                .post();
     }
 }

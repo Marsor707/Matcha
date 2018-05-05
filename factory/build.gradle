@@ -14,7 +14,7 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME: "cn.zjnu.matcha",
-                JPUSH_APPKEY : "90a09a8436f382c3eb0b7800",
+                JPUSH_APPKEY : "7bffb4eb3fb35e2cbff99b33",
                 JPUSH_CHANNEL: "developer-default",
         ]
 
